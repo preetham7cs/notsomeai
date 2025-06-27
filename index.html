@@ -19,36 +19,66 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
             overflow-x: hidden;
         }
+        .topbar {
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .topbar .logo {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .topbar .menu {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .topbar .menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
 
         .banner {
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #6c757d 0%, #adb5bd 50%, #e9ecef 100%);
-            color: #212529;
+            justify-content: space-between;
+            padding: 0 4%;
+            background: url('./banner/banner.jpg') center/cover no-repeat;
+            color: #fff;
             position: relative;
             overflow: hidden;
         }
 
         .banner::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,200 600,300 T1200,300 V600 H0 Z" fill="rgba(33,37,41,0.08)"/><path d="M0,350 Q300,250 600,350 T1200,350 V600 H0 Z" fill="rgba(33,37,41,0.04)"/><path d="M0,400 Q400,300 800,400 T1600,400 V600 H0 Z" fill="rgba(33,37,41,0.03)"/></svg>') no-repeat center center;
-            background-size: cover;
-            opacity: 0.7;
+            background: rgba(0,0,0,0.4);
         }
 
         .banner-content {
             position: relative;
             z-index: 2;
-            max-width: 900px;
-            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
 
         .banner h1 {
@@ -57,6 +87,19 @@
             margin-bottom: 2rem;
             letter-spacing: 1px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo-vertical {
+            white-space: pre-line;
+            font-size: clamp(2rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 300;
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            max-width: 300px;
+            text-align: right;
         }
 
         .timeline-container {
@@ -347,11 +390,25 @@
     </style>
 </head>
 <body>
+    <nav class="topbar">
+        <div class="logo">Not Some AI</div>
+        <ul class="menu">
+            <li><a href="#timeline">Artefacts</a></li>
+            <li><a href="#contribute">Contribute</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+    </nav>
     <section class="banner">
         <div class="banner-content">
-            <h1>"If you can define intelligence, it's not intelligence anymore."⁣</h1>
+            <div class="banner-left">
+                <h1 class="logo-vertical">Not<br>Some<br>AI</h1>
+            </div>
+            <div class="banner-right">
+                <p class="quote">"If you can define intelligence, it's not intelligence anymore."</p>
+            </div>
         </div>
     </section>
+
 
     <section class="timeline-container" id="timeline">
         <svg class="pathway-svg" id="pathwaySvg">
@@ -573,8 +630,18 @@
         </div>
     </section>
 
-    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+    <section id="contribute">
+        <h2>Contribute</h2>
+        <p>Share ideas or pull requests to help build this project.</p>
+    </section>
 
+    <section id="connect">
+        <h2>Connect</h2>
+        <p>Twitter: <a href="https://twitter.com/notsomeai">@notsomeai</a></p>
+        <p>GitHub: <a href="https://github.com/notsomeai">notsomeai</a></p>
+        <p>Email: <a href="mailto:info@notsomeai.com">info@notsomeai.com</a></p>
+    </section>
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     <script>
         // Load images dynamically
         function loadImages() {
