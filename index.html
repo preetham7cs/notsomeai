@@ -387,6 +387,40 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
+
+        .bottom-banner {
+            background: #f8f8f8;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .bottom-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .bottom-banner p {
+            margin-bottom: 0.5rem;
+        }
+
+        .bottom-banner a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .bottom-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .bottom-banner > div {
+                margin-bottom: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -630,17 +664,19 @@
         </div>
     </section>
 
-    <section id="contribute">
-        <h2>Contribute</h2>
-        <p>Share ideas or pull requests to help build this project.</p>
-    </section>
-
-    <section id="connect">
-        <h2>Connect</h2>
-        <p>Twitter: <a href="https://twitter.com/notsomeai">@notsomeai</a></p>
-        <p>GitHub: <a href="https://github.com/notsomeai">notsomeai</a></p>
-        <p>Email: <a href="mailto:info@notsomeai.com">info@notsomeai.com</a></p>
-    </section>
+    <footer class="bottom-banner">
+        <div id="contribute">
+            <h2>Contribute</h2>
+            <p>Passionate about this space? Got ideas to create your own artefact or challenge one? Let’s talk!</p>
+            <p><a href="mailto:notsomeai@gmail.com">notsomeai@gmail.com</a></p>
+        </div>
+        <div id="connect">
+            <h2>Connect</h2>
+            <p>Twitter: <a href="https://twitter.com/notsomeai">@notsomeai</a></p>
+            <p>GitHub: <a href="https://github.com/notsomeai">notsomeai</a></p>
+            <p>Email: <a href="mailto:notsomeai@gmail.com">notsomeai@gmail.com</a></p>
+        </div>
+    </footer>
     <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     <script>
         // Load images dynamically
