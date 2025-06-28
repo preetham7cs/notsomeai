@@ -435,6 +435,56 @@
             margin-bottom: 0.5rem;
         }
 
+        /* About section styles */
+        .about-section {
+            background: url('./banner2/banner2.jpg') center/cover no-repeat;
+            padding: 5rem 2rem;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            color: #fff;
+        }
+
+        .about-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .glass-block {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-block.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-block h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .glass-block p {
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .about-wrapper {
+                flex-direction: column;
+            }
+        }
+
         . p {
             font-size: 1.5rem;
             margin-bottom: 0;
@@ -457,6 +507,7 @@
       <a class="logo" href="#" onclick="scrollToTop()">Not Some AI</a>
           <ul class="menu">
                 <li><a href="#timeline">Artefacts</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#contribute">Contribute</a></li>
                 <li><a href="#connect">Connect</a></li>
           </ul>
@@ -473,8 +524,20 @@
         </div>
     </section>
 
+    <section class="about-section" id="about">
+        <div class="about-wrapper">
+            <div class="glass-block">
+                <h2>Why NotSomeAI Exists?</h2>
+                <p>NotSomeAI exists to question the very idea that artificial intelligence could ever truly equal or surpass human intelligence. It is here to challenge the notion that algorithms can capture everything that makes us human. Rather than blindly accepting the hype, NotSomeAI helps you pause and think clearly, so you can see where these tools really stand and where they will always fall short. At its heart, this project is about celebrating the raw, irreplaceable brilliance of being human and protecting it from being reduced to code.</p>
+            </div>
+            <div class="glass-block">
+                <h2>Philosophy</h2>
+                <p>The approach is simple: we gather an ever-evolving set of artefacts, emotions, ideas, and experiences that define us, and put them up as milestones. We ask whether AI can genuinely match these, and explore what is still missing and perhaps always will be. Each artefact is a chance to dig deeper into what makes us unique, to track how far machines can really go through code experiments, shared resources, discussions, reviews, and questioning together. Over time, I hope NotSomeAI will grow into a warm, welcoming community, offering clarity and hope to anyone who feels lost in the overwhelming promises of AI.</p>
+            </div>
+        </div>
+    </section>
 
-    
+
  <section class="timeline-container" id="timeline">
     
      <div class="artefact-banner">
@@ -829,7 +892,7 @@
 
         // Smooth scroll animation for blocks
         function animateOnScroll() {
-            const blocks = document.querySelectorAll('.block');
+            const blocks = document.querySelectorAll('.block, .glass-block');
             const windowHeight = window.innerHeight;
 
             blocks.forEach(block => {
