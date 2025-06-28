@@ -33,15 +33,11 @@
         .topbar .logo {
             font-weight: 600;
             font-size: 1.1rem;
+            text-decoration: none; /* remove underline from the <a> */
+            color: inherit; /* use the current text color */
+            cursor: pointer;
         }
         
-         .topbar .logo button {
-          all: inherit;
-          border: none;
-          background: none;
-          cursor: pointer;
-          padding: 0;
-        }
         
         .topbar .menu {
             list-style: none;
@@ -458,14 +454,14 @@
 </head>
 <body>
     <nav class="topbar">
-<!--         <div class="logo"><button onclick="scrollToTop()">Not Some AI</button></div> -->
-        <button class="logo" onclick="scrollToTop()">Not Some AI</button>
-        <ul class="menu">
-            <li><a href="#timeline">Artefacts</a></li>
-            <li><a href="#contribute">Contribute</a></li>
-            <li><a href="#connect">Connect</a></li>
-        </ul>
+      <a class="logo" href="#" onclick="scrollToTop()">Not Some AI</a>
+          <ul class="menu">
+                <li><a href="#timeline">Artefacts</a></li>
+                <li><a href="#contribute">Contribute</a></li>
+                <li><a href="#connect">Connect</a></li>
+          </ul>
     </nav>
+
     <section class="banner">
         <div class="banner-content">
             <div class="banner-left">
