@@ -483,9 +483,15 @@
  */
 
             .glass-block {
+                    /* make each block flexibly fill half the wrapper */
+                  flex: 1 1 0;
+                  /* optional: add some internal padding so your content doesn’t butt right up against the edges */
+                  padding: 2rem;
+                  /* keep your existing styles… */
                   position: relative;
                   color: white;
                   overflow: hidden;
+                  box-sizing: border-box;
                 }
                 
                 .glass-block::before {
