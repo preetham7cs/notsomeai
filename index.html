@@ -483,6 +483,10 @@
  */
 
             .glass-block {
+                  /* start 50px down off screen */
+                  transform: translateY(50px);
+                  /* animate transform over 0.8s with your easing curve */
+                  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
                     /* make each block flexibly fill half the wrapper */
                   flex: 1 1 0;
                   /* optional: add some internal padding so your content doesn’t butt right up against the edges */
