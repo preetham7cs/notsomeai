@@ -461,14 +461,15 @@
         } */
 
         .about-wrapper {
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
             display: flex;
             gap: 2rem;
+            padding: 2rem; /* add padding for uniform spacing around */
+            box-sizing: border-box;
         }
 
         .glass-block {
-            margin:40px;
             flex: 1;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
@@ -479,9 +480,8 @@
             opacity: 0.9;
             transform: translateY(50px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 900px;
-            max-height: 35%;
-            color:red;
+            max-width: none;
+            color:white;
         }
 
         .glass-block.animate {
