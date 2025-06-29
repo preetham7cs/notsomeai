@@ -439,7 +439,7 @@
 
         /* About section styles */
           .about-section {
-              margin-top: 2rem;
+            margin-top: 2rem;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -450,15 +450,6 @@
             position: relative;
             overflow: hidden;
         }
-        
-/*          {
-            background: url('./banner2/banner2.jpg') center/cover no-repeat;
-            padding: 2rem 2rem;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            color: #fff;
-        } */
 
         .about-wrapper {
             max-width: 1400px;
@@ -469,7 +460,7 @@
             box-sizing: border-box;
         }
 
-        .glass-block {
+/*         .glass-block {
             flex: 1;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
@@ -482,6 +473,24 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: none;
             color:white;
+        } */
+
+        .glass-block {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15); /* increase transparency for a true glass feel */
+            backdrop-filter: blur(20px) saturate(180%); /* more blur and some saturation for glass color pop */
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* subtle border to mimic glass edge */
+            box-shadow:
+                0 4px 30px rgba(0, 0, 0, 0.3), /* more depth outside */
+                inset 0 0 15px rgba(255, 255, 255, 0.1); /* inner glow like glass light refraction */
+            opacity: 1; /* fully visible, no 0.6 animate fade needed on glass */
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: none;
+            color: white;
         }
 
         .glass-block.animate {
