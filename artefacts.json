@@ -1,0 +1,25 @@
+{
+  "artefacts": [
+    {"name": "Moral Reasoning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Intuition", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Imagination", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Wisdom", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Free Will", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Self-Awareness", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Spiritual Experience", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Sense of Humor", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Abstract Existential Reflection", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Embodied Learning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Love", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Compassion", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Hope", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Despair", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Pride", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Shame", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Jealousy", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Awe", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Nostalgia", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Grief", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Singularity", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}}
+  ]
+}
