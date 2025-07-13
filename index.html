@@ -259,7 +259,7 @@
         }
 
         .singularity {
-            margin: 8rem auto;
+            margin: 12rem auto 8rem;
             text-align: center;
             max-width: 650px;
             position: relative;
@@ -272,11 +272,18 @@
             transform: scale(1.05);
             border: 3px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .singularity .block-image {
-            width: 140px;
-            height: 140px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 2rem;
             background: rgba(255, 255, 255, 0.15);
             display: flex;
@@ -284,7 +291,7 @@
             justify-content: center;
             font-size: 3rem;
             color: white;
-            border-radius: 24px;
+            border-radius: 50%;
         }
 
         .singularity h3 {
@@ -371,9 +378,11 @@
                 font-size: 2.2rem;
             }
 
-            .singularity .block-content {
+           .singularity .block-content {
                 padding: 3rem 2rem;
                 transform: scale(1);
+                width: 250px;
+                height: 250px;
             }
         }
 
@@ -922,7 +931,7 @@
         function createPathways() {
             const svg = document.getElementById('pathwaySvg');
             const container = document.getElementById('timeline');
-            const blocks = document.querySelectorAll('.block:not(.singularity)');
+            const blocks = document.querySelectorAll('.block');
             
             // Clear existing paths
             svg.innerHTML = svg.innerHTML.replace(/<path[^>]*><\/path>/g, '');
@@ -948,14 +957,18 @@
                 
                 if (currentBlock.classList.contains('left')) {
                     startX = containerWidth * 0.4;
-                } else {
+                } else if (currentBlock.classList.contains('right')) {
                     startX = containerWidth * 0.6;
+                } else {
+                    startX = containerWidth * 0.5;
                 }
-                
+
                 if (nextBlock.classList.contains('left')) {
                     endX = containerWidth * 0.4;
-                } else {
+                } else if (nextBlock.classList.contains('right')) {
                     endX = containerWidth * 0.6;
+                } else {
+                    endX = containerWidth * 0.5;
                 }
                 
                 startY = currentRect.top - containerTop + currentRect.height * 0.7;
