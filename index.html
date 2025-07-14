@@ -655,26 +655,34 @@
             overflow: hidden;
             flex: 0 0 250px;
             height: 350px;
-            color: #fff;
+            color: #EEEEEE;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             scroll-snap-align: center;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 2rem;
+            box-sizing: border-box;
             border-radius: 20px;
+            transform: translateY(100px);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+        }
+        .card.animate {
+            transform: translateY(0);
         }
         .card::before {
             content: "";
             position: absolute;
             inset: 0;
             background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px) saturate(180%);
-            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: inherit;
             border: 1px solid rgba(255,255,255,0.3);
             box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
+            opacity: 1;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 0;
         }
         .card > * {
@@ -715,6 +723,11 @@
             width: 90%;
             max-height: 90vh;
             overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 2rem;
         }
         .vertical-timeline {
             list-style: none;
@@ -820,9 +833,9 @@
   <div class="half cards-half">
      <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
-      <div class="card">Post 1 (coming soon)</div>
-      <div class="card">Post 2 (coming soon)</div>
-      <div class="card">Post 3 (coming soon)</div>
+      <div class="card glass-block">Post 1 (Coming Soon)</div>
+      <div class="card glass-block">Post 2 (Coming Soon)</div>
+      <div class="card glass-block">Post 3 (Coming Soon)</div>
     </div>
   </div>
   <div class="half timeline-half">
@@ -1428,7 +1441,7 @@
 
         // Smooth scroll animation for blocks
         function animateOnScroll() {
-            const blocks = document.querySelectorAll('.block, .glass-block');
+            const blocks = document.querySelectorAll('.block, .glass-block, .card');
             const windowHeight = window.innerHeight;
 
             blocks.forEach(block => {
@@ -1496,7 +1509,7 @@
             });
             cardStack.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('click', () => {
-                    modalContent.innerHTML = card.outerHTML;
+                    modalContent.textContent = 'Post Coming Soon';
                     modal.classList.add('active');
                 });
             });
