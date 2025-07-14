@@ -274,6 +274,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             width: 700px;
             height: 700px;
+            aspect-ratio: 1 / 1;
             border-radius: 50%;
             margin: 0 auto;
             display: flex;
@@ -389,6 +390,7 @@
                 transform: scale(1);
                 width: 500px;
                 height: 500px;
+                aspect-ratio: 1 / 1;
             }
 
            .singularity .block-image {
@@ -987,21 +989,10 @@
                 endY = nextRect.top - containerTop + nextRect.height * 0.3;
                 
                 let pathData = '';
+                let isSingularityConnection = false;
                 if (nextBlock.classList.contains('singularity')) {
-                    const segments = 4;
-                    const amplitude = 40;
-                    const segLength = (endY - startY) / segments;
-                    pathData = `M ${startX} ${startY} `;
-                    for (let s = 0; s < segments; s++) {
-                        const y1 = startY + segLength * s;
-                        const y2 = startY + segLength * (s + 1);
-                        const x1 = startX + (endX - startX) * (s / segments);
-                        const x2 = startX + (endX - startX) * ((s + 1) / segments);
-                        const cp1X = x1 + (s % 2 === 0 ? amplitude : -amplitude);
-                        const cp2X = x2 + (s % 2 === 0 ? -amplitude : amplitude);
-                        const cpY = y1 + segLength / 2;
-                        pathData += `C ${cp1X} ${cpY}, ${cp2X} ${cpY}, ${x2} ${y2} `;
-                    }
+                    pathData = `M ${startX} ${startY} L ${endX} ${endY}`;
+                    isSingularityConnection = true;
                 } else {
                     const midY = (startY + endY) / 2;
                     const curve1X = startX + (endX - startX) * 0.3;
@@ -1020,6 +1011,9 @@
                 path.setAttribute('class', 'pathway-line');
                 path.style.strokeDasharray = '5, 5';
                 path.style.strokeDashoffset = '0';
+                if (isSingularityConnection) {
+                    path.style.stroke = 'red';
+                }
                 
                 // Add gradient definition if not exists
                 if (!svg.querySelector('#pathGradient')) {
