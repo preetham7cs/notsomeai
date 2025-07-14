@@ -259,7 +259,7 @@
         }
 
         .singularity {
-            margin: 12rem auto 8rem;
+            margin: 24rem auto 8rem;
             text-align: center;
             max-width: 650px;
             position: relative;
@@ -272,8 +272,8 @@
             transform: scale(1.05);
             border: 3px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            width: 350px;
-            height: 350px;
+            width: 700px;
+            height: 700px;
             border-radius: 50%;
             margin: 0 auto;
             display: flex;
@@ -282,16 +282,22 @@
         }
 
         .singularity .block-image {
-            width: 180px;
-            height: 180px;
+            width: 360px;
+            height: 360px;
             margin: 0 auto 2rem;
             background: rgba(255, 255, 255, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 6rem;
             color: white;
             border-radius: 50%;
+        }
+
+        .infinity-symbol {
+            background: linear-gradient(135deg, #ffffff, #dee2e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .singularity h3 {
@@ -374,15 +380,21 @@
                 font-size: 1.5rem;
             }
 
-            .singularity h3 {
+           .singularity h3 {
                 font-size: 2.2rem;
             }
 
            .singularity .block-content {
                 padding: 3rem 2rem;
                 transform: scale(1);
-                width: 250px;
-                height: 250px;
+                width: 500px;
+                height: 500px;
+            }
+
+           .singularity .block-image {
+                width: 360px;
+                height: 360px;
+                font-size: 6rem;
             }
         }
 
@@ -895,7 +907,7 @@
         <a class="artefact-link" href="artefact.html?artefact=Singularity">
             <div class="block singularity">
                 <div class="block-content">
-                    <div class="block-image">∞</div>
+                    <div class="block-image"><span class="infinity-symbol">∞</span></div>
                     <h3>Singularity</h3>
                     <p>The point where human and machine trajectories may converge, but never become one.</p>
                 </div>
@@ -974,17 +986,34 @@
                 startY = currentRect.top - containerTop + currentRect.height * 0.7;
                 endY = nextRect.top - containerTop + nextRect.height * 0.3;
                 
-                // Create curved path
-                const midY = (startY + endY) / 2;
-                const curve1X = startX + (endX - startX) * 0.3;
-                const curve2X = startX + (endX - startX) * 0.7;
-                const curve1Y = startY + (midY - startY) * 0.6;
-                const curve2Y = endY - (endY - midY) * 0.6;
-                
-                const pathData = `M ${startX} ${startY} 
-                                 C ${curve1X} ${curve1Y}, 
-                                   ${curve2X} ${curve2Y}, 
+                let pathData = '';
+                if (nextBlock.classList.contains('singularity')) {
+                    const segments = 4;
+                    const amplitude = 40;
+                    const segLength = (endY - startY) / segments;
+                    pathData = `M ${startX} ${startY} `;
+                    for (let s = 0; s < segments; s++) {
+                        const y1 = startY + segLength * s;
+                        const y2 = startY + segLength * (s + 1);
+                        const x1 = startX + (endX - startX) * (s / segments);
+                        const x2 = startX + (endX - startX) * ((s + 1) / segments);
+                        const cp1X = x1 + (s % 2 === 0 ? amplitude : -amplitude);
+                        const cp2X = x2 + (s % 2 === 0 ? -amplitude : amplitude);
+                        const cpY = y1 + segLength / 2;
+                        pathData += `C ${cp1X} ${cpY}, ${cp2X} ${cpY}, ${x2} ${y2} `;
+                    }
+                } else {
+                    const midY = (startY + endY) / 2;
+                    const curve1X = startX + (endX - startX) * 0.3;
+                    const curve2X = startX + (endX - startX) * 0.7;
+                    const curve1Y = startY + (midY - startY) * 0.6;
+                    const curve2Y = endY - (endY - midY) * 0.6;
+
+                    pathData = `M ${startX} ${startY}
+                                 C ${curve1X} ${curve1Y},
+                                   ${curve2X} ${curve2Y},
                                    ${endX} ${endY}`;
+                }
                 
                 const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 path.setAttribute('d', pathData);
