@@ -737,6 +737,24 @@
             color: #333;
             font-weight: 500;
         }
+        .timeline-scroll {
+            height: 70vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+            scroll-behavior: smooth;
+        }
+        .timeline-scroll details {
+            background: rgba(255,255,255,0.85);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+        }
+        .timeline-scroll summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        .vertical-timeline .past::before { background: #6c757d; }
+        .vertical-timeline .current::before { background: #ffc107; }
+        .vertical-timeline .future::before { background: #28a745; }
     </style>
 </head>
 <body>
@@ -800,12 +818,118 @@
   </div>
   <div class="half">
     <h2 class="interactive-title">Industry Predictions &amp; Factcheck</h2>
-    <ul class="vertical-timeline">
-      <li><a href="#">Milestone 1</a></li>
-      <li><a href="#">Milestone 2</a></li>
-      <li><a href="#">Milestone 3</a></li>
-      <li><a href="#">Milestone 4</a></li>
-    </ul>
+    <div class="timeline-scroll">
+      <ul class="vertical-timeline timeline-inner">
+        <li class="past">
+          <details>
+            <summary><strong>Elon Musk</strong> – Tesla will have full self-driving capability without human supervision. <em>By the end of 2024</em></summary>
+            <p>As of July 2025, not yet. Full self-driving still requires supervision. Source: Wikipedia, July 7, 2025</p>
+          </details>
+        </li>
+        <li class="current">
+          <details>
+            <summary><strong>Barack Obama</strong> – AI can code better than 60% to 70% of human coders, impacting roles with routine tasks. <em>Current as of 2025</em></summary>
+            <p>Partially true; AI coding tools like GitHub Copilot are advanced but haven’t fully replaced coders. Source: AfroTech, April 23, 2025</p>
+          </details>
+        </li>
+        <li class="current">
+          <details>
+            <summary><strong>Elon Musk</strong> – AI will be smarter than the smartest human. <em>By 2025–2026</em></summary>
+            <p>As of July 2025, not yet. While AI has advanced, it has not surpassed the smartest human in general intelligence. Source: Reuters, April 8, 2024</p>
+          </details>
+        </li>
+        <li class="current">
+          <details>
+            <summary><strong>Nick Bostrom</strong> – We could be only a year or two away from the technological singularity, where AI improves itself rapidly, leading to an intelligence explosion. <em>By 2025–2026</em></summary>
+            <p>As of July 2025, not yet. The singularity has not occurred. Source: Wall Street Pit, August 7, 2024</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Sam Altman</strong> – AI systems will be able to figure out novel insights. <em>By 2026</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: TechRadar, June 11, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Mark Zuckerberg</strong> – Most of Meta’s code will be written by AI. <em>By October 2026–April 2027</em></summary>
+            <p>As of July 2025, not yet. It’s a future prediction. Source: Engadget, April 30, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Fei-Fei Li</strong> – AI will be used in various fields to solve problems, particularly developing spatial intelligence. <em>By 2027–2029</em></summary>
+            <p>As of 2025, not yet fully realized. AI is expanding but spatial intelligence is still developing. Source: Computer History Museum, September 23, 2024</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Yann LeCun</strong> – A new paradigm of AI architectures will emerge, going beyond current generative AI and LLMs. <em>By 2028–2030</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: TechCrunch, January 23, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Yoshua Bengio</strong> – Human-level AI could be achieved with 90% confidence. <em>By 2028–2043</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: Yoshua Bengio’s blog, August 12, 2023</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Ray Kurzweil</strong> – Artificial General Intelligence (AGI) will be achieved, with computers reaching human-level intelligence and passing the Turing test. <em>By 2029</em></summary>
+            <p>As of 2025, not yet. AGI is still in development, with significant progress but not yet at human-level intelligence. Source: LifeArchitect.ai</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Demis Hassabis</strong> – Artificial General Intelligence (AGI) will be achieved, with AI reaching or surpassing human intelligence. <em>By 2030–2035</em></summary>
+            <p>As of 2025, not yet. AGI has not been achieved. Source: Daily Mail, April 24, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Dario Amodei</strong> – AI could automate away up to 50% of all entry-level white-collar jobs. <em>By 2030</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: Forbes, June 4, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Mustafa Suleyman</strong> – AI will enable personalized education at scale, transforming how people learn. <em>By 2030</em></summary>
+            <p>As of 2025, not yet. AI in education is growing but not at scale. Source: General industry statements, 2023–2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Ilya Sutskever</strong> – Artificial General Intelligence (AGI) could be achieved. <em>By 2033</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: Podcast interview, 2023</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Max Tegmark</strong> – AI will be able to do basically all human jobs better or cheaper than humans. <em>By 2032–2042</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction. Source: 80,000 Hours podcast, July 1, 2022</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Bill Gates</strong> – AI will replace many doctors and teachers, and humans won’t be needed for most things. <em>By 2035</em></summary>
+            <p>As of 2025, not yet. AI is used in medicine and education but has not replaced professionals. Source: CNBC, March 26, 2025</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Geoffrey Hinton</strong> – There is a 10% to 20% chance that AI will lead to human extinction. <em>By 2054</em></summary>
+            <p>As of 2025, not yet. It’s a future prediction with ongoing debates about AI risks. Source: The Guardian, December 28, 2024</p>
+          </details>
+        </li>
+        <li class="future">
+          <details>
+            <summary><strong>Yuval Noah Harari</strong> – Within a century or two, Earth will be dominated by entities (likely AI or enhanced humans) more different from us than we are from chimpanzees. <em>By 2121–2221</em></summary>
+            <p>As of 2025, not yet. It’s a long-term prediction. Source: 60 Minutes, October 31, 2021</p>
+          </details>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>
 <div class="card-modal" id="cardModal">
@@ -1308,6 +1432,24 @@
                     modal.classList.remove('active');
                 }
             });
+        }
+
+        // Auto-scroll the predictions timeline
+        const timelineContainer = document.querySelector('.timeline-scroll');
+        if (timelineContainer) {
+            let autoScroll = true;
+            function scrollStep() {
+                if (autoScroll) {
+                    timelineContainer.scrollTop += 0.5;
+                    if (timelineContainer.scrollTop >= timelineContainer.scrollHeight - timelineContainer.clientHeight) {
+                        timelineContainer.scrollTop = 0;
+                    }
+                }
+                requestAnimationFrame(scrollStep);
+            }
+            timelineContainer.addEventListener('mouseenter', () => { autoScroll = false; });
+            timelineContainer.addEventListener('mouseleave', () => { autoScroll = true; });
+            requestAnimationFrame(scrollStep);
         }
         // Smooth scrolling for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
