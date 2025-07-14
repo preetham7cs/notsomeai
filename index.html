@@ -613,12 +613,18 @@
             justify-content: center;
             padding: 2rem;
         }
+        /* left side with cards */
+        #interactive-section .cards-half {
+            background: #ed1c24;
+            color: #fff;
+        }
         .card-stack {
             display: flex;
             gap: 1.5rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             padding-bottom: 1rem;
+            scroll-behavior: smooth;
         }
         .card-stack::-webkit-scrollbar {
             height: 8px;
@@ -628,11 +634,11 @@
             border-radius: 4px;
         }
         .card {
+            position: relative;
+            overflow: hidden;
             flex: 0 0 250px;
             height: 350px;
-            background: rgba(255,255,255,0.85);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -640,11 +646,27 @@
             scroll-snap-align: center;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
-            backdrop-filter: blur(10px);
+            border-radius: 20px;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            border-radius: inherit;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
+            z-index: 0;
+        }
+        .card > * {
+            position: relative;
+            z-index: 1;
         }
         .card:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.3);
         }
         .card-modal {
             position: fixed;
@@ -663,12 +685,18 @@
             visibility: visible;
         }
         .card-modal .modal-content {
-            background: #fff;
+            position: relative;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
             padding: 2rem;
-            max-width: 600px;
-            width: 80%;
-            max-height: 80vh;
+            max-width: 90%;
+            width: 90%;
+            max-height: 90vh;
             overflow: auto;
         }
         .vertical-timeline {
@@ -754,7 +782,7 @@
 </section>
 
 <section id="interactive-section">
-  <div class="half">
+  <div class="half cards-half">
     <div class="card-stack">
       <div class="card">Card 1</div>
       <div class="card">Card 2</div>
@@ -1259,7 +1287,7 @@
             });
             cardStack.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('click', () => {
-                    modalContent.innerHTML = card.innerHTML;
+                    modalContent.innerHTML = card.outerHTML;
                     modal.classList.add('active');
                 });
             });
