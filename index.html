@@ -589,6 +589,118 @@
                 margin-bottom: 2rem;
             }
         }
+        /* Interactive Split Section */
+        #interactive-section {
+            display: flex;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        #interactive-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: rgba(0,0,0,0.2);
+            transform: translateX(-50%);
+        }
+        #interactive-section .half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .card-stack {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 1rem;
+        }
+        .card-stack::-webkit-scrollbar {
+            height: 8px;
+        }
+        .card-stack::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .card {
+            flex: 0 0 250px;
+            height: 350px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            scroll-snap-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .card-modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+            z-index: 2000;
+        }
+        .card-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .card-modal .modal-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 80%;
+            max-height: 80vh;
+            overflow: auto;
+        }
+        .vertical-timeline {
+            list-style: none;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(0,0,0,0.2);
+        }
+        .vertical-timeline li {
+            position: relative;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .vertical-timeline li:hover {
+            transform: scale(1.05);
+        }
+        .vertical-timeline li::before {
+            content: "";
+            position: absolute;
+            left: -1rem;
+            top: 0.4rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            background: #6c757d;
+            border-radius: 50%;
+        }
+        .vertical-timeline li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -641,6 +753,26 @@
   </div>
 </section>
 
+<section id="interactive-section">
+  <div class="half">
+    <div class="card-stack">
+      <div class="card">Card 1</div>
+      <div class="card">Card 2</div>
+      <div class="card">Card 3</div>
+    </div>
+  </div>
+  <div class="half">
+    <ul class="vertical-timeline">
+      <li><a href="#">Milestone 1</a></li>
+      <li><a href="#">Milestone 2</a></li>
+      <li><a href="#">Milestone 3</a></li>
+      <li><a href="#">Milestone 4</a></li>
+    </ul>
+  </div>
+</section>
+<div class="card-modal" id="cardModal">
+  <div class="modal-content"></div>
+</div>
 
 
 
@@ -1116,6 +1248,29 @@
 
         window.addEventListener('resize', debounce(createPathways, 250));
 
+        // Card stack interactions
+        const cardStack = document.querySelector('.card-stack');
+        const modal = document.getElementById('cardModal');
+        const modalContent = modal.querySelector('.modal-content');
+        if (cardStack) {
+            cardStack.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                cardStack.scrollLeft += e.deltaY;
+            });
+            cardStack.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', () => {
+                    modalContent.innerHTML = card.innerHTML;
+                    modal.classList.add('active');
+                });
+            });
+        }
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
         // Smooth scrolling for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
