@@ -833,7 +833,7 @@
   <div class="half cards-half">
      <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
-      <div class="card glass-block">Post 1 (Coming Soon)</div>
+      <a href="post1.html" class="card glass-block">Does Your Problem Really Need AI?</a>
       <div class="card glass-block">Post 2 (Coming Soon)</div>
       <div class="card glass-block">Post 3 (Coming Soon)</div>
     </div>
@@ -1508,6 +1508,9 @@
                 cardStack.scrollLeft += e.deltaY;
             });
             cardStack.querySelectorAll('.card').forEach(card => {
+                if (card.tagName === 'A' && card.getAttribute('href')) {
+                    return; // allow default navigation for linked cards
+                }
                 card.addEventListener('click', () => {
                     modalContent.textContent = 'Post Coming Soon';
                     modal.classList.add('active');
