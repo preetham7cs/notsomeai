@@ -833,7 +833,7 @@
   <div class="half cards-half">
      <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
-      <a href="post1.html" class="card glass-block">Does Your Problem Really Need AI?</a>
+      <div class="card glass-block" data-content="post1-template">Does Your Problem Really Need AI?</div>
       <div class="card glass-block">Post 2 (Coming Soon)</div>
       <div class="card glass-block">Post 3 (Coming Soon)</div>
     </div>
@@ -1023,6 +1023,13 @@
 <div class="card-modal" id="cardModal">
   <div class="modal-content"></div>
 </div>
+<template id="post1-template">
+  <h1>Does Your Problem Really Need AI?</h1>
+  <p>Does your problem really need AI? Many teams feel pressure to add LLMs to every workflow, but using AI without a clear reason can increase cost, complexity, and risk. A better way is to approach AI with intent: break the workflow into its smallest tasks, then ask for each one, is the decision depth low or high? That simple question helps you pick the right tool and the right level of oversight.</p>
+  <p>Low depth decisions are objective, data-driven tasks with a clear answer and predictable pattern. For example, “Find flights from New York to Los Angeles next Friday at 10:00,” or “Check if the supermarket nearby is open tomorrow and whether it will rain on Saturday.” These can usually be handled with structured data calls. An LLM may still help by converting natural language to API inputs, reconciling messy queries, and summarizing results, but a direct API integration could be cheaper, faster, and easier to maintain. When stakes are low and your data is solid, go ahead and automate these fully.</p>
+  <p>High-depth decisions are subjective, require context, and have bigger consequences if you get them wrong. Take “Book the best flight seat for someone with back pain who is travelling with a toddler.” Here, comfort, seat layout, aisle access, budget, and even connection times matter. There is no single correct answer. In these cases, an LLM is most useful as a conversational assistant that gathers preferences, explains options, highlights what’s uncertain, and helps narrow down choices, while letting the user confirm the final action or using a rules engine to double-check.</p>
+  <p>To sum up, start every AI project by breaking down the problem, tagging each task by decision depth, and matching the right method to each one. Use deterministic services or carefully structured LLM prompts for low depth tasks; guide high depth tasks through human-in-the-loop conversations and clear user confirmation. Capture feedback so the system can learn where users override suggestions, then move repeatable patterns closer to full automation over time. Use AI intentionally and transparently, and you will avoid wasted effort, reduce errors, and build trust that lasts.</p>
+</template>
 
 
 
@@ -1512,7 +1519,13 @@
                     return; // allow default navigation for linked cards
                 }
                 card.addEventListener('click', () => {
-                    modalContent.textContent = 'Post Coming Soon';
+                    const tplId = card.dataset.content;
+                    if (tplId) {
+                        const tpl = document.getElementById(tplId);
+                        modalContent.innerHTML = tpl ? tpl.innerHTML : 'Post Coming Soon';
+                    } else {
+                        modalContent.textContent = 'Post Coming Soon';
+                    }
                     modal.classList.add('active');
                 });
             });
