@@ -782,6 +782,48 @@
         .vertical-timeline .past::before { background: #6c757d; }
         .vertical-timeline .current::before { background: #ffc107; }
         .vertical-timeline .future::before { background: #28a745; }
+
+        /* Extra mobile tweaks */
+        @media (max-width: 600px) {
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .topbar .menu {
+                flex-wrap: wrap;
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .banner {
+                padding: 0 2rem;
+            }
+
+            .banner-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .banner-right {
+                margin-top: 1rem;
+            }
+
+            .about-section {
+                height: auto;
+                padding: 2rem 4%;
+            }
+
+            #interactive-section {
+                flex-direction: column;
+                height: auto;
+            }
+
+            #interactive-section .half {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
