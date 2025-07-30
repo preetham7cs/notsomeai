@@ -881,7 +881,7 @@
      <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
       <div class="card glass-block" data-content="post1-template">Does Your Problem Really Need AI?</div>
-      <div class="card glass-block">Post 2 (Coming Soon)</div>
+      <div class="card glass-block" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</div>
       <div class="card glass-block">Post 3 (Coming Soon)</div>
     </div>
   </div>
@@ -1076,6 +1076,19 @@
   <p>Low depth decisions are objective, data-driven tasks with a clear answer and predictable pattern. For example, “Find flights from New York to Los Angeles next Friday at 10:00,” or “Check if the supermarket nearby is open tomorrow and whether it will rain on Saturday.” These can usually be handled with structured data calls. An LLM may still help by converting natural language to API inputs, reconciling messy queries, and summarizing results, but a direct API integration could be cheaper, faster, and easier to maintain. When stakes are low and your data is solid, go ahead and automate these fully.</p>
   <p>High-depth decisions are subjective, require context, and have bigger consequences if you get them wrong. Take “Book the best flight seat for someone with back pain who is travelling with a toddler.” Here, comfort, seat layout, aisle access, budget, and even connection times matter. There is no single correct answer. In these cases, an LLM is most useful as a conversational assistant that gathers preferences, explains options, highlights what’s uncertain, and helps narrow down choices, while letting the user confirm the final action or using a rules engine to double-check.</p>
   <p>To sum up, start every AI project by breaking down the problem, tagging each task by decision depth, and matching the right method to each one. Use deterministic services or carefully structured LLM prompts for low depth tasks; guide high depth tasks through human-in-the-loop conversations and clear user confirmation. Capture feedback so the system can learn where users override suggestions, then move repeatable patterns closer to full automation over time. Use AI intentionally and transparently, and you will avoid wasted effort, reduce errors, and build trust that lasts.</p>
+</template>
+
+<template id="post2-template">
+  <h1>Are LLMs Really Creative? Breaking Down the Myth</h1>
+  <p>Creativity is one of the most talked-about and misunderstood topics in the AI world. For as long as AI has been a part of our lives, people have asked whether machines can truly be creative or if what they do is simply clever mimicry. I’ve spent a lot of time thinking about this, especially as language models like GPT-4o get better at generating text, code, art, and even music that looks and sounds creative. But is it really creativity, or are we missing something deeper?</p>
+  <p>One way researchers have tried to answer this is by defining creativity mathematically. The most well-known formula goes like this:</p>
+  <p>Creativity = Novelty × Usefulness</p>
+  <p>It’s a neat idea. If something is both new and valuable, we might call it creative. But even this simple formula is more abstract than it seems. What counts as “novelty” can change based on the observer or the cultural context, and “usefulness” is just as subjective. Others have tried bringing information theory into the mix, suggesting that creativity is linked to how surprising or statistically unlikely an idea is, using formulas like</p>
+  <p>Creativity = -log2(P(outcome))</p>
+  <p>and by measuring the diversity and relevance of combinations in a given domain</p>
+  <p>Creativity = Diversity × Relevance</p>
+  <p>Despite these mathematical attempts, creativity is about much more than novelty, usefulness, or even surprise. It is deeply tied to context, intention, and cultural meaning, things that are notoriously hard to measure or define. Large language models (LLMs) do not have a true understanding of what they are generating, and they are always limited by their training data. Most importantly, LLMs lack intent or purpose. They do not want to create; they simply predict the next word or token based on patterns in the data.</p>
+  <p>In the end, a lot of what makes something genuinely creative cannot be measured with any current formula. Until we can identify all the hidden ingredients that go into creativity and find reliable ways to measure them, creativity will remain a distinctly human quality, one that is still out of reach for even the most advanced AI.</p>
 </template>
 
 
