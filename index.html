@@ -659,8 +659,8 @@
             transform: translate(-50%, -50%) translate(var(--state-tx), var(--state-ty)) rotate(var(--state-rotate)) translateZ(var(--state-tz));
         }
         .card:hover {
-            transform: translate(-50%, -50%) translate(var(--state-tx), calc(100px + var(--state-ty) - 10px)) rotate(var(--state-rotate)) translateZ(calc(var(--state-tz) + 20px));
-            box-shadow: 0 25px 40px rgba(0,0,0,0.35);
+            transform: translate(-50%, -50%) translate(var(--state-tx), var(--state-ty)) rotate(var(--state-rotate)) translateZ(calc(var(--state-tz) + 20px)) scale(1.03);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
         .card:nth-child(1) {
             --rotate: -8deg;
@@ -728,8 +728,8 @@
                 transform: rotate(var(--state-rotate));
             }
             .card:hover {
-                transform: rotate(var(--state-rotate));
-                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+                transform: scale(1.03) rotate(var(--state-rotate));
+                box-shadow: 0 20px 35px rgba(0,0,0,0.3);
             }
         }
         .card-modal {
