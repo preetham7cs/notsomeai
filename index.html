@@ -590,43 +590,21 @@
             }
         }
         /* Interactive Split Section */
-        #interactive-section {
-            display: flex;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
-        #interactive-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 1px;
-            background: rgba(0,0,0,0.2);
-            transform: translateX(-50%);
-        }
-        #interactive-section .half {
-            flex: 1;
+        #reads-section {
+            width: 100%;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            color: #fff;
+            padding: 4rem 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 2rem;
         }
-        #interactive-section .timeline-half {
+        #predictions-section {
             background: #EAEBD0;
-        }
-        /* left side with cards */
-        #interactive-section .cards-half {
-            background: #004030;
-            color: #fff;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            align-items: center; 
-/*             justify-content: center; */
-            padding-top: 2rem; /* or whatever space you like */
-            padding-bottom: 2rem;
+            align-items: center;
         }
         .interactive-title {
             font-size: 2rem;
@@ -636,62 +614,61 @@
             width: 100%;
         }
         .card-stack {
+            width: 100%;
             display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 1rem;
-            scroll-behavior: smooth;
-        }
-        .card-stack::-webkit-scrollbar {
-            height: 8px;
-        }
-        .card-stack::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.2);
-            border-radius: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            perspective: 1000px;
         }
         .card {
+            --rotate: 0deg;
+            --tx: 0px;
+            --ty: 0px;
+            --tz: 0px;
             position: relative;
-            overflow: hidden;
-            flex: 0 0 250px;
-            height: 350px;
-            color: #EEEEEE;
+            width: 260px;
+            height: 360px;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            scroll-snap-align: center;
+            font-size: 1.3rem;
             cursor: pointer;
-            padding: 2rem;
-            box-sizing: border-box;
             border-radius: 20px;
-            transform: translateY(100px);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translate(calc(var(--tx)), calc(100px + var(--ty))) rotate(var(--rotate)) translateZ(var(--tz));
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, opacity 0.8s;
         }
         .card.animate {
-            transform: translateY(0);
-        }
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: inherit;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
             opacity: 1;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 0;
-        }
-        .card > * {
-            position: relative;
-            z-index: 1;
+            transform: translate(var(--tx), var(--ty)) rotate(var(--rotate)) translateZ(var(--tz));
         }
         .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(255,255,255,0.3);
+            transform: translate(var(--tx), calc(var(--ty) - 10px)) rotate(var(--rotate)) translateZ(calc(var(--tz) + 20px));
+            box-shadow: 0 25px 40px rgba(0,0,0,0.35);
+        }
+        .card:nth-child(1) {
+            --rotate: -8deg;
+            --tx: -20px;
+            --ty: -10px;
+            --tz: -20px;
+            background: linear-gradient(145deg, #ff9a9e, #fecfef);
+        }
+        .card:nth-child(2) {
+            --rotate: 5deg;
+            --tx: 0px;
+            --ty: 15px;
+            --tz: 10px;
+            background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+        }
+        .card:nth-child(3) {
+            --rotate: -3deg;
+            --tx: 20px;
+            --ty: 0px;
+            --tz: 0px;
+            background: linear-gradient(145deg, #fad0c4, #ffd1ff);
         }
         .card-modal {
             position: fixed;
@@ -873,19 +850,18 @@
         <li>NotSomeAI aims not only to challenge but also to commend AI where it excels, honouring these technologies as products of human innovation.</li>
       </ul>
     </div>
-  </div>
 </section>
 
-<section id="interactive-section">
-  <div class="half cards-half">
+<section id="reads-section">
      <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
-      <div class="card glass-block" data-content="post1-template">Does Your Problem Really Need AI?</div>
-      <div class="card glass-block" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</div>
-      <div class="card glass-block" data-content="post3-template">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
+      <div class="card" data-content="post1-template">Does Your Problem Really Need AI?</div>
+      <div class="card" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</div>
+      <div class="card" data-content="post3-template">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
     </div>
-  </div>
-  <div class="half timeline-half">
+</section>
+
+<section id="predictions-section">
     <h2 class="interactive-title">Industry Predictions &amp; Factcheck</h2>
     <div class="timeline-scroll">
       <ul class="vertical-timeline timeline-inner">
@@ -1065,7 +1041,6 @@
           </li>
       </ul>
     </div>
-  </div>
 </section>
 <div class="card-modal" id="cardModal">
   <div class="modal-content"></div>
@@ -1608,8 +1583,10 @@
         const modalContent = modal.querySelector('.modal-content');
         if (cardStack) {
             cardStack.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                cardStack.scrollLeft += e.deltaY;
+                if (cardStack.scrollWidth > cardStack.clientWidth) {
+                    e.preventDefault();
+                    cardStack.scrollLeft += e.deltaY;
+                }
             });
             cardStack.querySelectorAll('.card').forEach(card => {
                 if (card.tagName === 'A' && card.getAttribute('href')) {
