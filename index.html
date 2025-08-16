@@ -758,11 +758,47 @@
             transition-delay: 0.7s;
             background: linear-gradient(145deg, #f9f7d9, #e0c3fc);
         }
-        .card-stack:hover .card {
+        .card-stack:not(.coverflow-active):hover .card {
             --state-rotate: var(--hover-rotate);
             --state-tx: var(--hover-tx);
             --state-ty: var(--hover-ty);
             --state-tz: var(--hover-tz);
+        }
+
+        .card:focus {
+            outline: 2px solid #111827;
+            outline-offset: 2px;
+        }
+
+        .card-stack.coverflow-active {
+            height: auto;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 1rem;
+            padding: 2rem calc(50% - 150px);
+        }
+
+        .card-stack.coverflow-active .card {
+            --cf-transform: none;
+            position: relative;
+            top: auto;
+            left: auto;
+            flex: 0 0 260px;
+            width: 260px;
+            height: 360px;
+            opacity: 1;
+            transform: var(--cf-transform);
+            transition: transform 0.3s;
+            transition-delay: 0s;
+            scroll-snap-align: center;
+        }
+
+        .card-stack.coverflow-active .card:hover {
+            transform: var(--cf-transform) scale(1.03);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
 
         @media (max-width: 768px) {
@@ -770,26 +806,12 @@
                 padding: 4rem 0;
                 min-height: auto;
             }
-            .card-stack {
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+            .card-stack.coverflow-active {
+                padding: 1rem calc(50% - 130px);
             }
-            .card {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: rotate(var(--state-rotate));
-                opacity: 1;
-                margin-bottom: 1.5rem;
-            }
-            .card.animate {
-                transform: rotate(var(--state-rotate));
-            }
-            .card:hover {
-                transform: scale(1.03) rotate(var(--state-rotate));
-                box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            .card-stack.coverflow-active .card {
+                flex: 0 0 80%;
+                height: 320px;
             }
         }
         .card-modal {
@@ -976,15 +998,15 @@
 
 <section id="reads-section">
     <h2 class="interactive-title">2-minute Reads</h2>
-    <div class="card-stack">
-      <div class="card" data-content="post1-template">Does Your Problem Really Need AI?</div>
-      <div class="card" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</div>
-      <div class="card" data-content="post3-template">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
-      <div class="card">Coming Soon</div>
-      <div class="card">Coming Soon</div>
-      <div class="card">Coming Soon</div>
-      <div class="card">Coming Soon</div>
-      <div class="card">Coming Soon</div>
+    <div class="card-stack" tabindex="0" aria-label="2-minute reads carousel">
+      <div class="card" data-content="post1-template" tabindex="0" role="button" aria-label="Does Your Problem Really Need AI?">Does Your Problem Really Need AI?</div>
+      <div class="card" data-content="post2-template" tabindex="0" role="button" aria-label="Are LLMs Really Creative? Breaking Down the Myth">Are LLMs Really Creative? Breaking Down the Myth</div>
+      <div class="card" data-content="post3-template" tabindex="0" role="button" aria-label="GPT-5 is not AGI. Here is why GPT-6 will not be either">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
+      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
     </div>
 </section>
 
@@ -1709,17 +1731,92 @@
         const modal = document.getElementById('cardModal');
         const modalContent = modal.querySelector('.modal-content');
         if (cardStack) {
+            const cards = Array.from(cardStack.querySelectorAll('.card'));
+            let coverflowActive = false;
+
+            function activateCoverflow() {
+                if (coverflowActive) return;
+                coverflowActive = true;
+                cardStack.classList.add('coverflow-active');
+                updateCoverflow();
+            }
+
+            function updateCoverflow() {
+                const center = cardStack.scrollLeft + cardStack.clientWidth / 2;
+                const maxAngle = window.innerWidth < 600 ? 20 : 30;
+                cards.forEach(card => {
+                    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                    const offset = (cardCenter - center) / cardStack.clientWidth;
+                    const angle = -offset * maxAngle;
+                    const scale = Math.max(0.75, 1 - Math.abs(offset) * 0.3);
+                    card.style.setProperty('--cf-transform', `rotateY(${angle}deg) scale(${scale})`);
+                    card.style.zIndex = Math.round(1000 - Math.abs(offset) * 1000);
+                });
+            }
+
+            cardStack.addEventListener('scroll', () => {
+                if (coverflowActive) updateCoverflow();
+            });
+
             cardStack.addEventListener('wheel', (e) => {
+                activateCoverflow();
                 if (cardStack.scrollWidth > cardStack.clientWidth) {
                     e.preventDefault();
                     cardStack.scrollLeft += e.deltaY;
                 }
+            }, { passive: false });
+
+            let isDown = false;
+            let startX = 0;
+            let scrollStart = 0;
+
+            cardStack.addEventListener('mousedown', e => {
+                activateCoverflow();
+                isDown = true;
+                startX = e.pageX;
+                scrollStart = cardStack.scrollLeft;
             });
-            cardStack.querySelectorAll('.card').forEach(card => {
-                if (card.tagName === 'A' && card.getAttribute('href')) {
-                    return; // allow default navigation for linked cards
+            cardStack.addEventListener('mouseleave', () => { isDown = false; });
+            cardStack.addEventListener('mouseup', () => { isDown = false; });
+            cardStack.addEventListener('mousemove', e => {
+                if (!isDown) return;
+                e.preventDefault();
+                cardStack.scrollLeft = scrollStart - (e.pageX - startX);
+            });
+
+            cardStack.addEventListener('touchstart', e => {
+                activateCoverflow();
+                startX = e.touches[0].pageX;
+                scrollStart = cardStack.scrollLeft;
+            });
+            cardStack.addEventListener('touchmove', e => {
+                const x = e.touches[0].pageX;
+                cardStack.scrollLeft = scrollStart - (x - startX);
+            });
+
+            cardStack.addEventListener('keydown', e => {
+                activateCoverflow();
+                if (e.key === 'ArrowRight') {
+                    cardStack.scrollBy({ left: cards[0].offsetWidth + 16, behavior: 'smooth' });
+                } else if (e.key === 'ArrowLeft') {
+                    cardStack.scrollBy({ left: -(cards[0].offsetWidth + 16), behavior: 'smooth' });
                 }
-                card.addEventListener('click', () => {
+            });
+
+            cards.forEach(card => {
+                card.addEventListener('focus', () => {
+                    activateCoverflow();
+                    card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                });
+                card.addEventListener('click', (e) => {
+                    activateCoverflow();
+                    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                    const containerCenter = cardStack.scrollLeft + cardStack.clientWidth / 2;
+                    if (Math.abs(cardCenter - containerCenter) > 5) {
+                        e.preventDefault();
+                        card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                        return;
+                    }
                     const tplId = card.dataset.content;
                     if (tplId) {
                         const tpl = document.getElementById(tplId);
@@ -1729,6 +1826,10 @@
                     }
                     modal.classList.add('active');
                 });
+            });
+
+            window.addEventListener('resize', () => {
+                if (coverflowActive) updateCoverflow();
             });
         }
         if (modal) {
