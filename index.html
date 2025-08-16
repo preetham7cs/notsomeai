@@ -626,12 +626,20 @@
             --tx: 0px;
             --ty: 0px;
             --tz: 0px;
+            --hover-rotate: var(--rotate);
+            --hover-tx: var(--tx);
+            --hover-ty: var(--ty);
+            --hover-tz: var(--tz);
+            --state-rotate: var(--rotate);
+            --state-tx: var(--tx);
+            --state-ty: var(--ty);
+            --state-tz: var(--tz);
             position: absolute;
             top: 50%;
             left: 50%;
             width: 260px;
             height: 360px;
-            color: #ffe4e6;
+            color: #111827;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -643,15 +651,15 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             opacity: 0;
-            transform: translate(-50%, -50%) translate(var(--tx), calc(100px + var(--ty))) rotate(var(--rotate)) translateZ(var(--tz));
+            transform: translate(-50%, -50%) translate(var(--state-tx), calc(100px + var(--state-ty))) rotate(var(--state-rotate)) translateZ(var(--state-tz));
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, opacity 0.8s;
         }
         .card.animate {
             opacity: 1;
-            transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(var(--rotate)) translateZ(var(--tz));
+            transform: translate(-50%, -50%) translate(var(--state-tx), var(--state-ty)) rotate(var(--state-rotate)) translateZ(var(--state-tz));
         }
         .card:hover {
-            transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) - 10px)) rotate(var(--rotate)) translateZ(calc(var(--tz) + 20px));
+            transform: translate(-50%, -50%) translate(var(--state-tx), calc(100px + var(--state-ty) - 10px)) rotate(var(--state-rotate)) translateZ(calc(var(--state-tz) + 20px));
             box-shadow: 0 25px 40px rgba(0,0,0,0.35);
         }
         .card:nth-child(1) {
@@ -659,6 +667,11 @@
             --tx: -120px;
             --ty: -40px;
             --tz: -30px;
+            --hover-rotate: -12deg;
+            --hover-tx: -220px;
+            --hover-ty: -80px;
+            --hover-tz: -30px;
+            transition-delay: 0s;
             background: linear-gradient(145deg, #ffdee9, #b5fffc);
         }
         .card:nth-child(2) {
@@ -666,6 +679,11 @@
             --tx: -10px;
             --ty: 20px;
             --tz: 0px;
+            --hover-rotate: 0deg;
+            --hover-tx: 0px;
+            --hover-ty: 40px;
+            --hover-tz: 0px;
+            transition-delay: 0.1s;
             background: linear-gradient(145deg, #d9a7c7, #fffcdc);
         }
         .card:nth-child(3) {
@@ -673,7 +691,18 @@
             --tx: 120px;
             --ty: -20px;
             --tz: -10px;
+            --hover-rotate: 12deg;
+            --hover-tx: 220px;
+            --hover-ty: -60px;
+            --hover-tz: -10px;
+            transition-delay: 0.2s;
             background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+        }
+        .card-stack:hover .card {
+            --state-rotate: var(--hover-rotate);
+            --state-tx: var(--hover-tx);
+            --state-ty: var(--hover-ty);
+            --state-tz: var(--hover-tz);
         }
 
         @media (max-width: 768px) {
@@ -691,15 +720,15 @@
                 position: relative;
                 top: auto;
                 left: auto;
-                transform: rotate(var(--rotate));
+                transform: rotate(var(--state-rotate));
                 opacity: 1;
                 margin-bottom: 1.5rem;
             }
             .card.animate {
-                transform: rotate(var(--rotate));
+                transform: rotate(var(--state-rotate));
             }
             .card:hover {
-                transform: rotate(var(--rotate));
+                transform: rotate(var(--state-rotate));
                 box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             }
         }
