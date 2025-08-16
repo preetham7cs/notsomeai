@@ -617,7 +617,7 @@
         }
         .card-stack {
             width: 100%;
-            height: 500px;
+            height: 700px;
             position: relative;
             perspective: 1000px;
         }
@@ -697,6 +697,66 @@
             --hover-tz: 0px;
             transition-delay: 0.2s;
             background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+        }
+        .card:nth-child(4) {
+            --rotate: 5deg;
+            --tx: -240px;
+            --ty: 120px;
+            --tz: -20px;
+            --hover-rotate: 0deg;
+            --hover-tx: -400px;
+            --hover-ty: 160px;
+            --hover-tz: 0px;
+            transition-delay: 0.3s;
+            background: linear-gradient(145deg, #fbc2eb, #a6c1ee);
+        }
+        .card:nth-child(5) {
+            --rotate: -6deg;
+            --tx: -120px;
+            --ty: 180px;
+            --tz: -10px;
+            --hover-rotate: 0deg;
+            --hover-tx: -200px;
+            --hover-ty: 160px;
+            --hover-tz: 0px;
+            transition-delay: 0.4s;
+            background: linear-gradient(145deg, #f6d365, #fda085);
+        }
+        .card:nth-child(6) {
+            --rotate: 4deg;
+            --tx: -10px;
+            --ty: 200px;
+            --tz: 0px;
+            --hover-rotate: 0deg;
+            --hover-tx: 0px;
+            --hover-ty: 160px;
+            --hover-tz: 0px;
+            transition-delay: 0.5s;
+            background: linear-gradient(145deg, #ffecd2, #fcb69f);
+        }
+        .card:nth-child(7) {
+            --rotate: -5deg;
+            --tx: 120px;
+            --ty: 160px;
+            --tz: -10px;
+            --hover-rotate: 0deg;
+            --hover-tx: 200px;
+            --hover-ty: 160px;
+            --hover-tz: 0px;
+            transition-delay: 0.6s;
+            background: linear-gradient(145deg, #cfd9df, #e2ebf0);
+        }
+        .card:nth-child(8) {
+            --rotate: 6deg;
+            --tx: 240px;
+            --ty: 180px;
+            --tz: -20px;
+            --hover-rotate: 0deg;
+            --hover-tx: 400px;
+            --hover-ty: 160px;
+            --hover-tz: 0px;
+            transition-delay: 0.7s;
+            background: linear-gradient(145deg, #f9f7d9, #e0c3fc);
         }
         .card-stack:hover .card {
             --state-rotate: var(--hover-rotate);
@@ -915,11 +975,16 @@
 </section>
 
 <section id="reads-section">
-     <h2 class="interactive-title">2-minute Reads</h2>
+    <h2 class="interactive-title">2-minute Reads</h2>
     <div class="card-stack">
       <div class="card" data-content="post1-template">Does Your Problem Really Need AI?</div>
       <div class="card" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</div>
       <div class="card" data-content="post3-template">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
     </div>
 </section>
 
