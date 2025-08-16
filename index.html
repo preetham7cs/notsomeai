@@ -594,7 +594,7 @@
             width: 100%;
             background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
             color: #fff;
-            padding: 4rem 0 6rem;
+            padding: 3rem 0 6rem;
             min-height: 700px;
             display: flex;
             flex-direction: column;
@@ -602,9 +602,9 @@
             position: relative;
         }
         #reads-section .interactive-title {
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             text-decoration: none;
-            border-bottom: none;
+            border: none;
         }
         #predictions-section {
             background: #EAEBD0;
@@ -620,34 +620,32 @@
             text-align: center;
             width: 100%;
         }
+
+
         .card-stack {
             width: 100%;
-            height: 1000px;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 2rem calc(50% - 150px);
             perspective: 1000px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .card-stack::-webkit-scrollbar {
+            display: none;
         }
         .card {
-            --rotate: 0deg;
-            --tx: 0px;
-            --ty: 0px;
-            --tz: 0px;
-            --hover-rotate: var(--rotate);
-            --hover-tx: var(--tx);
-            --hover-ty: var(--ty);
-            --hover-tz: var(--tz);
-            --state-rotate: var(--rotate);
-            --state-tx: var(--tx);
-            --state-ty: var(--ty);
-            --state-tz: var(--tz);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 260px;
+            flex: 0 0 260px;
             height: 360px;
             color: #111827;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
             font-size: 1.3rem;
             text-align: center;
             cursor: pointer;
@@ -655,171 +653,38 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translate(-50%, -50%) translate(var(--state-tx), calc(100px + var(--state-ty))) rotate(var(--state-rotate)) translateZ(var(--state-tz));
-            transition: transform 0.8s ease-in-out, box-shadow 0.3s, opacity 0.8s;
-        }
-        .card.animate {
-            opacity: 1;
-            transform: translate(-50%, -50%) translate(var(--state-tx), var(--state-ty)) rotate(var(--state-rotate)) translateZ(var(--state-tz));
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            scroll-snap-align: center;
+            overflow: visible;
         }
         .card:hover {
-            transform: translate(-50%, -50%) translate(var(--state-tx), var(--state-ty)) rotate(var(--state-rotate)) translateZ(calc(var(--state-tz) + 20px)) scale(1.03);
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
-        .card:nth-child(1) {
-            --rotate: -8deg;
-            --tx: -120px;
-            --ty: -40px;
-            --tz: -30px;
-            --hover-rotate: 0deg;
-            --hover-tx: -350px;
-            --hover-ty: 0px;
-            --hover-tz: 0px;
-            transition-delay: 0s;
-            background: linear-gradient(145deg, #ffdee9, #b5fffc);
-        }
-        .card:nth-child(2) {
-            --rotate: 6deg;
-            --tx: -10px;
-            --ty: 20px;
-            --tz: 0px;
-            --hover-rotate: 0deg;
-            --hover-tx: 0px;
-            --hover-ty: 0px;
-            --hover-tz: 0px;
-            transition-delay: 0.1s;
-            background: linear-gradient(145deg, #d9a7c7, #fffcdc);
-        }
-        .card:nth-child(3) {
-            --rotate: -4deg;
-            --tx: 120px;
-            --ty: -20px;
-            --tz: -10px;
-            --hover-rotate: 0deg;
-            --hover-tx: 350px;
-            --hover-ty: 0px;
-            --hover-tz: 0px;
-            transition-delay: 0.2s;
-            background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
-        }
-        .card:nth-child(4) {
-            --rotate: 5deg;
-            --tx: -240px;
-            --ty: 360px;
-            --tz: -20px;
-            --hover-rotate: 0deg;
-            --hover-tx: -400px;
-            --hover-ty: 400px;
-            --hover-tz: 0px;
-            transition-delay: 0.3s;
-            background: linear-gradient(145deg, #fbc2eb, #a6c1ee);
-        }
-        .card:nth-child(5) {
-            --rotate: -6deg;
-            --tx: -120px;
-            --ty: 420px;
-            --tz: -10px;
-            --hover-rotate: 0deg;
-            --hover-tx: -200px;
-            --hover-ty: 400px;
-            --hover-tz: 0px;
-            transition-delay: 0.4s;
-            background: linear-gradient(145deg, #f6d365, #fda085);
-        }
-        .card:nth-child(6) {
-            --rotate: 4deg;
-            --tx: -10px;
-            --ty: 440px;
-            --tz: 0px;
-            --hover-rotate: 0deg;
-            --hover-tx: 0px;
-            --hover-ty: 400px;
-            --hover-tz: 0px;
-            transition-delay: 0.5s;
-            background: linear-gradient(145deg, #ffecd2, #fcb69f);
-        }
-        .card:nth-child(7) {
-            --rotate: -5deg;
-            --tx: 120px;
-            --ty: 400px;
-            --tz: -10px;
-            --hover-rotate: 0deg;
-            --hover-tx: 200px;
-            --hover-ty: 400px;
-            --hover-tz: 0px;
-            transition-delay: 0.6s;
-            background: linear-gradient(145deg, #cfd9df, #e2ebf0);
-        }
-        .card:nth-child(8) {
-            --rotate: 6deg;
-            --tx: 240px;
-            --ty: 420px;
-            --tz: -20px;
-            --hover-rotate: 0deg;
-            --hover-tx: 400px;
-            --hover-ty: 400px;
-            --hover-tz: 0px;
-            transition-delay: 0.7s;
-            background: linear-gradient(145deg, #f9f7d9, #e0c3fc);
-        }
-        .card-stack:not(.coverflow-active):hover .card {
-            --state-rotate: var(--hover-rotate);
-            --state-tx: var(--hover-tx);
-            --state-ty: var(--hover-ty);
-            --state-tz: var(--hover-tz);
-        }
+        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
+        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
+        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); }
+        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); }
+        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); }
+        .card:nth-child(6) { background: linear-gradient(145deg, #ffecd2, #fcb69f); }
+        .card:nth-child(7) { background: linear-gradient(145deg, #cfd9df, #e2ebf0); }
+        .card:nth-child(8) { background: linear-gradient(145deg, #f9f7d9, #e0c3fc); }
 
         .card:focus {
             outline: 2px solid #111827;
             outline-offset: 2px;
         }
 
-        .card-stack.coverflow-active {
-            height: auto;
-            display: flex;
-            align-items: center;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            gap: 1rem;
-            padding: 2rem calc(50% - 150px);
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .card-stack.coverflow-active::-webkit-scrollbar {
-            display: none;
-        }
-
-        .card-stack.coverflow-active .card {
-            --cf-transform: none;
-            position: relative;
-            top: auto;
-            left: auto;
-            flex: 0 0 260px;
-            width: 260px;
-            height: 360px;
-            opacity: 1;
-            transform: var(--cf-transform);
-            transition: transform 0.3s;
-            transition-delay: 0s;
-            scroll-snap-align: center;
-        }
-
-        .card-stack.coverflow-active .card:hover {
-            transform: var(--cf-transform) scale(1.03);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-        }
 
         @media (max-width: 768px) {
             #reads-section {
-                padding: 4rem 0;
+                padding: 3rem 0;
                 min-height: auto;
             }
-            .card-stack.coverflow-active {
+            .card-stack {
                 padding: 1rem calc(50% - 130px);
+                gap: 1rem;
             }
-            .card-stack.coverflow-active .card {
+            .card {
                 flex: 0 0 80%;
                 height: 320px;
             }
@@ -1742,39 +1607,28 @@
         const modalContent = modal.querySelector('.modal-content');
         if (cardStack) {
             const cards = Array.from(cardStack.querySelectorAll('.card'));
-            let coverflowActive = false;
-
-            function activateCoverflow(initial = false) {
-                if (coverflowActive) return;
-                coverflowActive = true;
-                cardStack.classList.add('coverflow-active');
-                if (initial) {
-                    const middleIndex = Math.floor(cards.length / 2);
-                    cards[middleIndex].scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-                }
-                updateCoverflow();
-            }
 
             function updateCoverflow() {
                 const center = cardStack.scrollLeft + cardStack.clientWidth / 2;
-                const maxAngle = window.innerWidth < 600 ? 45 : 60;
+                const maxAngle = window.innerWidth < 600 ? 35 : 45;
                 cards.forEach(card => {
                     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
                     const offset = (cardCenter - center) / cardStack.clientWidth;
                     const angle = -offset * maxAngle;
-                    const scale = Math.max(0.7, 1.5 - Math.abs(offset) * 0.5);
+                    const scale = Math.max(0.8, 1.5 - Math.abs(offset) * 0.5);
                     const z = -Math.abs(offset) * 150;
-                    card.style.setProperty('--cf-transform', `rotateY(${angle}deg) translateZ(${z}px) scale(${scale})`);
+                    const tx = offset * 50;
+                    const blur = Math.min(Math.abs(offset) * 1.5, 2);
+                    const brightness = 1 - Math.min(Math.abs(offset) * 0.3, 0.3);
+                    card.style.transform = `translateX(${tx}px) rotateY(${angle}deg) translateZ(${z}px) scale(${scale})`;
                     card.style.zIndex = Math.round(1000 - Math.abs(offset) * 1000);
+                    card.style.filter = `blur(${blur}px) brightness(${brightness})`;
                 });
             }
 
-            cardStack.addEventListener('scroll', () => {
-                if (coverflowActive) updateCoverflow();
-            });
+            cardStack.addEventListener('scroll', updateCoverflow);
 
             cardStack.addEventListener('wheel', (e) => {
-                activateCoverflow();
                 if (cardStack.scrollWidth > cardStack.clientWidth) {
                     e.preventDefault();
                     cardStack.scrollLeft += e.deltaY;
@@ -1786,7 +1640,6 @@
             let scrollStart = 0;
 
             cardStack.addEventListener('mousedown', e => {
-                activateCoverflow();
                 isDown = true;
                 startX = e.pageX;
                 scrollStart = cardStack.scrollLeft;
@@ -1800,17 +1653,14 @@
             });
 
             cardStack.addEventListener('touchstart', e => {
-                activateCoverflow();
                 startX = e.touches[0].pageX;
                 scrollStart = cardStack.scrollLeft;
             });
             cardStack.addEventListener('touchmove', e => {
-                const x = e.touches[0].pageX;
-                cardStack.scrollLeft = scrollStart - (x - startX);
+                cardStack.scrollLeft = scrollStart - (e.touches[0].pageX - startX);
             });
 
             cardStack.addEventListener('keydown', e => {
-                activateCoverflow();
                 if (e.key === 'ArrowRight') {
                     cardStack.scrollBy({ left: cards[0].offsetWidth + 16, behavior: 'smooth' });
                 } else if (e.key === 'ArrowLeft') {
@@ -1820,11 +1670,9 @@
 
             cards.forEach(card => {
                 card.addEventListener('focus', () => {
-                    activateCoverflow();
                     card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 });
                 card.addEventListener('click', (e) => {
-                    activateCoverflow();
                     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
                     const containerCenter = cardStack.scrollLeft + cardStack.clientWidth / 2;
                     if (Math.abs(cardCenter - containerCenter) > 5) {
@@ -1843,10 +1691,9 @@
                 });
             });
 
-            window.addEventListener('resize', () => {
-                if (coverflowActive) updateCoverflow();
-            });
-            activateCoverflow(true);
+            window.addEventListener('resize', updateCoverflow);
+            cards[Math.floor(cards.length / 2)].scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+            updateCoverflow();
         }
         if (modal) {
             modal.addEventListener('click', (e) => {
