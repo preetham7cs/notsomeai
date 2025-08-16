@@ -594,12 +594,17 @@
             width: 100%;
             background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
             color: #fff;
-            padding: 6rem 0;
+            padding: 4rem 0 6rem;
             min-height: 700px;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
+        }
+        #reads-section .interactive-title {
+            margin-bottom: 2rem;
+            text-decoration: none;
+            border-bottom: none;
         }
         #predictions-section {
             background: #EAEBD0;
@@ -779,6 +784,11 @@
             scroll-behavior: smooth;
             gap: 1rem;
             padding: 2rem calc(50% - 150px);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .card-stack.coverflow-active::-webkit-scrollbar {
+            display: none;
         }
 
         .card-stack.coverflow-active .card {
@@ -1734,22 +1744,27 @@
             const cards = Array.from(cardStack.querySelectorAll('.card'));
             let coverflowActive = false;
 
-            function activateCoverflow() {
+            function activateCoverflow(initial = false) {
                 if (coverflowActive) return;
                 coverflowActive = true;
                 cardStack.classList.add('coverflow-active');
+                if (initial) {
+                    const middleIndex = Math.floor(cards.length / 2);
+                    cards[middleIndex].scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+                }
                 updateCoverflow();
             }
 
             function updateCoverflow() {
                 const center = cardStack.scrollLeft + cardStack.clientWidth / 2;
-                const maxAngle = window.innerWidth < 600 ? 20 : 30;
+                const maxAngle = window.innerWidth < 600 ? 45 : 60;
                 cards.forEach(card => {
                     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
                     const offset = (cardCenter - center) / cardStack.clientWidth;
                     const angle = -offset * maxAngle;
-                    const scale = Math.max(0.75, 1 - Math.abs(offset) * 0.3);
-                    card.style.setProperty('--cf-transform', `rotateY(${angle}deg) scale(${scale})`);
+                    const scale = Math.max(0.7, 1.5 - Math.abs(offset) * 0.5);
+                    const z = -Math.abs(offset) * 150;
+                    card.style.setProperty('--cf-transform', `rotateY(${angle}deg) translateZ(${z}px) scale(${scale})`);
                     card.style.zIndex = Math.round(1000 - Math.abs(offset) * 1000);
                 });
             }
@@ -1831,6 +1846,7 @@
             window.addEventListener('resize', () => {
                 if (coverflowActive) updateCoverflow();
             });
+            activateCoverflow(true);
         }
         if (modal) {
             modal.addEventListener('click', (e) => {
