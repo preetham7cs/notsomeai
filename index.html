@@ -594,10 +594,12 @@
             width: 100%;
             background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
             color: #fff;
-            padding: 4rem 0;
+            padding: 6rem 0;
+            min-height: 700px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
         #predictions-section {
             background: #EAEBD0;
@@ -615,10 +617,8 @@
         }
         .card-stack {
             width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
+            height: 500px;
+            position: relative;
             perspective: 1000px;
         }
         .card {
@@ -626,49 +626,82 @@
             --tx: 0px;
             --ty: 0px;
             --tz: 0px;
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
             width: 260px;
             height: 360px;
-            color: #fff;
+            color: #ffe4e6;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
+            text-align: center;
             cursor: pointer;
             border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
+            backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             opacity: 0;
-            transform: translate(calc(var(--tx)), calc(100px + var(--ty))) rotate(var(--rotate)) translateZ(var(--tz));
+            transform: translate(-50%, -50%) translate(var(--tx), calc(100px + var(--ty))) rotate(var(--rotate)) translateZ(var(--tz));
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, opacity 0.8s;
         }
         .card.animate {
             opacity: 1;
-            transform: translate(var(--tx), var(--ty)) rotate(var(--rotate)) translateZ(var(--tz));
+            transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(var(--rotate)) translateZ(var(--tz));
         }
         .card:hover {
-            transform: translate(var(--tx), calc(var(--ty) - 10px)) rotate(var(--rotate)) translateZ(calc(var(--tz) + 20px));
+            transform: translate(-50%, -50%) translate(var(--tx), calc(var(--ty) - 10px)) rotate(var(--rotate)) translateZ(calc(var(--tz) + 20px));
             box-shadow: 0 25px 40px rgba(0,0,0,0.35);
         }
         .card:nth-child(1) {
             --rotate: -8deg;
-            --tx: -20px;
-            --ty: -10px;
-            --tz: -20px;
-            background: linear-gradient(145deg, #ff9a9e, #fecfef);
+            --tx: -120px;
+            --ty: -40px;
+            --tz: -30px;
+            background: linear-gradient(145deg, #ffdee9, #b5fffc);
         }
         .card:nth-child(2) {
-            --rotate: 5deg;
-            --tx: 0px;
-            --ty: 15px;
-            --tz: 10px;
-            background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+            --rotate: 6deg;
+            --tx: -10px;
+            --ty: 20px;
+            --tz: 0px;
+            background: linear-gradient(145deg, #d9a7c7, #fffcdc);
         }
         .card:nth-child(3) {
-            --rotate: -3deg;
-            --tx: 20px;
-            --ty: 0px;
-            --tz: 0px;
-            background: linear-gradient(145deg, #fad0c4, #ffd1ff);
+            --rotate: -4deg;
+            --tx: 120px;
+            --ty: -20px;
+            --tz: -10px;
+            background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+        }
+
+        @media (max-width: 768px) {
+            #reads-section {
+                padding: 4rem 0;
+                min-height: auto;
+            }
+            .card-stack {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: rotate(var(--rotate));
+                opacity: 1;
+                margin-bottom: 1.5rem;
+            }
+            .card.animate {
+                transform: rotate(var(--rotate));
+            }
+            .card:hover {
+                transform: rotate(var(--rotate));
+                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            }
         }
         .card-modal {
             position: fixed;
