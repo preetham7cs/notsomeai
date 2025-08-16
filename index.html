@@ -652,7 +652,7 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             opacity: 0;
             transform: translate(-50%, -50%) translate(var(--state-tx), calc(100px + var(--state-ty))) rotate(var(--state-rotate)) translateZ(var(--state-tz));
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s, opacity 0.8s;
+            transition: transform 0.8s ease-in-out, box-shadow 0.3s, opacity 0.8s;
         }
         .card.animate {
             opacity: 1;
@@ -667,10 +667,10 @@
             --tx: -120px;
             --ty: -40px;
             --tz: -30px;
-            --hover-rotate: -12deg;
-            --hover-tx: -220px;
-            --hover-ty: -80px;
-            --hover-tz: -30px;
+            --hover-rotate: 0deg;
+            --hover-tx: -350px;
+            --hover-ty: 0px;
+            --hover-tz: 0px;
             transition-delay: 0s;
             background: linear-gradient(145deg, #ffdee9, #b5fffc);
         }
@@ -681,7 +681,7 @@
             --tz: 0px;
             --hover-rotate: 0deg;
             --hover-tx: 0px;
-            --hover-ty: 40px;
+            --hover-ty: 0px;
             --hover-tz: 0px;
             transition-delay: 0.1s;
             background: linear-gradient(145deg, #d9a7c7, #fffcdc);
@@ -691,10 +691,10 @@
             --tx: 120px;
             --ty: -20px;
             --tz: -10px;
-            --hover-rotate: 12deg;
-            --hover-tx: 220px;
-            --hover-ty: -60px;
-            --hover-tz: -10px;
+            --hover-rotate: 0deg;
+            --hover-tx: 350px;
+            --hover-ty: 0px;
+            --hover-tz: 0px;
             transition-delay: 0.2s;
             background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
         }
