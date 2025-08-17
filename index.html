@@ -650,13 +650,15 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             aspect-ratio: 13 / 18;
-            transition: transform 1s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: var(--card-transform, translate(-50%, -50%));
         }
         .card:hover {
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            transform: var(--card-transform, translate(-50%, -50%)) scale(1.05);
+            z-index: 100;
         }
         .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
         .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
@@ -1629,7 +1631,8 @@
                     const angle = Math.random() * 10 - 5;
                     const yOffset = idx * 2;
                     card.style.zIndex = cards.length - idx;
-                    card.style.transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
+                    const transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
+                    card.style.setProperty('--card-transform', transform);
                 });
             }
             function spreadCards() {
@@ -1638,7 +1641,8 @@
                 cards.forEach((card, idx) => {
                     const offset = (idx - (cards.length - 1) / 2) * (cardWidth + gap);
                     card.style.zIndex = cards.length;
-                    card.style.transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
+                    const transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
+                    card.style.setProperty('--card-transform', transform);
                 });
             }
             stackCards();
