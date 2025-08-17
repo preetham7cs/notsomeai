@@ -625,18 +625,18 @@
 
 
         .card-stack {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            position: relative;
             width: 100%;
-            max-width: 100%;
+            max-width: 1000px;
+            height: 360px;
             margin: 0 auto;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         .card {
-            flex: 1 1 250px;
+            position: absolute;
+            width: 250px;
             max-width: 250px;
-            margin: 1rem;
+            margin: 0;
             color: #111827;
             display: flex;
             align-items: center;
@@ -650,7 +650,10 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             aspect-ratio: 13 / 18;
-            transition: box-shadow 0.3s ease;
+            transition: transform 1s ease, box-shadow 0.3s ease;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .card:hover {
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
@@ -674,8 +677,7 @@
         }
         @media (max-width: 600px) {
             .card {
-                flex: 1 1 100%;
-                max-width: 100%;
+                width: 200px;
             }
         }
         .card-modal {
@@ -1617,6 +1619,31 @@
                     modal.classList.remove('active');
                 }
             });
+        }
+
+        // Card stack animation
+        if (cardStack) {
+            const cards = Array.from(cardStack.querySelectorAll('.card'));
+            function stackCards() {
+                cards.forEach((card, idx) => {
+                    const angle = Math.random() * 10 - 5;
+                    const yOffset = idx * 2;
+                    card.style.zIndex = cards.length - idx;
+                    card.style.transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
+                });
+            }
+            function spreadCards() {
+                const gap = 20;
+                const cardWidth = cards[0].offsetWidth;
+                cards.forEach((card, idx) => {
+                    const offset = (idx - (cards.length - 1) / 2) * (cardWidth + gap);
+                    card.style.zIndex = cards.length;
+                    card.style.transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
+                });
+            }
+            stackCards();
+            cardStack.addEventListener('mouseenter', spreadCards);
+            cardStack.addEventListener('mouseleave', stackCards);
         }
 
         // Auto-scroll the predictions timeline
