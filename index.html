@@ -646,7 +646,7 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            transition: transform 0.5s ease, box-shadow 0.3s ease;
+            transition: transform 1s ease-in-out, box-shadow 0.3s ease;
             width: clamp(200px, 18vw, 260px);
             aspect-ratio: 13 / 18;
             grid-area: 1 / 1;
@@ -670,11 +670,13 @@
         .card-stack.spread {
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
+            transition: gap 1s ease-in-out;
         }
         .card-stack.spread .card {
             grid-area: auto;
             transform: none;
             z-index: auto;
+            transition: transform 1s ease-in-out;
         }
         .card-stack.spread .card:hover {
             transform: scale(1.05);
@@ -685,6 +687,8 @@
                 padding: 3rem 0;
                 min-height: auto;
             }
+        }
+        @media (hover: none) {
             .card-stack {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 1.5rem;
@@ -1608,18 +1612,15 @@
         window.addEventListener('resize', debounce(createPathways, 250));
 
         // Card interactions
-        const cardStack = document.querySelector('.card-stack');
-        if (cardStack) {
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        cardStack.classList.toggle('spread', entry.isIntersecting);
-                    });
-                }, { threshold: 0.3 });
-                observer.observe(cardStack);
+        const readsSection = document.getElementById('reads-section');
+        const cardStack = readsSection ? readsSection.querySelector('.card-stack') : null;
+        if (readsSection && cardStack) {
+            const prefersTouch = window.matchMedia('(hover: none)').matches;
+            if (prefersTouch) {
+                cardStack.classList.add('spread');
             } else {
-                cardStack.addEventListener('mouseenter', () => cardStack.classList.add('spread'));
-                cardStack.addEventListener('mouseleave', () => cardStack.classList.remove('spread'));
+                readsSection.addEventListener('mouseenter', () => cardStack.classList.add('spread'));
+                readsSection.addEventListener('mouseleave', () => cardStack.classList.remove('spread'));
             }
         }
         const modal = document.getElementById('cardModal');
