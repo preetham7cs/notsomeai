@@ -629,9 +629,13 @@
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            overflow: visible;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow: hidden;
             height: 0;
-            transition: height 1.5s ease-in-out;
+            transition: height 1s ease-in-out;
         }
         .card {
             position: absolute;
@@ -655,7 +659,7 @@
             width: clamp(200px, 18vw, 260px);
             aspect-ratio: 13 / 18;
             transform: translate(var(--x), var(--y)) rotate(var(--rotation));
-            transition: transform 1.5s ease-in-out, box-shadow 0.3s ease;
+            transition: transform 1s ease-in-out, box-shadow 0.3s ease;
             pointer-events: none;
         }
         .card:hover {
@@ -686,22 +690,6 @@
             #reads-section {
                 padding: 3rem 0;
                 min-height: auto;
-            }
-        }
-        @media (hover: none) {
-            .card-stack {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
-                height: auto !important;
-            }
-            .card-stack .card {
-                position: static;
-                transform: none !important;
-                pointer-events: auto;
-            }
-            .card-stack .card:hover {
-                transform: scale(1.05);
             }
         }
         .card-modal {
@@ -1614,12 +1602,10 @@
         window.addEventListener('resize', debounce(createPathways, 250));
 
         // Card interactions
-        const readsSection = document.getElementById('reads-section');
-        const cardStack = readsSection ? readsSection.querySelector('.card-stack') : null;
-        if (readsSection && cardStack) {
+        const cardStack = document.querySelector('#reads-section .card-stack');
+        if (cardStack) {
             const cards = Array.from(cardStack.querySelectorAll('.card'));
             const gap = 24;
-            const prefersTouch = window.matchMedia('(hover: none)').matches;
 
             function stackCards() {
                 const height = cards[0].offsetHeight;
@@ -1638,7 +1624,7 @@
                 const containerWidth = cardStack.clientWidth;
                 const cardW = cards[0].offsetWidth;
                 const cardH = cards[0].offsetHeight;
-                const perRow = Math.max(1, Math.floor((containerWidth + gap) / (cardW + gap)));
+                const perRow = Math.min(5, Math.max(1, Math.floor((containerWidth + gap) / (cardW + gap))));
                 const rows = Math.ceil(cards.length / perRow);
                 const height = rows * cardH + (rows - 1) * gap;
                 cardStack.style.height = height + 'px';
@@ -1656,21 +1642,16 @@
                 cardStack.classList.add('spread');
             }
 
-            if (prefersTouch) {
-                spreadCards();
-                window.addEventListener('resize', spreadCards);
-            } else {
-                stackCards();
-                readsSection.addEventListener('mouseenter', spreadCards);
-                readsSection.addEventListener('mouseleave', stackCards);
-                window.addEventListener('resize', () => {
-                    if (cardStack.classList.contains('spread')) {
-                        spreadCards();
-                    } else {
-                        stackCards();
-                    }
-                });
-            }
+            stackCards();
+            cardStack.addEventListener('mouseenter', spreadCards);
+            cardStack.addEventListener('mouseleave', stackCards);
+            window.addEventListener('resize', () => {
+                if (cardStack.classList.contains('spread')) {
+                    spreadCards();
+                } else {
+                    stackCards();
+                }
+            });
         }
         const modal = document.getElementById('cardModal');
         const modalContent = modal ? modal.querySelector('.modal-content') : null;
