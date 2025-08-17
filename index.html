@@ -625,25 +625,18 @@
 
 
         .card-stack {
-            position: relative;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
             justify-content: center;
-            align-items: center;
             flex-wrap: wrap;
-            overflow: hidden;
-            height: 0;
-            transition: height 1s ease-in-out;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: hidden;
         }
         .card {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            --x: -50%;
-            --y: 0px;
-            --rotation: 0deg;
+            flex: 1 1 250px;
+            max-width: 250px;
+            margin: 1rem;
             color: #111827;
             display: flex;
             align-items: center;
@@ -656,40 +649,33 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            width: clamp(200px, 18vw, 260px);
             aspect-ratio: 13 / 18;
-            transform: translate(var(--x), var(--y)) rotate(var(--rotation));
-            transition: transform 1s ease-in-out, box-shadow 0.3s ease;
-            pointer-events: none;
+            transition: box-shadow 0.3s ease;
         }
         .card:hover {
-            transform: translate(var(--x), var(--y)) rotate(var(--rotation)) scale(1.05);
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
-        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); z-index: 5; }
-        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); z-index: 4; }
-        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); z-index: 3; }
-        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); z-index: 2; }
-        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); z-index: 1; }
+        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
+        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
+        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); }
+        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); }
+        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); }
 
         .card:focus {
             outline: 2px solid #111827;
             outline-offset: 2px;
-        }
-        .card:first-child {
-            pointer-events: auto;
-        }
-        .card-stack.spread .card {
-            pointer-events: auto;
-        }
-        .card-stack.spread .card:hover {
-            transform: translate(var(--x), var(--y)) rotate(var(--rotation)) scale(1.05);
         }
 
         @media (max-width: 767px) {
             #reads-section {
                 padding: 3rem 0;
                 min-height: auto;
+            }
+        }
+        @media (max-width: 600px) {
+            .card {
+                flex: 1 1 100%;
+                max-width: 100%;
             }
         }
         .card-modal {
@@ -1603,56 +1589,6 @@
 
         // Card interactions
         const cardStack = document.querySelector('#reads-section .card-stack');
-        if (cardStack) {
-            const cards = Array.from(cardStack.querySelectorAll('.card'));
-            const gap = 24;
-
-            function stackCards() {
-                const height = cards[0].offsetHeight;
-                cardStack.style.height = height + 'px';
-                cards.forEach((card, index) => {
-                    const rot = (Math.random() * 10 - 5).toFixed(2);
-                    card.style.setProperty('--x', '-50%');
-                    card.style.setProperty('--y', '0px');
-                    card.style.setProperty('--rotation', rot + 'deg');
-                    card.style.zIndex = cards.length - index;
-                });
-                cardStack.classList.remove('spread');
-            }
-
-            function spreadCards() {
-                const containerWidth = cardStack.clientWidth;
-                const cardW = cards[0].offsetWidth;
-                const cardH = cards[0].offsetHeight;
-                const perRow = Math.min(5, Math.max(1, Math.floor((containerWidth + gap) / (cardW + gap))));
-                const rows = Math.ceil(cards.length / perRow);
-                const height = rows * cardH + (rows - 1) * gap;
-                cardStack.style.height = height + 'px';
-                cards.forEach((card, i) => {
-                    const row = Math.floor(i / perRow);
-                    const col = i % perRow;
-                    const cardsInRow = row === rows - 1 ? cards.length - row * perRow : perRow;
-                    const x = (col - (cardsInRow - 1) / 2) * (cardW + gap);
-                    const y = row * (cardH + gap);
-                    card.style.setProperty('--x', x + 'px');
-                    card.style.setProperty('--y', y + 'px');
-                    card.style.setProperty('--rotation', '0deg');
-                    card.style.zIndex = 0;
-                });
-                cardStack.classList.add('spread');
-            }
-
-            stackCards();
-            cardStack.addEventListener('mouseenter', spreadCards);
-            cardStack.addEventListener('mouseleave', stackCards);
-            window.addEventListener('resize', () => {
-                if (cardStack.classList.contains('spread')) {
-                    spreadCards();
-                } else {
-                    stackCards();
-                }
-            });
-        }
         const modal = document.getElementById('cardModal');
         const modalContent = modal ? modal.querySelector('.modal-content') : null;
         if (cardStack && modal && modalContent) {
