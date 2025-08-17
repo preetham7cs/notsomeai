@@ -626,15 +626,14 @@
 
         .card-stack {
             display: grid;
+            place-items: center;
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            gap: 1.5rem;
-            overflow-x: hidden;
-            justify-content: center;
-            grid-template-columns: repeat(5, 1fr);
+            overflow: hidden;
         }
         .card {
+            --stack-transform: rotate(0deg) translate(0, 0);
             color: #111827;
             display: flex;
             align-items: center;
@@ -647,32 +646,40 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
+            transition: transform 0.5s ease, box-shadow 0.3s ease;
+            width: clamp(200px, 18vw, 260px);
             aspect-ratio: 13 / 18;
+            grid-area: 1 / 1;
+            transform: var(--stack-transform);
         }
         .card:hover {
-            transform: scale(1.05);
+            transform: var(--stack-transform) scale(1.05);
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
-        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
-        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
-        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); }
-        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); }
-        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); }
-        .card:nth-child(6) { background: linear-gradient(145deg, #ffecd2, #fcb69f); }
+        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); --stack-transform: rotate(-8deg) translate(-20%, -5%); z-index: 5; }
+        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); --stack-transform: rotate(-4deg) translate(-10%, -2%); z-index: 4; }
+        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); --stack-transform: rotate(0deg) translate(0, 0); z-index: 3; }
+        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); --stack-transform: rotate(4deg) translate(10%, 2%); z-index: 2; }
+        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); --stack-transform: rotate(8deg) translate(20%, 5%); z-index: 1; }
 
         .card:focus {
             outline: 2px solid #111827;
             outline-offset: 2px;
         }
 
-
-        @media (max-width: 1023px) {
-            .card-stack {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .card-stack.spread {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
+        .card-stack.spread .card {
+            grid-area: auto;
+            transform: none;
+            z-index: auto;
+        }
+        .card-stack.spread .card:hover {
+            transform: scale(1.05);
+        }
+
         @media (max-width: 767px) {
             #reads-section {
                 padding: 3rem 0;
@@ -680,6 +687,15 @@
             }
             .card-stack {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+            .card-stack .card {
+                grid-area: auto;
+                transform: none;
+                z-index: auto;
+            }
+            .card-stack .card:hover {
+                transform: scale(1.05);
             }
         }
         .card-modal {
@@ -870,7 +886,6 @@
       <div class="card" data-content="post1-template" tabindex="0" role="button" aria-label="Does Your Problem Really Need AI?">Does Your Problem Really Need AI?</div>
       <div class="card" data-content="post2-template" tabindex="0" role="button" aria-label="Are LLMs Really Creative? Breaking Down the Myth">Are LLMs Really Creative? Breaking Down the Myth</div>
       <div class="card" data-content="post3-template" tabindex="0" role="button" aria-label="GPT-5 is not AGI. Here is why GPT-6 will not be either">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
-      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
       <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
       <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
     </div>
@@ -1594,6 +1609,19 @@
 
         // Card interactions
         const cardStack = document.querySelector('.card-stack');
+        if (cardStack) {
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        cardStack.classList.toggle('spread', entry.isIntersecting);
+                    });
+                }, { threshold: 0.3 });
+                observer.observe(cardStack);
+            } else {
+                cardStack.addEventListener('mouseenter', () => cardStack.classList.add('spread'));
+                cardStack.addEventListener('mouseleave', () => cardStack.classList.remove('spread'));
+            }
+        }
         const modal = document.getElementById('cardModal');
         const modalContent = modal ? modal.querySelector('.modal-content') : null;
         if (cardStack && modal && modalContent) {
