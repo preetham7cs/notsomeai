@@ -1595,38 +1595,11 @@
         const cardStack = document.querySelector('#reads-section .card-stack');
         const modal = document.getElementById('cardModal');
         const modalContent = modal ? modal.querySelector('.modal-content') : null;
-        if (cardStack && modal && modalContent) {
-            cardStack.querySelectorAll('.card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const tplId = card.dataset.content;
-                    if (tplId) {
-                        const tpl = document.getElementById(tplId);
-                        modalContent.innerHTML = tpl ? tpl.innerHTML : 'Post Coming Soon';
-                    } else {
-                        modalContent.textContent = 'Post Coming Soon';
-                    }
-                    modal.classList.add('active');
-                });
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        card.click();
-                    }
-                });
-            });
-        }
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        }
-
-        // Card stack animation
+        let stackCards = () => {};
         if (cardStack) {
             const cards = Array.from(cardStack.querySelectorAll('.card'));
-            function stackCards() {
+            let isStacked = true;
+            stackCards = function () {
                 cards.forEach((card, idx) => {
                     const angle = Math.random() * 10 - 5;
                     const yOffset = idx * 2;
@@ -1634,7 +1607,8 @@
                     const transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
                     card.style.setProperty('--card-transform', transform);
                 });
-            }
+                isStacked = true;
+            };
             function spreadCards() {
                 const gap = 20;
                 const cardWidth = cards[0].offsetWidth;
@@ -1644,10 +1618,58 @@
                     const transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
                     card.style.setProperty('--card-transform', transform);
                 });
+                isStacked = false;
             }
             stackCards();
+
+            // Desktop hover events
             cardStack.addEventListener('mouseenter', spreadCards);
             cardStack.addEventListener('mouseleave', stackCards);
+
+            // Touch support
+            if ('ontouchstart' in window) {
+                cardStack.addEventListener('touchstart', (e) => {
+                    if (isStacked) {
+                        e.preventDefault();
+                        spreadCards();
+                    }
+                }, { passive: false });
+                document.addEventListener('touchstart', (e) => {
+                    if (!cardStack.contains(e.target) && !isStacked) {
+                        stackCards();
+                    }
+                });
+            }
+
+            // Card modal triggers
+            if (modal && modalContent) {
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const tplId = card.dataset.content;
+                        if (tplId) {
+                            const tpl = document.getElementById(tplId);
+                            modalContent.innerHTML = tpl ? tpl.innerHTML : 'Post Coming Soon';
+                        } else {
+                            modalContent.textContent = 'Post Coming Soon';
+                        }
+                        modal.classList.add('active');
+                    });
+                    card.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            card.click();
+                        }
+                    });
+                });
+            }
+        }
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    stackCards();
+                }
+            });
         }
 
         // Auto-scroll the predictions timeline
