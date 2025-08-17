@@ -625,15 +625,21 @@
 
 
         .card-stack {
-            display: grid;
-            place-items: center;
+            position: relative;
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            overflow: hidden;
+            overflow: visible;
+            height: 0;
+            transition: height 1.5s ease-in-out;
         }
         .card {
-            --stack-transform: rotate(0deg) translate(0, 0);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            --x: -50%;
+            --y: 0px;
+            --rotation: 0deg;
             color: #111827;
             display: flex;
             align-items: center;
@@ -646,40 +652,34 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
             backdrop-filter: blur(10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            transition: transform 1s ease-in-out, box-shadow 0.3s ease;
             width: clamp(200px, 18vw, 260px);
             aspect-ratio: 13 / 18;
-            grid-area: 1 / 1;
-            transform: var(--stack-transform);
+            transform: translate(var(--x), var(--y)) rotate(var(--rotation));
+            transition: transform 1.5s ease-in-out, box-shadow 0.3s ease;
+            pointer-events: none;
         }
         .card:hover {
-            transform: var(--stack-transform) scale(1.05);
+            transform: translate(var(--x), var(--y)) rotate(var(--rotation)) scale(1.05);
             box-shadow: 0 20px 35px rgba(0,0,0,0.3);
         }
-        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); --stack-transform: rotate(-8deg) translate(-20%, -5%); z-index: 5; }
-        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); --stack-transform: rotate(-4deg) translate(-10%, -2%); z-index: 4; }
-        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); --stack-transform: rotate(0deg) translate(0, 0); z-index: 3; }
-        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); --stack-transform: rotate(4deg) translate(10%, 2%); z-index: 2; }
-        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); --stack-transform: rotate(8deg) translate(20%, 5%); z-index: 1; }
+        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); z-index: 5; }
+        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); z-index: 4; }
+        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); z-index: 3; }
+        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); z-index: 2; }
+        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); z-index: 1; }
 
         .card:focus {
             outline: 2px solid #111827;
             outline-offset: 2px;
         }
-
-        .card-stack.spread {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            transition: gap 1s ease-in-out;
+        .card:first-child {
+            pointer-events: auto;
         }
         .card-stack.spread .card {
-            grid-area: auto;
-            transform: none;
-            z-index: auto;
-            transition: transform 1s ease-in-out;
+            pointer-events: auto;
         }
         .card-stack.spread .card:hover {
-            transform: scale(1.05);
+            transform: translate(var(--x), var(--y)) rotate(var(--rotation)) scale(1.05);
         }
 
         @media (max-width: 767px) {
@@ -690,13 +690,15 @@
         }
         @media (hover: none) {
             .card-stack {
+                display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 1.5rem;
+                height: auto !important;
             }
             .card-stack .card {
-                grid-area: auto;
-                transform: none;
-                z-index: auto;
+                position: static;
+                transform: none !important;
+                pointer-events: auto;
             }
             .card-stack .card:hover {
                 transform: scale(1.05);
@@ -1615,12 +1617,59 @@
         const readsSection = document.getElementById('reads-section');
         const cardStack = readsSection ? readsSection.querySelector('.card-stack') : null;
         if (readsSection && cardStack) {
+            const cards = Array.from(cardStack.querySelectorAll('.card'));
+            const gap = 24;
             const prefersTouch = window.matchMedia('(hover: none)').matches;
-            if (prefersTouch) {
+
+            function stackCards() {
+                const height = cards[0].offsetHeight;
+                cardStack.style.height = height + 'px';
+                cards.forEach((card, index) => {
+                    const rot = (Math.random() * 10 - 5).toFixed(2);
+                    card.style.setProperty('--x', '-50%');
+                    card.style.setProperty('--y', '0px');
+                    card.style.setProperty('--rotation', rot + 'deg');
+                    card.style.zIndex = cards.length - index;
+                });
+                cardStack.classList.remove('spread');
+            }
+
+            function spreadCards() {
+                const containerWidth = cardStack.clientWidth;
+                const cardW = cards[0].offsetWidth;
+                const cardH = cards[0].offsetHeight;
+                const perRow = Math.max(1, Math.floor((containerWidth + gap) / (cardW + gap)));
+                const rows = Math.ceil(cards.length / perRow);
+                const height = rows * cardH + (rows - 1) * gap;
+                cardStack.style.height = height + 'px';
+                cards.forEach((card, i) => {
+                    const row = Math.floor(i / perRow);
+                    const col = i % perRow;
+                    const cardsInRow = row === rows - 1 ? cards.length - row * perRow : perRow;
+                    const x = (col - (cardsInRow - 1) / 2) * (cardW + gap);
+                    const y = row * (cardH + gap);
+                    card.style.setProperty('--x', x + 'px');
+                    card.style.setProperty('--y', y + 'px');
+                    card.style.setProperty('--rotation', '0deg');
+                    card.style.zIndex = 0;
+                });
                 cardStack.classList.add('spread');
+            }
+
+            if (prefersTouch) {
+                spreadCards();
+                window.addEventListener('resize', spreadCards);
             } else {
-                readsSection.addEventListener('mouseenter', () => cardStack.classList.add('spread'));
-                readsSection.addEventListener('mouseleave', () => cardStack.classList.remove('spread'));
+                stackCards();
+                readsSection.addEventListener('mouseenter', spreadCards);
+                readsSection.addEventListener('mouseleave', stackCards);
+                window.addEventListener('resize', () => {
+                    if (cardStack.classList.contains('spread')) {
+                        spreadCards();
+                    } else {
+                        stackCards();
+                    }
+                });
             }
         }
         const modal = document.getElementById('cardModal');
