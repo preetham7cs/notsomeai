@@ -2,7 +2,33 @@
   "artefacts": [
     {"name": "Moral Reasoning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Intuition", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
-    {"name": "Imagination", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Imagination", "resources": {"code": [], "videos": [], "articles": [
+      {
+        "title": "Applied imagination",
+        "definition": "A fundamental cognitive ignition system used to model, anticipate, and adapt to reality.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1275942/full"
+      },
+      {
+        "title": "Brain-consistent architecture for imagination",
+        "definition": "The intelligence-driven ability to generate internal mental patterns differing from immediate sensory inputs.",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11368743/"
+      },
+      {
+        "title": "Rethinking Memory and Imagination",
+        "definition": "An active epistemological tool the brain uses to construct reality and fill gaps in conscious experience.",
+        "url": "https://dialnet.unirioja.es/descarga/articulo/10543518.pdf"
+      },
+      {
+        "title": "Imagination: Bridging the Intended, Delivered, and Received Curricula",
+        "definition": "The engaged mental act of seeing beyond immediate barriers to unveil hidden realities.",
+        "url": "https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1066&context=jche"
+      },
+      {
+        "title": "Creative Imagination in School Education During the First Childhood",
+        "definition": "A complex, omnipresent mental function driven by our biological and cultural necessity to adapt.",
+        "url": "https://pepsic.bvsalud.org/scielo.php?pid=S1413-85572025000100204&script=sci_arttext&tlng=en"
+      }
+    ], "discussions": [], "polls": []}},
     {"name": "Wisdom", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Free Will", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Self-Awareness", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
