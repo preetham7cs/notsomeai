@@ -1,6 +1,32 @@
 {
   "artefacts": [
-    {"name": "Moral Reasoning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Moral Reasoning", "resources": {"code": [], "videos": [], "articles": [
+      {
+        "title": "The influence of moral reasoning on adolescent decision-making and stress responses during VR social-moral conflict",
+        "definition": "The cognitive process of evaluating ethical rightness based on principles and outcomes, evolving from self-centered logic to universal principles.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1661490/full"
+      },
+      {
+        "title": "Comparing AI and human moral reasoning: context-sensitive patterns beyond utilitarian bias",
+        "definition": "A highly context-sensitive cognitive process that dynamically alternates between utilitarian and deontological judgments, contrasting with rigid rule-based logic.",
+        "url": "https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1710410/full"
+      },
+      {
+        "title": "Developing inclusive youth: children's moral reasoning predicts inclusive orientations",
+        "definition": "The capacity to evaluate social situations by adhering to prescriptive principles regarding fairness, others' welfare, rights, and justice over group-based biases.",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12331802/"
+      },
+      {
+        "title": "Untested Assumptions and Tenuous Evidence: A Critique of the Dual-Process Account of Moral Judgment",
+        "definition": "An integrated decision-making process that challenges the strict, traditional binary division between slow/rational utilitarian and fast/emotional deontological thinking.",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12838211/"
+      },
+      {
+        "title": "Perceived Stress and Society-Wide Moral Judgment",
+        "definition": "A developmental progression through shifting schemas of thought: from serving personal interests, to maintaining social norms, and finally reaching postconventional ethical thinking.",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12191677/"
+      }
+    ], "discussions": [], "polls": []}},
     {"name": "Intuition", "resources": {"code": [], "videos": [], "articles": [
       {
         "title": "Flow and intuition: a systems neuroscience comparison",
