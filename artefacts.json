@@ -1,7 +1,33 @@
 {
   "artefacts": [
     {"name": "Moral Reasoning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
-    {"name": "Intuition", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Intuition", "resources": {"code": [], "videos": [], "articles": [
+      {
+        "title": "Flow and intuition: a systems neuroscience comparison",
+        "definition": "A rapid, nonconscious decision-making process rooted in automatic information processing.",
+        "url": "https://academic.oup.com/nc/article/2025/1/niae040/7942876"
+      },
+      {
+        "title": "Diagnosing intuition: a phenomenological account of intuitive knowledge",
+        "definition": "A structured, interpretive form of knowledge shaped by perceptual dimensions, rather than an irrational hunch.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1623145/full"
+      },
+      {
+        "title": "Hunches that matter: the role of intuitive concern in medical understanding",
+        "definition": "An indicative experiential function that brings salient information to consciousness to motivate adaptation.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1508138/full"
+      },
+      {
+        "title": "Women's intuition as attunement: a biological and social perspective",
+        "definition": "A relational skill of attunement: the ability to somatically and cognitively resonate with internal states.",
+        "url": "https://www.frontiersin.org/journals/sociology/articles/10.3389/fsoc.2025.1542563/full"
+      },
+      {
+        "title": "Female intuition in economics and conscious leadership",
+        "definition": "A cognitively integrative form of strategic reasoning that bridges somatic awareness and relational intelligence.",
+        "url": "https://www.frontiersin.org/journals/sociology/articles/10.3389/fsoc.2025.1560090/full"
+      }
+    ], "discussions": [], "polls": []}},
     {"name": "Imagination", "resources": {"code": [], "videos": [], "articles": [
       {
         "title": "Applied imagination",
@@ -33,7 +59,33 @@
     {"name": "Free Will", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Self-Awareness", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Spiritual Experience", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
-    {"name": "Sense of Humor", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Sense of Humor", "resources": {"code": [], "videos": [], "articles": [
+      {
+        "title": "\"Keep joking\": appreciation and production of humor in aging",
+        "definition": "A high-level cognitive and social phenomenon based on incongruity-resolution that allows individuals to bond and cope with their environment.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2026.1754264/full"
+      },
+      {
+        "title": "A qualitative study investigating the role of humor in supporting recovery from addiction",
+        "definition": "A biopsychosocial mechanism using benign violations: breaking an expectation or norm safely to relieve psychophysiological tension.",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12977182/"
+      },
+      {
+        "title": "On the Use of Humor to Stimulate Christian Pedagogy",
+        "definition": "An essential social adhesive and mechanism for emotional regulation that establishes psychological sync and interpersonal connection.",
+        "url": "https://www.tandfonline.com/doi/full/10.1080/15363759.2026.2645412"
+      },
+      {
+        "title": "The Thin Line Between Harmful and Benign: Perceptions of Humorous and Non-Humorous Hate Speech",
+        "definition": "A powerful framing device and communicative tool that can dynamically repackage or disguise norm-violating social content.",
+        "url": "https://www.tandfonline.com/doi/full/10.1080/15213269.2025.2580291"
+      },
+      {
+        "title": "The Role of Humor in Coping with Adversity",
+        "definition": "An affective expression, cognitive appraisal, and adaptive coping strategy that defuses tension and fosters emotional resilience.",
+        "url": "https://www.researchgate.net/publication/390057510_The_Role_of_Humor_in_Coping_with_Adversity"
+      }
+    ], "discussions": [], "polls": []}},
     {"name": "Abstract Existential Reflection", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Embodied Learning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Love", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
