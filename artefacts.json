@@ -112,7 +112,33 @@
         "url": "https://www.researchgate.net/publication/390057510_The_Role_of_Humor_in_Coping_with_Adversity"
       }
     ], "discussions": [], "polls": []}},
-    {"name": "Abstract Existential Reflection", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
+    {"name": "Abstract Existential Reflection", "resources": {"code": [], "videos": [], "articles": [
+      {
+        "title": "Existential thinking and religious/spiritual struggles in patients with major depressive disorder",
+        "definition": "A cognitive process focused on fundamental questions about meaning, purpose, and mortality that provides a pathway to psychological healing, insight, and formulating new values.",
+        "url": "https://www.researchgate.net/publication/398016282_Existential_thinking_and_religiousspiritual_struggles_in_patients_with_major_depressive_disorder_receiving_cognitive-behavioral_therapy"
+      },
+      {
+        "title": "Well-being support in the Finnish university community: staff reflections on emerging existential dimensions",
+        "definition": "A dynamic process of engaging with profound doubt, crises of identity, and worldview conflicts to actively reconstruct life's purpose and foster a deeper connectedness to the world.",
+        "url": "https://www.tandfonline.com/doi/full/10.1080/17482631.2025.2611272"
+      },
+      {
+        "title": "Meaning in a Purposeless Cosmos: An Interdisciplinary Integrative Review",
+        "definition": "The ongoing reflective self-awareness and conscious ethical deliberation required to actively construct and integrate subjective meaning in a universe lacking inherent purpose.",
+        "url": "https://openpsychologyjournal.com/VOLUME/18/ELOCATOR/e18743501418015/FULLTEXT/"
+      },
+      {
+        "title": "Meaning in life and influencing factors among Chinese nurses: a multi-center cross-sectional study",
+        "definition": "The core cognitive mechanism through which individuals interpret their personal values, beliefs, and lived experiences to generate and sustain a coherent sense of meaning in life.",
+        "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1662466/full"
+      },
+      {
+        "title": "Contemplating Existence: AI and the Meaning of Life",
+        "definition": "A deeply subjective, self-aware capacity rooted in emotional introspection that allows individuals to confront existential givens like mortality, isolation, and freedom to achieve authenticity.",
+        "url": "https://digitalcommons.lindenwood.edu/cgi/viewcontent.cgi?article=1680&context=faculty-research-papers"
+      }
+    ], "discussions": [], "polls": []}},
     {"name": "Embodied Learning", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Love", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Compassion", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
