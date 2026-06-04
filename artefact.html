@@ -66,9 +66,92 @@
             align-items: center;
             font-size: 1.1rem;
         }
+        .resource-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
         .resource.large {
             grid-row: span 2;
             grid-column: span 2;
+        }
+        .resource.articles {
+            align-items: stretch;
+            justify-content: flex-start;
+            gap: 1rem;
+            overflow: hidden;
+        }
+        .articles-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .article-count {
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 999px;
+            color: rgba(255,255,255,0.72);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.55rem;
+            white-space: nowrap;
+        }
+        .featured-article,
+        .article-link {
+            color: inherit;
+            text-decoration: none;
+        }
+        .featured-article {
+            background: linear-gradient(145deg, rgba(77, 208, 225, 0.16), rgba(255, 193, 7, 0.08));
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 8px;
+            display: block;
+            padding: 1rem;
+        }
+        .article-label {
+            color: #79dce8;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.55rem;
+            text-transform: uppercase;
+        }
+        .article-title {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+        .featured-article .article-title {
+            font-size: 1.22rem;
+        }
+        .article-definition {
+            color: rgba(255,255,255,0.72);
+            font-size: 0.84rem;
+            line-height: 1.45;
+            margin-top: 0.55rem;
+        }
+        .article-list {
+            display: grid;
+            gap: 0.55rem;
+        }
+        .article-link {
+            border: 1px solid rgba(255,255,255,0.11);
+            border-radius: 8px;
+            display: grid;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .article-link:hover,
+        .article-link:focus {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(121,220,232,0.45);
+            outline: none;
+        }
+        .article-link .article-title {
+            font-size: 0.92rem;
+        }
+        .article-link .article-definition {
+            font-size: 0.78rem;
+            margin-top: 0;
         }
         h1 {
             font-weight: 300;
@@ -95,6 +178,12 @@
             .container {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 grid-auto-rows: 150px;
+            }
+
+            .resource.articles {
+                grid-column: 1 / -1;
+                grid-row: span 4;
+                overflow: visible;
             }
         }
     </style>
@@ -130,15 +219,73 @@
                 { key: 'discussions', label: 'User Discussions' },
                 { key: 'polls', label: 'Interactive Polls' }
             ];
-            resources.sort(() => Math.random() - 0.5);
             resources.forEach((r, idx) => {
                 const block = document.createElement('div');
-                block.className = 'resource' + (idx % 2 === 0 ? ' large' : '');
+                const items = artefact.resources?.[r.key] || [];
+                block.className = 'resource' + (idx % 2 === 0 ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '');
                 const title = document.createElement('div');
+                title.className = 'resource-title';
                 title.textContent = r.label;
+
+                if (r.key === 'articles' && items.length) {
+                    const header = document.createElement('div');
+                    header.className = 'articles-header';
+
+                    const count = document.createElement('span');
+                    count.className = 'article-count';
+                    count.textContent = `${items.length} reads`;
+
+                    header.append(title, count);
+                    block.appendChild(header);
+                    block.appendChild(createFeaturedArticle(items[0]));
+
+                    const list = document.createElement('div');
+                    list.className = 'article-list';
+                    items.slice(1).forEach(article => list.appendChild(createArticleLink(article)));
+                    block.appendChild(list);
+                    grid.appendChild(block);
+                    return;
+                }
+
                 block.appendChild(title);
                 grid.appendChild(block);
             });
+        }
+
+        function createFeaturedArticle(article) {
+            const link = createArticleBase(article);
+            link.className = 'featured-article';
+
+            const label = document.createElement('div');
+            label.className = 'article-label';
+            label.textContent = 'Featured article';
+
+            link.prepend(label);
+            return link;
+        }
+
+        function createArticleLink(article) {
+            const link = createArticleBase(article);
+            link.className = 'article-link';
+            return link;
+        }
+
+        function createArticleBase(article) {
+            const link = document.createElement('a');
+            link.href = article.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+
+            const title = document.createElement('div');
+            title.className = 'article-title';
+            title.textContent = article.title;
+
+            const definition = document.createElement('p');
+            definition.className = 'article-definition';
+            definition.textContent = article.definition;
+
+            link.append(title, definition);
+            return link;
         }
         loadArtefact();
     </script>
