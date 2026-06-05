@@ -75,6 +75,7 @@
             grid-column: span 2;
         }
         .resource.articles,
+        .resource.code,
         .resource.videos,
         .resource.polls {
             align-items: stretch;
@@ -85,14 +86,20 @@
         }
         .resource.videos {
             grid-row: span 2;
-            grid-column: span 2;
+            grid-column: span 3;
         }
         .resource.polls {
             grid-row: span 2;
             grid-column: span 4;
-            gap: 1.15rem;
+            gap: 1.35rem;
+            padding: 2rem;
+        }
+        .resource.code {
+            grid-row: span 2;
+            grid-column: span 2;
         }
         .articles-header,
+        .code-header,
         .videos-header,
         .polls-header {
             display: flex;
@@ -101,6 +108,7 @@
             gap: 1rem;
         }
         .article-count,
+        .code-count,
         .video-count,
         .poll-count {
             border: 1px solid rgba(255,255,255,0.16);
@@ -181,7 +189,8 @@
         .video-list {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.8rem;
+            gap: 1rem;
+            flex: 1;
             min-height: 0;
         }
         .video-card {
@@ -208,6 +217,8 @@
             background-size: cover;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: grid;
+            flex: 1;
+            min-height: 0;
             place-items: center;
             position: relative;
         }
@@ -240,7 +251,7 @@
         .video-info {
             display: grid;
             gap: 0.55rem;
-            padding: 0.85rem;
+            padding: 1rem;
         }
         .video-title {
             font-size: 0.94rem;
@@ -260,15 +271,23 @@
             line-height: 1.35;
             max-width: 56rem;
         }
+        .poll-wrapper {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: 1.35rem;
+            min-height: 0;
+        }
         .poll-body {
             display: grid;
-            grid-template-columns: minmax(180px, 0.8fr) minmax(260px, 1.2fr);
-            gap: 1rem;
+            grid-template-columns: minmax(220px, 0.8fr) minmax(320px, 1.2fr);
+            gap: 1.4rem;
+            flex: 1;
             min-height: 0;
         }
         .poll-actions {
             display: grid;
-            gap: 0.75rem;
+            gap: 0.95rem;
             align-content: start;
         }
         .poll-option {
@@ -280,7 +299,7 @@
             display: grid;
             gap: 0.35rem;
             font: inherit;
-            padding: 0.9rem;
+            padding: 1rem;
             text-align: left;
             transition: background 0.2s ease, border-color 0.2s ease;
         }
@@ -331,9 +350,9 @@
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 8px;
             display: grid;
-            gap: 0.8rem;
+            gap: 1rem;
             min-height: 0;
-            padding: 1rem;
+            padding: 1.15rem;
         }
         .poll-total {
             color: rgba(255,255,255,0.66);
@@ -373,6 +392,50 @@
             min-height: 160px;
             width: 100%;
         }
+        .code-editor {
+            background: #080b10;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 8px;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .code-editor-bar {
+            align-items: center;
+            background: rgba(255,255,255,0.055);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.58);
+            display: flex;
+            font-size: 0.74rem;
+            gap: 0.45rem;
+            padding: 0.55rem 0.75rem;
+        }
+        .code-dot {
+            border-radius: 999px;
+            height: 0.58rem;
+            width: 0.58rem;
+        }
+        .code-dot.red { background: #ff5f57; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #28c840; }
+        .code-file {
+            margin-left: 0.35rem;
+        }
+        .code-body {
+            color: #d8e2f0;
+            flex: 1;
+            font: 0.86rem/1.55 Consolas, Monaco, 'Courier New', monospace;
+            margin: 0;
+            overflow: auto;
+            padding: 1rem;
+            white-space: pre;
+        }
+        .code-keyword { color: #79dce8; }
+        .code-name { color: #ffc247; }
+        .code-param { color: #b9f18d; }
+        .code-ellipsis { color: rgba(255,255,255,0.48); }
         .poll-chart text {
             fill: rgba(255,255,255,0.62);
             font-size: 10px;
@@ -423,6 +486,7 @@
             }
 
             .resource.articles,
+            .resource.code,
             .resource.videos,
             .resource.polls {
                 grid-column: 1 / -1;
@@ -478,8 +542,8 @@
                 { key: 'polls', label: 'Interactive Polls' },
                 { key: 'videos', label: 'Videos' },
                 { key: 'articles', label: 'Articles' },
-                { key: 'discussions', label: 'User Discussions' },
-                { key: 'code', label: 'Code Examples' }
+                { key: 'code', label: 'Code Examples' },
+                { key: 'discussions', label: 'User Discussions' }
             ];
             const hasPopulatedResources = resources.some(({ key }) => (artefact.resources?.[key] || []).length > 0);
             const constructionNote = document.getElementById('construction-note');
@@ -489,8 +553,8 @@
             resources.forEach((r, idx) => {
                 const block = document.createElement('div');
                 const items = artefact.resources?.[r.key] || [];
-                const isLargePlaceholder = r.key !== 'code' && idx % 2 === 0;
-                block.className = 'resource' + (isLargePlaceholder ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'videos' && items.length ? ' videos' : '') + (r.key === 'polls' && poll ? ' polls' : '');
+                const isLargePlaceholder = !['code', 'videos', 'polls'].includes(r.key) && idx % 2 === 0;
+                block.className = 'resource' + (isLargePlaceholder ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'code' && items.length ? ' code' : '') + (r.key === 'videos' && items.length ? ' videos' : '') + (r.key === 'polls' && poll ? ' polls' : '');
                 const title = document.createElement('div');
                 title.className = 'resource-title';
                 title.textContent = r.label;
@@ -535,6 +599,21 @@
                     list.className = 'article-list';
                     items.forEach(article => list.appendChild(createArticleLink(article)));
                     block.appendChild(list);
+                    grid.appendChild(block);
+                    return;
+                }
+
+                if (r.key === 'code' && items.length) {
+                    const header = document.createElement('div');
+                    header.className = 'code-header';
+
+                    const count = document.createElement('span');
+                    count.className = 'code-count';
+                    count.textContent = `${items.length} example${items.length === 1 ? '' : 's'}`;
+
+                    header.append(title, count);
+                    block.appendChild(header);
+                    block.appendChild(createCodeEditor(items[0]));
                     grid.appendChild(block);
                     return;
                 }
@@ -777,6 +856,46 @@
             const link = createArticleBase(article);
             link.className = 'article-link';
             return link;
+        }
+
+        function createCodeEditor(example) {
+            const editor = document.createElement('div');
+            editor.className = 'code-editor';
+
+            const bar = document.createElement('div');
+            bar.className = 'code-editor-bar';
+            ['red', 'yellow', 'green'].forEach(color => {
+                const dot = document.createElement('span');
+                dot.className = `code-dot ${color}`;
+                bar.appendChild(dot);
+            });
+            const filename = document.createElement('span');
+            filename.className = 'code-file';
+            filename.textContent = example.filename || 'example.py';
+            bar.appendChild(filename);
+
+            const body = document.createElement('pre');
+            body.className = 'code-body';
+            body.innerHTML = highlightPythonSignature(example.code);
+
+            editor.append(bar, body);
+            return editor;
+        }
+
+        function highlightPythonSignature(code) {
+            const escaped = code
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            return escaped
+                .replace(/^def\\s+([a-zA-Z_][\\w]*)\\(([^)]*)\\):/m, (_, name, params) => {
+                    const highlightedParams = params
+                        .split(',')
+                        .map(param => `<span class="code-param">${param.trim()}</span>`)
+                        .join(', ');
+                    return `<span class="code-keyword">def</span> <span class="code-name">${name}</span>(${highlightedParams}):`;
+                })
+                .replace(/\\.\\.\\.\\.\\.\\./g, '<span class="code-ellipsis">......</span>');
         }
 
         function createArticleBase(article) {

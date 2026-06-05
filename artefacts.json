@@ -1,6 +1,11 @@
 {
   "artefacts": [
-    {"name": "Moral Reasoning", "resources": {"code": [], "videos": [
+    {"name": "Moral Reasoning", "resources": {"code": [
+      {
+        "filename": "moral_reasoning.py",
+        "code": "def reason_morally(action, values, consequences):\n    ......\n    ......\n    ......"
+      }
+    ], "videos": [
       {
         "title": "Kohlberg's Stages of Moral Development (Explained in 5 Mins) (2024)",
         "url": "https://www.youtube.com/watch?v=74gBlWT8xKw"
@@ -36,7 +41,12 @@
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12191677/"
       }
     ], "discussions": [], "polls": []}},
-    {"name": "Intuition", "resources": {"code": [], "videos": [
+    {"name": "Intuition", "resources": {"code": [
+      {
+        "filename": "intuition.py",
+        "code": "def intuit(signal, experience, context):\n    ......\n    ......\n    ......"
+      }
+    ], "videos": [
       {
         "title": "The Science of Intuition: How to Measure 'Gut Feelings' (2023)",
         "url": "https://www.youtube.com/watch?v=H_WYbvkWOa8"
@@ -72,7 +82,12 @@
         "url": "https://www.frontiersin.org/journals/sociology/articles/10.3389/fsoc.2025.1560090/full"
       }
     ], "discussions": [], "polls": []}},
-    {"name": "Imagination", "resources": {"code": [], "videos": [
+    {"name": "Imagination", "resources": {"code": [
+      {
+        "filename": "imagination.py",
+        "code": "def imagine(thoughts, memory, the_unknown):\n    ......\n    ......\n    ......"
+      }
+    ], "videos": [
       {
         "title": "Active Imagination: Confrontation with the Unconscious (2022)",
         "url": "https://www.youtube.com/watch?v=rRVlWEwmbfQ"
@@ -112,7 +127,12 @@
     {"name": "Free Will", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Self-Awareness", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
     {"name": "Spiritual Experience", "resources": {"code": [], "videos": [], "articles": [], "discussions": [], "polls": []}},
-    {"name": "Sense of Humor", "resources": {"code": [], "videos": [
+    {"name": "Sense of Humor", "resources": {"code": [
+      {
+        "filename": "humor.py",
+        "code": "def find_humor(setup, incongruity, audience):\n    ......\n    ......\n    ......"
+      }
+    ], "videos": [
       {
         "title": "The Psychology of Humor: Why Are Things Funny? (2023)",
         "url": "https://www.youtube.com/watch?v=SmL1sNnEKXc"
@@ -148,7 +168,12 @@
         "url": "https://www.researchgate.net/publication/390057510_The_Role_of_Humor_in_Coping_with_Adversity"
       }
     ], "discussions": [], "polls": []}},
-    {"name": "Abstract Existential Reflection", "resources": {"code": [], "videos": [
+    {"name": "Abstract Existential Reflection", "resources": {"code": [
+      {
+        "filename": "existential_reflection.py",
+        "code": "def reflect_existentially(selfhood, mortality, meaning):\n    ......\n    ......\n    ......"
+      }
+    ], "videos": [
       {
         "title": "The PHILOSOPHER Who Solved The MEANING of LIFE? (2024)",
         "url": "https://www.youtube.com/watch?v=K_rBOGP37Mg"
