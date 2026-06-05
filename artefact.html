@@ -75,7 +75,8 @@
             grid-column: span 2;
         }
         .resource.articles,
-        .resource.videos {
+        .resource.videos,
+        .resource.polls {
             align-items: stretch;
             justify-content: flex-start;
             gap: 1rem;
@@ -86,15 +87,22 @@
             grid-row: span 2;
             grid-column: span 2;
         }
+        .resource.polls {
+            grid-row: span 3;
+            grid-column: span 3;
+            gap: 1.15rem;
+        }
         .articles-header,
-        .videos-header {
+        .videos-header,
+        .polls-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
         }
         .article-count,
-        .video-count {
+        .video-count,
+        .poll-count {
             border: 1px solid rgba(255,255,255,0.16);
             border-radius: 999px;
             color: rgba(255,255,255,0.72);
@@ -246,6 +254,147 @@
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
+        .poll-question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.35;
+            max-width: 56rem;
+        }
+        .poll-body {
+            display: grid;
+            grid-template-columns: minmax(180px, 0.8fr) minmax(260px, 1.2fr);
+            gap: 1rem;
+            min-height: 0;
+        }
+        .poll-actions {
+            display: grid;
+            gap: 0.75rem;
+            align-content: start;
+        }
+        .poll-option {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 8px;
+            color: inherit;
+            cursor: pointer;
+            display: grid;
+            gap: 0.35rem;
+            font: inherit;
+            padding: 0.9rem;
+            text-align: left;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .poll-option:hover,
+        .poll-option:focus,
+        .poll-option.selected {
+            background: linear-gradient(145deg, rgba(77,208,225,0.15), rgba(255,193,7,0.08));
+            border-color: rgba(121,220,232,0.5);
+            outline: none;
+        }
+        .poll-option strong {
+            font-size: 1.35rem;
+        }
+        .poll-option span {
+            color: rgba(255,255,255,0.66);
+            font-size: 0.78rem;
+        }
+        .poll-submit {
+            background: #79dce8;
+            border: 0;
+            border-radius: 8px;
+            color: #001014;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+            padding: 0.8rem 1rem;
+        }
+        .poll-note {
+            background: rgba(0,0,0,0.22);
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 8px;
+            color: #fff;
+            font: inherit;
+            min-height: 5.2rem;
+            padding: 0.75rem;
+            resize: vertical;
+            width: 100%;
+        }
+        .poll-note::placeholder {
+            color: rgba(255,255,255,0.42);
+        }
+        .poll-status {
+            color: rgba(255,255,255,0.66);
+            font-size: 0.8rem;
+            min-height: 1rem;
+        }
+        .poll-visual {
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            display: grid;
+            gap: 0.8rem;
+            min-height: 0;
+            padding: 1rem;
+        }
+        .poll-total {
+            color: rgba(255,255,255,0.66);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+        }
+        .poll-bars {
+            display: grid;
+            gap: 0.55rem;
+        }
+        .poll-bar-row {
+            display: grid;
+            gap: 0.25rem;
+        }
+        .poll-bar-meta {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,0.78);
+            font-size: 0.82rem;
+        }
+        .poll-bar-track {
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
+            height: 0.55rem;
+            overflow: hidden;
+        }
+        .poll-bar-fill {
+            background: #79dce8;
+            border-radius: inherit;
+            height: 100%;
+            min-width: 2px;
+        }
+        .poll-bar-fill.no {
+            background: #ffc247;
+        }
+        .poll-chart {
+            min-height: 160px;
+            width: 100%;
+        }
+        .poll-chart text {
+            fill: rgba(255,255,255,0.62);
+            font-size: 10px;
+        }
+        .poll-chart .grid-line {
+            stroke: rgba(255,255,255,0.1);
+            stroke-width: 1;
+        }
+        .poll-chart .yes-line {
+            fill: none;
+            stroke: #79dce8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 3;
+        }
+        .poll-chart .no-line {
+            fill: none;
+            stroke: #ffc247;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 3;
+        }
         h1 {
             font-weight: 300;
             margin-bottom: 2rem;
@@ -258,7 +407,7 @@
             margin-top: 0.5rem;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 760px) {
             .topbar {
                 flex-direction: column;
             }
@@ -274,12 +423,18 @@
             }
 
             .resource.articles,
-            .resource.videos {
+            .resource.videos,
+            .resource.polls {
                 grid-column: 1 / -1;
                 grid-row: span 4;
             }
 
-            .video-list {
+            .resource.polls {
+                grid-row: span 6;
+            }
+
+            .video-list,
+            .poll-body {
                 grid-template-columns: 1fr;
                 overflow-y: auto;
                 padding-right: 0.35rem;
@@ -309,6 +464,14 @@
                 document.getElementById('artefact-name').textContent = 'Artefact not found';
                 return;
             }
+            let poll = null;
+            try {
+                const pollRes = await fetch('polls.json');
+                const pollData = await pollRes.json();
+                poll = pollData.polls.find(p => p.artefact.toLowerCase() === artefact.name.toLowerCase());
+            } catch (error) {
+                poll = null;
+            }
             document.getElementById('artefact-name').textContent = artefact.name;
             const grid = document.getElementById('resource-grid');
             const resources = [
@@ -321,10 +484,16 @@
             resources.forEach((r, idx) => {
                 const block = document.createElement('div');
                 const items = artefact.resources?.[r.key] || [];
-                block.className = 'resource' + (idx % 2 === 0 ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'videos' && items.length ? ' videos' : '');
+                block.className = 'resource' + (idx % 2 === 0 ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'videos' && items.length ? ' videos' : '') + (r.key === 'polls' && poll ? ' polls' : '');
                 const title = document.createElement('div');
                 title.className = 'resource-title';
                 title.textContent = r.label;
+
+                if (r.key === 'polls' && poll) {
+                    block.appendChild(createPollBlock(title, poll));
+                    grid.appendChild(block);
+                    return;
+                }
 
                 if (r.key === 'videos' && items.length) {
                     const header = document.createElement('div');
@@ -367,6 +536,189 @@
                 block.appendChild(title);
                 grid.appendChild(block);
             });
+        }
+
+        function createPollBlock(title, poll) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'poll-wrapper';
+
+            const header = document.createElement('div');
+            header.className = 'polls-header';
+            const count = document.createElement('span');
+            count.className = 'poll-count';
+            count.textContent = '1 poll';
+            header.append(title, count);
+
+            const question = document.createElement('div');
+            question.className = 'poll-question';
+            question.textContent = poll.question;
+
+            const body = document.createElement('div');
+            body.className = 'poll-body';
+
+            const actions = document.createElement('div');
+            actions.className = 'poll-actions';
+
+            const state = getPollState(poll);
+            const yesButton = createPollOption('Yes', 'Likely', state.choice === 'yes');
+            const noButton = createPollOption('No', 'Unlikely', state.choice === 'no');
+            let selected = state.choice;
+
+            yesButton.addEventListener('click', () => {
+                selected = 'yes';
+                yesButton.classList.add('selected');
+                noButton.classList.remove('selected');
+            });
+            noButton.addEventListener('click', () => {
+                selected = 'no';
+                noButton.classList.add('selected');
+                yesButton.classList.remove('selected');
+            });
+
+            const note = document.createElement('textarea');
+            note.className = 'poll-note';
+            note.placeholder = 'Add a short note, if needed';
+            note.value = state.note || '';
+
+            const submit = document.createElement('button');
+            submit.className = 'poll-submit';
+            submit.type = 'button';
+            submit.textContent = state.choice ? 'Update local vote' : 'Submit vote';
+
+            const status = document.createElement('div');
+            status.className = 'poll-status';
+            status.textContent = state.choice ? 'Your vote is saved in this browser.' : '';
+
+            const visual = document.createElement('div');
+            visual.className = 'poll-visual';
+            renderPollVisual(visual, poll, state);
+
+            submit.addEventListener('click', () => {
+                if (!selected) {
+                    status.textContent = 'Choose Yes or No before submitting.';
+                    return;
+                }
+                const nextState = { choice: selected, note: note.value.trim() };
+                localStorage.setItem(`poll:${poll.id}`, JSON.stringify(nextState));
+                status.textContent = 'Saved in this browser. Global GitHub-backed counts need a backend endpoint.';
+                renderPollVisual(visual, poll, nextState);
+                submit.textContent = 'Update local vote';
+            });
+
+            actions.append(yesButton, noButton, note, submit, status);
+            body.append(actions, visual);
+            wrapper.append(header, question, body);
+            return wrapper;
+        }
+
+        function createPollOption(label, hint, selected) {
+            const button = document.createElement('button');
+            button.className = 'poll-option' + (selected ? ' selected' : '');
+            button.type = 'button';
+            const strong = document.createElement('strong');
+            strong.textContent = label;
+            const span = document.createElement('span');
+            span.textContent = hint;
+            button.append(strong, span);
+            return button;
+        }
+
+        function getPollState(poll) {
+            try {
+                return JSON.parse(localStorage.getItem(`poll:${poll.id}`)) || {};
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function getPollCounts(poll, state) {
+            const counts = { yes: poll.votes?.yes || 0, no: poll.votes?.no || 0 };
+            if (state.choice === 'yes') counts.yes += 1;
+            if (state.choice === 'no') counts.no += 1;
+            return counts;
+        }
+
+        function renderPollVisual(container, poll, state) {
+            container.innerHTML = '';
+            const counts = getPollCounts(poll, state);
+            const total = counts.yes + counts.no;
+            const yesPct = total ? Math.round((counts.yes / total) * 100) : 50;
+            const noPct = total ? 100 - yesPct : 50;
+
+            const totalEl = document.createElement('div');
+            totalEl.className = 'poll-total';
+            totalEl.textContent = total ? `Current vote: ${total} response${total === 1 ? '' : 's'}` : 'Current vote: no responses yet';
+
+            const bars = document.createElement('div');
+            bars.className = 'poll-bars';
+            bars.append(createPollBar('Yes', yesPct, false), createPollBar('No', noPct, true));
+
+            const chart = createPollChart(poll, yesPct, noPct);
+            container.append(totalEl, bars, chart);
+        }
+
+        function createPollBar(label, pct, isNo) {
+            const row = document.createElement('div');
+            row.className = 'poll-bar-row';
+            const meta = document.createElement('div');
+            meta.className = 'poll-bar-meta';
+            meta.innerHTML = `<span>${label}</span><span>${pct}%</span>`;
+            const track = document.createElement('div');
+            track.className = 'poll-bar-track';
+            const fill = document.createElement('div');
+            fill.className = 'poll-bar-fill' + (isNo ? ' no' : '');
+            fill.style.width = `${pct}%`;
+            track.appendChild(fill);
+            row.append(meta, track);
+            return row;
+        }
+
+        function createPollChart(poll, yesPct, noPct) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'poll-chart');
+            svg.setAttribute('viewBox', '0 0 420 180');
+            svg.setAttribute('role', 'img');
+            svg.setAttribute('aria-label', 'Vote trend graph');
+            [30, 70, 110, 150].forEach(y => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('class', 'grid-line');
+                line.setAttribute('x1', '24');
+                line.setAttribute('x2', '398');
+                line.setAttribute('y1', y);
+                line.setAttribute('y2', y);
+                svg.appendChild(line);
+            });
+            const history = poll.history?.length ? poll.history : [
+                { yes: 50, no: 50 },
+                { yes: 50, no: 50 },
+                { yes: yesPct, no: noPct }
+            ];
+            svg.append(createTrendPath(history.map(p => p.yes), 'yes-line'));
+            svg.append(createTrendPath(history.map(p => p.no), 'no-line'));
+            const yesLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            yesLabel.setAttribute('x', '24');
+            yesLabel.setAttribute('y', '174');
+            yesLabel.textContent = 'Yes trend';
+            const noLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            noLabel.setAttribute('x', '328');
+            noLabel.setAttribute('y', '174');
+            noLabel.textContent = 'No trend';
+            svg.append(yesLabel, noLabel);
+            return svg;
+        }
+
+        function createTrendPath(values, className) {
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            const width = 374;
+            const step = values.length > 1 ? width / (values.length - 1) : width;
+            const d = values.map((value, index) => {
+                const x = 24 + index * step;
+                const y = 150 - (Math.max(0, Math.min(100, value)) / 100) * 120;
+                return `${index === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+            }).join(' ');
+            path.setAttribute('class', className);
+            path.setAttribute('d', d);
+            return path;
         }
 
         function createVideoCard(video) {
