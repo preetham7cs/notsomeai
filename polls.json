@@ -1,0 +1,49 @@
+{
+  "polls": [
+    {
+      "id": "imagination-latent-space-framework",
+      "artefact": "Imagination",
+      "question": "Will we ever develop a comprehensive mathematical framework capable of mapping the latent spaces of human imagination?",
+      "options": ["Yes", "No"],
+      "votes": {"yes": 0, "no": 0},
+      "history": [],
+      "comments": []
+    },
+    {
+      "id": "intuition-learned-experience",
+      "artefact": "Intuition",
+      "question": "Is human intuition fundamentally a learned accumulation of acquired experiences rather than a uniquely innate, inborn trait?",
+      "options": ["Yes", "No"],
+      "votes": {"yes": 0, "no": 0},
+      "history": [],
+      "comments": []
+    },
+    {
+      "id": "humor-relatability-subjectivity",
+      "artefact": "Sense of Humor",
+      "question": "Is the extreme subjectivity of humor, where a joke is hilarious to one person but completely flat to another, determined entirely by individual relatability?",
+      "options": ["Yes", "No"],
+      "votes": {"yes": 0, "no": 0},
+      "history": [],
+      "comments": []
+    },
+    {
+      "id": "moral-frameworks-drive-behavior",
+      "artefact": "Moral Reasoning",
+      "question": "Do our established moral frameworks actively dictate our human behavior, rather than our human behavior dictating the morals we choose to adopt?",
+      "options": ["Yes", "No"],
+      "votes": {"yes": 0, "no": 0},
+      "history": [],
+      "comments": []
+    },
+    {
+      "id": "existential-meaning-evolutionary-byproduct",
+      "artefact": "Abstract Existential Reflection",
+      "question": "Is the human drive to construct subjective meaning through existential reflection strictly an evolutionary byproduct?",
+      "options": ["Yes", "No"],
+      "votes": {"yes": 0, "no": 0},
+      "history": [],
+      "comments": []
+    }
+  ]
+}
