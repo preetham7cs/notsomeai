@@ -678,16 +678,44 @@
             visual.className = 'poll-visual';
             renderPollVisual(visual, poll, state);
 
-            submit.addEventListener('click', () => {
+            submit.addEventListener('click', async () => {
                 if (!selected) {
                     status.textContent = 'Choose Yes or No before submitting.';
                     return;
                 }
-                const nextState = { choice: selected, note: note.value.trim() };
-                localStorage.setItem(`poll:${poll.id}`, JSON.stringify(nextState));
-                status.textContent = 'Saved in this browser. Global GitHub-backed counts need a backend endpoint.';
-                renderPollVisual(visual, poll, nextState);
-                submit.textContent = 'Update local vote';
+                submit.disabled = true;
+                status.textContent = 'Saving vote...';
+                const previousChoice = state.synced ? state.choice : null;
+                const nextState = { choice: selected, note: note.value.trim(), synced: true };
+
+                try {
+                    const response = await fetch(`/api/polls/${encodeURIComponent(poll.id)}/vote`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            choice: selected,
+                            previous_choice: previousChoice,
+                            note: note.value.trim()
+                        })
+                    });
+                    if (!response.ok) throw new Error('Vote endpoint unavailable');
+                    const result = await response.json();
+                    Object.assign(poll, result.poll);
+                    Object.assign(state, nextState);
+                    localStorage.setItem(`poll:${poll.id}`, JSON.stringify(nextState));
+                    status.textContent = 'Saved to polls.json.';
+                    renderPollVisual(visual, poll, nextState);
+                    submit.textContent = 'Update vote';
+                } catch (error) {
+                    const fallbackState = { choice: selected, note: note.value.trim(), synced: false };
+                    Object.assign(state, fallbackState);
+                    localStorage.setItem(`poll:${poll.id}`, JSON.stringify(fallbackState));
+                    status.textContent = 'Saved in this browser. Start the FastAPI server to update polls.json.';
+                    renderPollVisual(visual, poll, fallbackState);
+                    submit.textContent = 'Update local vote';
+                } finally {
+                    submit.disabled = false;
+                }
             });
 
             actions.append(yesButton, noButton, note, submit, status);
@@ -718,8 +746,8 @@
 
         function getPollCounts(poll, state) {
             const counts = { yes: poll.votes?.yes || 0, no: poll.votes?.no || 0 };
-            if (state.choice === 'yes') counts.yes += 1;
-            if (state.choice === 'no') counts.no += 1;
+            if (!state.synced && state.choice === 'yes') counts.yes += 1;
+            if (!state.synced && state.choice === 'no') counts.no += 1;
             return counts;
         }
 
