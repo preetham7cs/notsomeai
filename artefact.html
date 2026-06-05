@@ -88,8 +88,8 @@
             grid-column: span 2;
         }
         .resource.polls {
-            grid-row: span 3;
-            grid-column: span 3;
+            grid-row: span 2;
+            grid-column: span 4;
             gap: 1.15rem;
         }
         .articles-header,
@@ -475,11 +475,11 @@
             document.getElementById('artefact-name').textContent = artefact.name;
             const grid = document.getElementById('resource-grid');
             const resources = [
-                { key: 'code', label: 'Code Examples' },
+                { key: 'polls', label: 'Interactive Polls' },
                 { key: 'videos', label: 'Videos' },
                 { key: 'articles', label: 'Articles' },
                 { key: 'discussions', label: 'User Discussions' },
-                { key: 'polls', label: 'Interactive Polls' }
+                { key: 'code', label: 'Code Examples' }
             ];
             const hasPopulatedResources = resources.some(({ key }) => (artefact.resources?.[key] || []).length > 0);
             const constructionNote = document.getElementById('construction-note');
@@ -489,7 +489,8 @@
             resources.forEach((r, idx) => {
                 const block = document.createElement('div');
                 const items = artefact.resources?.[r.key] || [];
-                block.className = 'resource' + (idx % 2 === 0 ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'videos' && items.length ? ' videos' : '') + (r.key === 'polls' && poll ? ' polls' : '');
+                const isLargePlaceholder = r.key !== 'code' && idx % 2 === 0;
+                block.className = 'resource' + (isLargePlaceholder ? ' large' : '') + (r.key === 'articles' && items.length ? ' articles' : '') + (r.key === 'videos' && items.length ? ' videos' : '') + (r.key === 'polls' && poll ? ' polls' : '');
                 const title = document.createElement('div');
                 title.className = 'resource-title';
                 title.textContent = r.label;
