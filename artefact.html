@@ -481,6 +481,11 @@
                 { key: 'discussions', label: 'User Discussions' },
                 { key: 'polls', label: 'Interactive Polls' }
             ];
+            const hasPopulatedResources = resources.some(({ key }) => (artefact.resources?.[key] || []).length > 0);
+            const constructionNote = document.getElementById('construction-note');
+            if (constructionNote && (hasPopulatedResources || poll)) {
+                constructionNote.hidden = true;
+            }
             resources.forEach((r, idx) => {
                 const block = document.createElement('div');
                 const items = artefact.resources?.[r.key] || [];
