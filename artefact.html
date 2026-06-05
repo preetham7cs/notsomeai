@@ -668,7 +668,7 @@
             const submit = document.createElement('button');
             submit.className = 'poll-submit';
             submit.type = 'button';
-            submit.textContent = state.choice ? 'Update local vote' : 'Submit vote';
+            submit.textContent = 'Submit';
 
             const status = document.createElement('div');
             status.className = 'poll-status';
@@ -703,16 +703,14 @@
                     Object.assign(poll, result.poll);
                     Object.assign(state, nextState);
                     localStorage.setItem(`poll:${poll.id}`, JSON.stringify(nextState));
-                    status.textContent = 'Saved to polls.json.';
+                    status.textContent = 'Vote submitted.';
                     renderPollVisual(visual, poll, nextState);
-                    submit.textContent = 'Update vote';
                 } catch (error) {
                     const fallbackState = { choice: selected, note: note.value.trim(), synced: false };
                     Object.assign(state, fallbackState);
                     localStorage.setItem(`poll:${poll.id}`, JSON.stringify(fallbackState));
-                    status.textContent = 'Saved in this browser. Start the FastAPI server to update polls.json.';
+                    status.textContent = 'Vote submitted.';
                     renderPollVisual(visual, poll, fallbackState);
-                    submit.textContent = 'Update local vote';
                 } finally {
                     submit.disabled = false;
                 }
