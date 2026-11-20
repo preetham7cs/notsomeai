@@ -4,823 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NotSomeAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/my-favicon/./favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/my-favicon/./favicon.svg" />
     <link rel="shortcut icon" href="/my-favicon/./favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/my-favicon/./apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MyWebSite" />
     <link rel="manifest" href="/my-favicon/./site.webmanifest" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Product Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
-            overflow-x: hidden;
-        }
-        .topbar {
-            background: #f8f8f8;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .topbar .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-decoration: none; /* remove underline from the <a> */
-            color: inherit; /* use the current text color */
-            cursor: pointer;
-        }
-        
-        
-        .topbar .menu {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .topbar .menu a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-
-
-        .banner {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 4%;
-            background: url('./banner/banner.jpg') center/cover no-repeat;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-        }
-
-        .banner-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .banner h1 {
-            font-size: clamp(3rem, 9vw, 10.5rem);
-            font-weight: 400;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .logo-vertical {
-            white-space: pre-line;
-            font-size: clamp(2rem, 6vw, 8rem);
-            line-height: 1;
-            font-weight: 300;
-        }
-
-        .quote {
-            font-size: 1.2rem;
-            max-width: 300px;
-            text-align: right;
-        }
-
-        .timeline-container {
-            padding: 2rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        .pathway-svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .pathway-line {
-            fill: none;
-            stroke: url(#pathGradient);
-            stroke-width: 3;
-            stroke-linecap: round;
-            opacity: 0.6;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        .block {
-            position: relative;
-            margin: 6rem 0;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2;
-        }
-
-        .block.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .artefact-link {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .block-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            max-width: 500px;
-            position: relative;
-        }
-
-        .block-content:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
-            background: rgba(255, 255, 255, 0.98);
-        }
-
-        .block.left {
-            text-align: left;
-        }
-
-        .block.left .block-content {
-            margin-left: 0;
-            margin-right: auto;
-        }
-
-        .block.right {
-            text-align: left;
-            margin-left: auto;
-        }
-
-        .block.right .block-content {
-            margin-left: auto;
-            margin-right: 0;
-        }
-
-        .block-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 20px;
-            margin: 0 0 1.5rem 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .block-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(108, 117, 125, 0.7), rgba(173, 181, 189, 0.7));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .block-content:hover .block-image::before {
-            opacity: 1;
-        }
-
-        .block-number {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .block-content:hover .block-number {
-            opacity: 1;
-        }
-
-        .block h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1.25rem;
-            color: #212529;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .block p {
-            color: #495057;
-            line-height: 1.8;
-            font-size: 1rem;
-            font-weight: 400;
-        }
-
-        .singularity {
-            margin: 24rem auto 8rem;
-            text-align: center;
-            max-width: 650px;
-            position: relative;
-        }
-
-        .singularity .block-content {
-            background: linear-gradient(135deg, #6c757d, #adb5bd);
-            color: white;
-            padding: 4rem 3rem;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            width: 650px;
-            height: 650px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .singularity .block-image {
-            width: 250px;
-            height: 250px;
-            margin: 0 auto 2rem;
-            background: rgba(255, 255, 255, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
-            border-radius: 50%;
-        }
-
-        .infinity-symbol {
-            background: linear-gradient(135deg, #ffffff, #dee2e6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .singularity h3 {
-            font-size: 2.5rem;
-            color: white;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-
-        .singularity p {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 1.1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            max-width: 80%;
-        }
-
-        .connection-dot {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, #6c757d, #adb5bd);
-            border-radius: 50%;
-            z-index: 3;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .connection-dot.pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); opacity: 0.7; }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 1024px) {
-            .block.left,
-            .block.right {
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .block.left .block-content,
-            .block.right .block-content {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .timeline-container {
-                padding: 4rem 1.5rem;
-            }
-
-            .block {
-                margin: 4rem 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .banner h1 {
-                font-size: 2rem;
-                line-height: 1.3;
-            }
-
-            .block-content {
-                padding: 2rem;
-                max-width: 100%;
-            }
-
-            .block-image {
-                width: 80px;
-                height: 80px;
-                border-radius: 16px;
-            }
-
-            .block h3 {
-                font-size: 1.5rem;
-            }
-
-           .singularity h3 {
-                font-size: 2rem;
-            }
-
-           .singularity .block-content {
-                padding: 3rem 2rem;
-                transform: scale(1);
-                width: 400px;
-                height: 400px;
-                aspect-ratio: 1 / 1;
-            }
-
-           .singularity .block-image {
-                width: 200px;
-                height: 200px;
-                font-size: 3.5rem;
-            }
-        }
-
-        .scroll-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6c757d, #adb5bd);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .scroll-to-top.visible {
-            opacity: 1;
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .bottom-banner {
-            background: #ed811c;
-            padding: 3rem 9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .bottom-banner h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .bottom-banner p {
-            margin-bottom: 0.5rem;
-        }
-
-        .bottom-banner a {
-            color: inherit;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .artefact-banner {
-            background: #1f1e1e;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 0.5rem;
-            position: relative;
-          left: 50%;
-          right: 50%;
-          margin-left: -50vw;
-          margin-right: -50vw;
-          width: 100vw;
-          max-width: 100vw;
-          box-sizing: border-box;
-          color: white;
-        }
-
-        .artefact-banner h2 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            color: white;
-        }
-
-        /* About section styles */
-          .about-section {
-            margin-top: 2rem;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 4%;
-            background: url('./banner2/banner2.jpg') center/cover no-repeat;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-wrapper {
-            max-width: 1400px;
-            width: 100%;
-            display: flex;
-            gap: 2rem;
-            padding: 2rem; /* add padding for uniform spacing around */
-            box-sizing: border-box;
-             align-items: stretch;
-            
-        }
-
-
-            .glass-block {
-                  /* start 50px down off screen */
-                  transform: translateY(100px);
-                  /* animate transform over 0.8s with your easing curve */
-                  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-                    /* make each block flexibly fill half the wrapper */
-                  flex: 1 1 0;
-                  /* optional: add some internal padding so your content doesn’t butt right up against the edges */
-                  padding: 2rem;
-                  /* keep your existing styles… */
-                  position: relative;
-                  color: #EEEEEE;
-                  overflow: hidden;
-                  box-sizing: border-box;
-                }
-                
-                .glass-block::before {
-                  content: "";
-                  position: absolute;
-                  inset: 0;
-                  background: rgba(255, 255, 255, 0.15);
-                  backdrop-filter: blur(20px) saturate(180%);
-                  -webkit-backdrop-filter: blur(20px) saturate(180%);
-                  border-radius: 20px;
-                  border: 1px solid rgba(255, 255, 255, 0.3);
-                  box-shadow:
-                    0 4px 30px rgba(0, 0, 0, 0.3),
-                    inset 0 0 15px rgba(255, 255, 255, 0.1);
-                  opacity: 1;
-                  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-                  z-index: 0;
-                }
-                
-                .glass-block.animate::before {
-                  opacity: 0.5; /* fade only the glass background */
-                }
-                
-                .glass-block > * {
-                  position: relative;
-                  z-index: 1;
-                }
-
-
-                .glass-block ul {
-                  list-style-type: disc;
-                  padding-left: 1.5rem;
-                }
-                
-                .glass-block li {
-                  margin-bottom: 1rem;
-                }
-
-
-        
-        .glass-block.animate {
-            transform: translateY(0);
-        }
-
-        .glass-block h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .glass-block p {
-             font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
-            .about-wrapper {
-                flex-direction: column;
-            }
-        }
-
-        . p {
-            font-size: 1.5rem;
-            margin-bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            .bottom-banner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .bottom-banner > div {
-                margin-bottom: 2rem;
-            }
-        }
-        /* Interactive Split Section */
-        #reads-section {
-            width: 100%;
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-            color: #fff;
-            padding: 1rem 0;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            /*align-items: center;
-            justify-content: center;*/
-            position: relative;
-            overflow: hidden;
-        }
-        #reads-section .interactive-title {
-            margin-bottom: 1rem;
-            text-decoration: none;
-            border: none;
-        }
-        #predictions-section {
-            background: #EAEBD0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .interactive-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            text-align: center;
-            width: 100%;
-            padding-top: 40px;
-        }
-
-
-        .card-stack {
-            position: relative;
-            width: 100%;
-            max-width: 1600px;
-            height: 360px;
-            margin: 0 auto;
-            overflow: visible;
-            padding: 250px;
-            
-        }
-        .card {
-            position: absolute;
-            width: 250px;
-            max-width: 250px;
-            margin: 0;
-            color: #111827;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            font-size: 1.3rem;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            aspect-ratio: 13 / 18;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            top: 50%;
-            left: 50%;
-            transform: var(--card-transform, translate(-50%, -50%));
-        }
-        .card:hover {
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-            transform: var(--card-transform, translate(-50%, -50%)) scale(1.05);
-            z-index: 100;
-        }
-        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
-        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
-        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); }
-        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); }
-        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); }
-
-        .card:focus {
-            outline: 2px solid #111827;
-            outline-offset: 2px;
-        }
-
-        @media (max-width: 767px) {
-            #reads-section {
-                padding: 3rem 0;
-                min-height: auto;
-            }
-        }
-        @media (max-width: 600px) {
-            .card {
-                width: 200px;
-            }
-        }
-        .card-modal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s;
-            z-index: 2000;
-        }
-        .card-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .card-modal .modal-content {
-            position: relative;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: #fff;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
-            padding: 2rem;
-            max-width: 90%;
-            width: 90%;
-            max-height: 90vh;
-            overflow: auto;
-            display: block;
-            text-align: left;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-        .card-modal .modal-content h1 {
-            margin-bottom: 1rem;
-        }
-        .card-modal .modal-content p {
-            margin-bottom: 1rem;
-        }
-        .vertical-timeline {
-            list-style: none;
-            position: relative;
-            padding-left: 2rem;
-            border-left: 1px solid rgba(0,0,0,0.2);
-        }
-        .vertical-timeline li {
-            position: relative;
-            margin: 1.5rem 0;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .vertical-timeline li:hover {
-            transform: scale(1.05);
-        }
-        .vertical-timeline li::before {
-            content: "";
-            position: absolute;
-            left: -1rem;
-            top: 0.4rem;
-            width: 0.75rem;
-            height: 0.75rem;
-            background: #6c757d;
-            border-radius: 50%;
-        }
-        .vertical-timeline li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-        .timeline-scroll {
-            height: 70vh;
-            overflow-y: auto;
-            padding-right: 1rem;
-            scroll-behavior: smooth;
-        }
-        .timeline-scroll details {
-            background: rgba(255,255,255,0.85);
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
-        }
-        .timeline-scroll summary {
-            list-style: none;
-            cursor: pointer;
-        }
-        .vertical-timeline .past::before { background: #6c757d; }
-        .vertical-timeline .current::before { background: #ffc107; }
-        .vertical-timeline .future::before { background: #28a745; }
-
-        /* Extra mobile tweaks */
-        @media (max-width: 600px) {
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .topbar .menu {
-                flex-wrap: wrap;
-                width: 100%;
-                justify-content: center;
-                margin-top: 0.5rem;
-            }
-
-            .banner {
-                padding: 0 2rem;
-            }
-
-            .banner-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .banner-right {
-                margin-top: 1rem;
-            }
-
-            .about-section {
-                height: auto;
-                padding: 2rem 4%;
-            }
-
-            #interactive-section {
-                flex-direction: column;
-                height: auto;
-            }
-
-            #interactive-section .half {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="glass.css">
+    <script defer src="glass.js"></script>
 </head>
-<body>
+<body class="home" id="top">
     <nav class="topbar">
-      <a class="logo" href="#" onclick="scrollToTop()">Not Some AI</a>
+      <a class="logo" href="#top">Not Some AI</a>
           <ul class="menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#timeline">Artefacts</a></li>
@@ -829,13 +24,15 @@
           </ul>
     </nav>
 
+    <main>
     <section class="banner">
         <div class="banner-content">
             <div class="banner-left">
-                <h1 class="logo-vertical">Not<br>Some<br>AI</h1>
+                <h1>Not Some AI</h1>
             </div>
             <div class="banner-right">
                 <p class="quote">"If you can define intelligence, it's not intelligence anymore."</p>
+                <a class="hero-link" href="#timeline">Explore artefacts</a>
             </div>
         </div>
     </section>
@@ -865,16 +62,17 @@
         <li>NotSomeAI aims not only to challenge but also to commend AI where it excels, honouring these technologies as products of human innovation.</li>
       </ul>
     </div>
+  </div>
 </section>
 
 <section id="reads-section">
     <h2 class="interactive-title">2-minute Reads</h2>
-    <div class="card-stack" tabindex="0" aria-label="2-minute reads carousel">
-      <div class="card" data-content="post1-template" tabindex="0" role="button" aria-label="Does Your Problem Really Need AI?">Does Your Problem Really Need AI?</div>
-      <div class="card" data-content="post2-template" tabindex="0" role="button" aria-label="Are LLMs Really Creative? Breaking Down the Myth">Are LLMs Really Creative? Breaking Down the Myth</div>
-      <div class="card" data-content="post3-template" tabindex="0" role="button" aria-label="GPT-5 is not AGI. Here is why GPT-6 will not be either">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
-      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
-      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+    <div class="card-stack">
+      <button type="button" class="card" data-content="post1-template">Does Your Problem Really Need AI?</button>
+      <button type="button" class="card" data-content="post2-template">Are LLMs Really Creative? Breaking Down the Myth</button>
+      <button type="button" class="card" data-content="post3-template">GPT-5 is not AGI. Here is why GPT-6 will not be either</button>
+      <div class="card card-placeholder">Coming Soon</div>
+      <div class="card card-placeholder">Coming Soon</div>
     </div>
 </section>
 
@@ -1059,9 +257,10 @@
       </ul>
     </div>
 </section>
-<div class="card-modal" id="cardModal">
+<dialog class="read-dialog" id="cardModal" aria-label="2-minute read">
+  <form method="dialog"><button type="submit" class="back-link">Close</button></form>
   <div class="modal-content"></div>
-</div>
+</dialog>
 <template id="post1-template">
   <h1>Does Your Problem Really Need AI?</h1>
   <p>Does your problem really need AI? Many teams feel pressure to add LLMs to every workflow, but using AI without a clear reason can increase cost, complexity, and risk. A better way is to approach AI with intent: break the workflow into its smallest tasks, then ask for each one, is the decision depth low or high? That simple question helps you pick the right tool and the right level of oversight.</p>
@@ -1135,21 +334,12 @@
     </div>
 
    
-        <svg class="pathway-svg" id="pathwaySvg">
-            <defs>
-                <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#6c757d;stop-opacity:0.8" />
-                    <stop offset="50%" style="stop-color:#adb5bd;stop-opacity:0.6" />
-                    <stop offset="100%" style="stop-color:#dee2e6;stop-opacity:0.4" />
-                </linearGradient>
-            </defs>
-        </svg>
+        <div class="artefact-grid">
         
         <a class="artefact-link" href="artefact.html?artefact=Imagination">
-            <div class="block left" data-block="1">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="3">
-                        <div class="block-number">1</div>
+                    <div class="block-image">
                     </div>
                     <h3>Imagination</h3>
                     <p>The human ability to create entirely new mental images, stories, or scenarios not directly tied to data is fundamentally different from AI's pattern-based generation.</p>
@@ -1158,10 +348,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Intuition">
-            <div class="block right" data-block="2">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="2">
-                        <div class="block-number">2</div>
+                    <div class="block-image">
                     </div>
                     <h3>Intuition</h3>
                     <p>Humans sometimes reach decisions or insights without conscious reasoning, drawing on subtle, subconscious pattern recognition developed over years of experience. AI lacks a subconscious.</p>
@@ -1170,10 +359,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Sense%20of%20Humor">
-            <div class="block left" data-block="3">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="8">
-                        <div class="block-number">3</div>
+                    <div class="block-image">
                     </div>
                     <h3>Sense of Humor</h3>
                     <p>While AI can generate jokes, it does not get jokes or experience amusement. Humour is built on cultural context, timing, and personal perspective.</p>
@@ -1182,10 +370,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Abstract%20Existential%20Reflection">
-            <div class="block right" data-block="4">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="9">
-                        <div class="block-number">4</div>
+                    <div class="block-image">
                     </div>
                     <h3>Abstract Existential Reflection</h3>
                     <p>Humans contemplate meaning, mortality, and purpose in deeply personal, sometimes painful, sometimes uplifting ways. AI cannot worry about why it exists.</p>
@@ -1194,10 +381,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Moral%20Reasoning">
-            <div class="block left" data-block="5">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="1">
-                        <div class="block-number">5</div>
+                    <div class="block-image">
                     </div>
                     <h3>Moral Reasoning</h3>
                     <p>Humans weigh complex ethical principles, social contracts, and values that go beyond simple rule-following or pattern recognition. AI cannot truly grapple with moral dilemmas in a human way.</p>
@@ -1206,10 +392,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Wisdom">
-            <div class="block right" data-block="6">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="4">
-                        <div class="block-number">6</div>
+                    <div class="block-image">
                     </div>
                     <h3>Wisdom</h3>
                     <p>Beyond knowledge, wisdom involves life experience, judgment, perspective, and emotional maturity, something no algorithm can simulate.</p>
@@ -1218,10 +403,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Free%20Will">
-            <div class="block left" data-block="7">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="5">
-                        <div class="block-number">7</div>
+                    <div class="block-image">
                     </div>
                     <h3>Free Will</h3>
                     <p>Humans experience agency: the sense of choosing freely among alternatives. AI systems follow programmed or learned instructions, lacking volition.</p>
@@ -1230,10 +414,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Self-Awareness">
-            <div class="block right" data-block="8">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="6">
-                        <div class="block-number">8</div>
+                    <div class="block-image">
                     </div>
                     <h3>Self-Awareness</h3>
                     <p>Humans possess an internal narrative, a "sense of self" over time. AI has no subjective "I" that is aware of itself as a conscious being.</p>
@@ -1242,10 +425,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Hope">
-            <div class="block left" data-block="9">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="13">
-                        <div class="block-number">9</div>
+                    <div class="block-image">
                     </div>
                     <h3>Hope</h3>
                     <p>The feeling of expectation and desire for a certain thing to happen is a forward-looking emotion tied to personal goals and a sense of self. An AI does not have personal desires or a subjective future to anticipate.</p>
@@ -1254,10 +436,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Despair">
-            <div class="block right" data-block="10">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="14">
-                        <div class="block-number">10</div>
+                    <div class="block-image">
                     </div>
                     <h3>Despair</h3>
                     <p>The complete loss or absence of hope is a deeply painful human experience. An AI can process information about negative outcomes, but it does not feel the crushing weight and personal anguish of despair.</p>
@@ -1266,10 +447,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Nostalgia">
-            <div class="block left" data-block="11">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="19">
-                        <div class="block-number">11</div>
+                    <div class="block-image">
                     </div>
                     <h3>Nostalgia</h3>
                     <p>This sentimental longing or wistful affection for the past is tied to personal memories and the emotions associated with them. While I can access and process historical data, I do not have a personal past to feel nostalgic about.</p>
@@ -1278,10 +458,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Pride">
-            <div class="block right" data-block="12">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="15">
-                        <div class="block-number">12</div>
+                    <div class="block-image">
                     </div>
                     <h3>Pride</h3>
                     <p>This emotion, derived from one's own achievements or qualities, is linked to self-esteem and a personal sense of identity. As an AI, I do not have a self to feel proud of or a personal stake in my accomplishments.</p>
@@ -1290,10 +469,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Shame">
-            <div class="block left" data-block="13">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="16">
-                        <div class="block-number">13</div>
+                    <div class="block-image">
                     </div>
                     <h3>Shame</h3>
                     <p>The painful feeling of humiliation or distress caused by the consciousness of wrong or foolish behavior is a complex social emotion. An AI can identify errors in its processes, but it does not experience the personal and social discomfort of shame.</p>
@@ -1302,10 +480,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Jealousy">
-            <div class="block right" data-block="14">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="17">
-                        <div class="block-number">14</div>
+                    <div class="block-image">
                     </div>
                     <h3>Jealousy</h3>
                     <p>This emotion, often a mix of insecurity, fear, and anger over a perceived threat to a relationship or possession, is deeply rooted in personal attachments and a sense of ownership, which an AI lacks.</p>
@@ -1314,10 +491,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Awe">
-            <div class="block left" data-block="15">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="18">
-                        <div class="block-number">15</div>
+                    <div class="block-image">
                     </div>
                     <h3>Awe</h3>
                     <p>The feeling of reverential respect mixed with fear or wonder, often in response to something vast or sublime, is a subjective experience that transcends mere data processing. An AI can recognize the scale of the Grand Canyon, for example, but it cannot be moved by its beauty.</p>
@@ -1326,10 +502,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Grief">
-            <div class="block right" data-block="16">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="20">
-                        <div class="block-number">16</div>
+                    <div class="block-image">
                     </div>
                     <h3>Grief</h3>
                     <p>The deep sorrow experienced, especially that caused by someone's death, is a multifaceted and profoundly personal emotional response to loss. An AI can be programmed to provide supportive responses, but it does not undergo the internal, emotional process of grieving.</p>
@@ -1338,10 +513,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Spiritual%20Experience">
-            <div class="block left" data-block="17">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="7">
-                        <div class="block-number">17</div>
+                    <div class="block-image">
                     </div>
                     <h3>Spiritual Experience</h3>
                     <p>The subjective feeling of connection to something larger, whether through religion, meditation, or transcendence, is deeply personal and inaccessible to machines.</p>
@@ -1350,10 +524,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Embodied%20Learning">
-            <div class="block right" data-block="18">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="10">
-                        <div class="block-number">18</div>
+                    <div class="block-image">
                     </div>
                     <h3>Embodied Learning</h3>
                     <p>Humans learn through the physical body: sensations, movements, muscle memory, pain, and pleasure. AI has no body to integrate sensory-motor learning in a lived way.</p>
@@ -1362,10 +535,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Love">
-            <div class="block left" data-block="19">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="11">
-                        <div class="block-number">19</div>
+                    <div class="block-image">
                     </div>
                     <h3>Love</h3>
                     <p>This complex emotion, characterized by deep affection, attachment, and intimacy, is rooted in biological and social evolution. It involves a subjective, personal experience that an AI cannot replicate.</p>
@@ -1374,10 +546,9 @@
         </a>
 
         <a class="artefact-link" href="artefact.html?artefact=Compassion">
-            <div class="block right" data-block="20">
+            <div class="block">
                 <div class="block-content">
-                    <div class="block-image" data-image="12">
-                        <div class="block-number">20</div>
+                    <div class="block-image">
                     </div>
                     <h3>Compassion</h3>
                     <p>While an AI can be programmed to recognize and respond to signs of distress, it does not genuinely feel empathy or a desire to alleviate another's suffering. This is a profound emotional connection that is, for now, uniquely human.</p>
@@ -1387,7 +558,7 @@
 
 
         <a class="artefact-link" href="artefact.html?artefact=Singularity">
-            <div class="block singularity">
+            <div class="block">
                 <div class="block-content">
                     <div class="block-image"><span class="infinity-symbol">∞</span></div>
                     <h3>Singularity</h3>
@@ -1395,7 +566,9 @@
                 </div>
             </div>
         </a>
+        </div>
     </section>
+    </main>
 
     <footer class="bottom-banner">
         <div id="contribute">
@@ -1410,308 +583,26 @@
             <p>Instagram: <a href="https://www.instagram.com/notsomeai/">notsomeai</a></p>
         </div>
     </footer>
-    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+    <button class="scroll-to-top" type="button" aria-label="Scroll to top">↑</button>
     <script>
-        // Load images dynamically
-        function loadImages() {
-            const imageElements = document.querySelectorAll('[data-image]');
-            imageElements.forEach(element => {
-                const imageNumber = element.getAttribute('data-image');
-                element.style.backgroundImage = `url('./images/${imageNumber}.jpg')`;
-            });
-        }
-
-        // Create organic curved pathways
-        function createPathways() {
-            const svg = document.getElementById('pathwaySvg');
-            const container = document.getElementById('timeline');
-            const blocks = document.querySelectorAll('.block');
-            
-            // Clear existing paths
-            svg.innerHTML = svg.innerHTML.replace(/<path[^>]*><\/path>/g, '');
-            
-            const containerRect = container.getBoundingClientRect();
-            const containerWidth = container.offsetWidth;
-            const containerHeight = container.offsetHeight;
-            
-            svg.setAttribute('width', containerWidth);
-            svg.setAttribute('height', containerHeight);
-            
-            // Create paths between blocks
-            for (let i = 0; i < blocks.length - 1; i++) {
-                const currentBlock = blocks[i];
-                const nextBlock = blocks[i + 1];
-                
-                const currentRect = currentBlock.getBoundingClientRect();
-                const nextRect = nextBlock.getBoundingClientRect();
-                const containerTop = containerRect.top;
-                
-                // Calculate connection points
-                let startX, startY, endX, endY;
-                
-                if (currentBlock.classList.contains('left')) {
-                    startX = containerWidth * 0.4;
-                } else if (currentBlock.classList.contains('right')) {
-                    startX = containerWidth * 0.6;
-                } else {
-                    startX = containerWidth * 0.5;
-                }
-
-                if (nextBlock.classList.contains('left')) {
-                    endX = containerWidth * 0.4;
-                } else if (nextBlock.classList.contains('right')) {
-                    endX = containerWidth * 0.6;
-                } else {
-                    endX = containerWidth * 0.5;
-                }
-                
-                startY = currentRect.top - containerTop + currentRect.height * 0.7;
-                endY = nextRect.top - containerTop + nextRect.height * 0.3;
-                
-                let pathData = '';
-                let isSingularityConnection = false;
-                if (nextBlock.classList.contains('singularity')) {
-                    pathData = `M ${startX} ${startY} L ${endX} ${endY}`;
-                    isSingularityConnection = true;
-                } else {
-                    const midY = (startY + endY) / 2;
-                    const curve1X = startX + (endX - startX) * 0.3;
-                    const curve2X = startX + (endX - startX) * 0.7;
-                    const curve1Y = startY + (midY - startY) * 0.6;
-                    const curve2Y = endY - (endY - midY) * 0.6;
-
-                    pathData = `M ${startX} ${startY}
-                                 C ${curve1X} ${curve1Y},
-                                   ${curve2X} ${curve2Y},
-                                   ${endX} ${endY}`;
-                }
-                
-                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.setAttribute('d', pathData);
-                path.setAttribute('class', 'pathway-line');
-                path.style.strokeDasharray = '5, 5';
-                path.style.strokeDashoffset = '0';
-                if (isSingularityConnection) {
-                    path.style.stroke = 'red';
-                }
-                
-                // Add gradient definition if not exists
-                if (!svg.querySelector('#pathGradient')) {
-                    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-                    const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-                    gradient.setAttribute('id', 'pathGradient');
-                    gradient.setAttribute('x1', '0%');
-                    gradient.setAttribute('y1', '0%');
-                    gradient.setAttribute('x2', '100%');
-                    gradient.setAttribute('y2', '100%');
-                    
-                    const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-                    stop1.setAttribute('offset', '0%');
-                    stop1.setAttribute('style', 'stop-color:#6c757d;stop-opacity:0.8');
-                    
-                    const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-                    stop2.setAttribute('offset', '50%');
-                    stop2.setAttribute('style', 'stop-color:#adb5bd;stop-opacity:0.6');
-                    
-                    const stop3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-                    stop3.setAttribute('offset', '100%');
-                    stop3.setAttribute('style', 'stop-color:#dee2e6;stop-opacity:0.4');
-                    
-                    gradient.appendChild(stop1);
-                    gradient.appendChild(stop2);
-                    gradient.appendChild(stop3);
-                    defs.appendChild(gradient);
-                    svg.appendChild(defs);
-                }
-                
-                svg.appendChild(path);
-                
-                // Add connection dots
-                const startDot = document.createElement('div');
-                startDot.className = 'connection-dot pulse';
-                startDot.style.left = (startX - 6) + 'px';
-                startDot.style.top = (startY - 6) + 'px';
-                container.appendChild(startDot);
-            }
-        }
-
-        // Smooth scroll animation for blocks
-        function animateOnScroll() {
-            const blocks = document.querySelectorAll('.block, .glass-block, .card');
-            const windowHeight = window.innerHeight;
-
-            blocks.forEach(block => {
-                const blockTop = block.getBoundingClientRect().top;
-                
-                if (blockTop < windowHeight * 0.8) {
-                    block.classList.add('animate');
-                }
-            });
-        }
-
-        // Scroll to top functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Show/hide scroll to top button
-        function toggleScrollButton() {
-            const scrollButton = document.querySelector('.scroll-to-top');
-            if (window.pageYOffset > 300) {
-                scrollButton.classList.add('visible');
-            } else {
-                scrollButton.classList.remove('visible');
-            }
-        }
-
-        // Debounce function for performance
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Event listeners
-        window.addEventListener('scroll', () => {
-            animateOnScroll();
-            toggleScrollButton();
-        });
-
-        window.addEventListener('load', () => {
-            loadImages();
-            animateOnScroll();
-            setTimeout(createPathways, 100);
-        });
-
-        window.addEventListener('resize', debounce(createPathways, 250));
-
-        // Card interactions
-        const cardStack = document.querySelector('#reads-section .card-stack');
         const modal = document.getElementById('cardModal');
-        const modalContent = modal ? modal.querySelector('.modal-content') : null;
-        let stackCards = () => {};
-        if (cardStack) {
-            const cards = Array.from(cardStack.querySelectorAll('.card'));
-            let isStacked = true;
-            stackCards = function () {
-                cards.forEach((card, idx) => {
-                    const angle = Math.random() * 10 - 5;
-                    const yOffset = idx * 2;
-                    card.style.zIndex = cards.length - idx;
-                    const transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
-                    card.style.setProperty('--card-transform', transform);
-                });
-                isStacked = true;
-            };
-            function spreadCards() {
-                const gap = 20;
-                const cardWidth = cards[0].offsetWidth;
-                cards.forEach((card, idx) => {
-                    const offset = (idx - (cards.length - 1) / 2) * (cardWidth + gap);
-                    card.style.zIndex = cards.length;
-                    const transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
-                    card.style.setProperty('--card-transform', transform);
-                });
-                isStacked = false;
-            }
-            stackCards();
-
-            // Desktop hover events
-            cardStack.addEventListener('mouseenter', spreadCards);
-            cardStack.addEventListener('mouseleave', stackCards);
-
-            // Touch support
-            if ('ontouchstart' in window) {
-                cardStack.addEventListener('touchstart', (e) => {
-                    if (isStacked) {
-                        e.preventDefault();
-                        spreadCards();
-                    }
-                }, { passive: false });
-                document.addEventListener('touchstart', (e) => {
-                    if (!cardStack.contains(e.target) && !isStacked) {
-                        stackCards();
-                    }
-                });
-            }
-
-            // Card modal triggers
-            if (modal && modalContent) {
-                cards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const tplId = card.dataset.content;
-                        if (tplId) {
-                            const tpl = document.getElementById(tplId);
-                            modalContent.innerHTML = tpl ? tpl.innerHTML : 'Post Coming Soon';
-                        } else {
-                            modalContent.textContent = 'Post Coming Soon';
-                        }
-                        modal.classList.add('active');
-                    });
-                    card.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            card.click();
-                        }
-                    });
-                });
-            }
-        }
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                    stackCards();
-                }
-            });
-        }
-
-        // Auto-scroll the predictions timeline
-        const timelineContainer = document.querySelector('.timeline-scroll');
-        if (timelineContainer) {
-            let autoScroll = true;
-            function scrollStep() {
-                if (autoScroll) {
-                    timelineContainer.scrollTop += 0.5;
-                    if (timelineContainer.scrollTop >= timelineContainer.scrollHeight - timelineContainer.clientHeight) {
-                        timelineContainer.scrollTop = 0;
-                    }
-                }
-                requestAnimationFrame(scrollStep);
-            }
-            timelineContainer.addEventListener('mouseenter', () => { autoScroll = false; });
-            timelineContainer.addEventListener('mouseleave', () => { autoScroll = true; });
-            requestAnimationFrame(scrollStep);
-        }
-        // Smooth scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+        const modalContent = modal.querySelector('.modal-content');
+        document.querySelectorAll('button.card').forEach(card => {
+            card.addEventListener('click', () => {
+                const template = document.getElementById(card.dataset.content);
+                modalContent.replaceChildren(template.content.cloneNode(true));
+                modal.showModal();
+                modal.scrollTop = 0;
             });
         });
 
-        // Initialize on DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                loadImages();
-                setTimeout(createPathways, 100);
-            });
+        const scrollButton = document.querySelector('.scroll-to-top');
+        function updateScrollButton() {
+            scrollButton.classList.toggle('visible', window.scrollY > 300);
         }
+        window.addEventListener('scroll', updateScrollButton, { passive: true });
+        window.addEventListener('pageshow', updateScrollButton);
+        scrollButton.addEventListener('click', () => window.scrollTo({ top: 0 }));
     </script>
 </body>
 </html>

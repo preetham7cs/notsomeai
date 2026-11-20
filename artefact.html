@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artefact Details</title>
-    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/my-favicon/./favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/my-favicon/./favicon.svg" />
     <link rel="shortcut icon" href="/my-favicon/./favicon.ico" />
@@ -505,15 +504,19 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="glass.css">
+    <script defer src="glass.js"></script>
 </head>
-<body>
+<body class="detail">
     <nav class="topbar">
         <a class="logo" href="index.html">Not Some AI</a>
-        <a class="back-link" href="index.html">Back</a>
+        <a class="back-link" href="index.html#timeline">All artefacts</a>
     </nav>
     <main id="content">
-        <h1 id="artefact-name"></h1>
-        <div id="construction-note" class="placeholder" style="text-align: center;">(resources under construction)</div>
+        <header class="detail-header">
+            <h1 id="artefact-name">Artefacts</h1>
+            <p id="construction-note" class="placeholder" hidden>Resources under construction</p>
+        </header>
         <div class="container" id="resource-grid"></div>
     </main>
     <script>
@@ -537,6 +540,7 @@
                 poll = null;
             }
             document.getElementById('artefact-name').textContent = artefact.name;
+            document.getElementById('construction-note').hidden = false;
             const grid = document.getElementById('resource-grid');
             const resources = [
                 { key: 'polls', label: 'Interactive Polls' },
@@ -941,7 +945,11 @@
             link.append(title, definition);
             return link;
         }
-        loadArtefact();
+        loadArtefact().catch(() => {
+            const note = document.getElementById('construction-note');
+            note.textContent = 'Resources could not be loaded.';
+            note.hidden = false;
+        });
     </script>
 </body>
 </html>
