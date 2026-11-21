@@ -138,7 +138,7 @@
             gap: 0.55rem;
             overflow-y: auto;
             padding-right: 0.35rem;
-            scrollbar-color: rgba(121,220,232,0.45) rgba(255,255,255,0.08);
+            scrollbar-color: rgba(200, 200, 200,0.45) rgba(255,255,255,0.08);
             scrollbar-width: thin;
         }
         .article-list::-webkit-scrollbar {
@@ -149,7 +149,7 @@
             border-radius: 999px;
         }
         .article-list::-webkit-scrollbar-thumb {
-            background: rgba(121,220,232,0.45);
+            background: rgba(200, 200, 200,0.45);
             border-radius: 999px;
         }
         .article-link {
@@ -162,8 +162,8 @@
         }
         .article-link:hover,
         .article-link:focus {
-            background: linear-gradient(145deg, rgba(77, 208, 225, 0.16), rgba(255, 193, 7, 0.08));
-            border-color: rgba(121,220,232,0.45);
+            background: linear-gradient(145deg, rgba(181, 181, 181, 0.16), rgba(193, 193, 193, 0.08));
+            border-color: rgba(200, 200, 200,0.45);
             outline: none;
             padding: 1rem;
         }
@@ -205,13 +205,13 @@
         .video-card:hover,
         .video-card:focus {
             background: rgba(255,255,255,0.065);
-            border-color: rgba(255,193,7,0.45);
+            border-color: rgba(193, 193, 193,0.45);
             outline: none;
             transform: translateY(-2px);
         }
         .video-thumb {
             aspect-ratio: 16 / 9;
-            background: linear-gradient(145deg, rgba(77,208,225,0.18), rgba(255,193,7,0.12));
+            background: linear-gradient(145deg, rgba(181, 181, 181,0.18), rgba(193, 193, 193,0.12));
             background-position: center;
             background-size: cover;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -258,7 +258,7 @@
             line-height: 1.25;
         }
         .video-action {
-            color: #79dce8;
+            color: #c8c8c8;
             font-size: 0.78rem;
             font-weight: 600;
             letter-spacing: 0.04em;
@@ -305,8 +305,8 @@
         .poll-option:hover,
         .poll-option:focus,
         .poll-option.selected {
-            background: linear-gradient(145deg, rgba(77,208,225,0.15), rgba(255,193,7,0.08));
-            border-color: rgba(121,220,232,0.5);
+            background: linear-gradient(145deg, rgba(181, 181, 181,0.15), rgba(193, 193, 193,0.08));
+            border-color: rgba(200, 200, 200,0.5);
             outline: none;
         }
         .poll-option strong {
@@ -317,10 +317,10 @@
             font-size: 0.78rem;
         }
         .poll-submit {
-            background: #79dce8;
+            background: #c8c8c8;
             border: 0;
             border-radius: 8px;
-            color: #001014;
+            color: #0d0d0d;
             cursor: pointer;
             font: inherit;
             font-weight: 700;
@@ -379,20 +379,20 @@
             overflow: hidden;
         }
         .poll-bar-fill {
-            background: #79dce8;
+            background: #c8c8c8;
             border-radius: inherit;
             height: 100%;
             min-width: 2px;
         }
         .poll-bar-fill.no {
-            background: #ffc247;
+            background: #c6c6c6;
         }
         .poll-chart {
             min-height: 220px;
             width: 100%;
         }
         .code-editor {
-            background: #080b10;
+            background: #0b0b0b;
             border: 1px solid rgba(255,255,255,0.14);
             border-radius: 8px;
             display: flex;
@@ -416,14 +416,14 @@
             height: 0.58rem;
             width: 0.58rem;
         }
-        .code-dot.red { background: #ff5f57; }
-        .code-dot.yellow { background: #ffbd2e; }
-        .code-dot.green { background: #28c840; }
+        .code-dot.red { background: #808080; }
+        .code-dot.yellow { background: #c1c1c1; }
+        .code-dot.green { background: #9c9c9c; }
         .code-file {
             margin-left: 0.35rem;
         }
         .code-body {
-            color: #d8e2f0;
+            color: #e1e1e1;
             flex: 1;
             font: 0.86rem/1.55 Consolas, Monaco, 'Courier New', monospace;
             margin: 0;
@@ -431,9 +431,9 @@
             padding: 1rem;
             white-space: pre;
         }
-        .code-keyword { color: #79dce8; }
-        .code-name { color: #ffc247; }
-        .code-param { color: #b9f18d; }
+        .code-keyword { color: #c8c8c8; }
+        .code-name { color: #c6c6c6; }
+        .code-param { color: #dedede; }
         .code-ellipsis { color: rgba(255,255,255,0.48); }
         .poll-chart text {
             fill: rgba(255,255,255,0.62);
@@ -445,17 +445,18 @@
         }
         .poll-chart .yes-line {
             fill: none;
-            stroke: #79dce8;
+            stroke: #c8c8c8;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-width: 3;
         }
         .poll-chart .no-line {
             fill: none;
-            stroke: #ffc247;
+            stroke: #c6c6c6;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-width: 3;
+            stroke-dasharray: 6 5;
         }
         h1 {
             font-weight: 300;
@@ -504,7 +505,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="glass.css">
+    <link rel="stylesheet" href="glass.css?v=monochrome">
     <script defer src="glass.js"></script>
 </head>
 <body class="detail">
