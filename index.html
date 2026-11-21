@@ -589,191 +589,201 @@
                 margin-bottom: 2rem;
             }
         }
-        /* Interactive Split Section */
-        #reads-section {
-            width: 100%;
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-            color: #fff;
-            padding: 1rem 0;
-            min-height: 80vh;
+        #reads-section, #predictions-section {
+            color-scheme: dark;
+            color: #f5f4ef;
+            background: #101110;
+            padding: clamp(3.5rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem);
+            scroll-margin-top: 7rem;
+        }
+
+        #reads-section { background: #141514; }
+        .editorial-inner { max-width: 1120px; margin: 0 auto; }
+        .editorial-heading {
+            margin-bottom: 1.65rem;
+            font-size: clamp(2rem, 5.5vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -.055em;
+        }
+
+        .read-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        .read-card {
             display: flex;
             flex-direction: column;
-            /*align-items: center;
-            justify-content: center;*/
-            position: relative;
+            width: 100%;
             overflow: hidden;
-        }
-        #reads-section .interactive-title {
-            margin-bottom: 1rem;
-            text-decoration: none;
-            border: none;
-        }
-        #predictions-section {
-            background: #EAEBD0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .interactive-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            text-align: center;
-            width: 100%;
-            padding-top: 40px;
-        }
-
-
-        .card-stack {
-            position: relative;
-            width: 100%;
-            max-width: 1600px;
-            height: 360px;
-            margin: 0 auto;
-            overflow: visible;
-            padding: 250px;
-            
-        }
-        .card {
-            position: absolute;
-            width: 250px;
-            max-width: 250px;
-            margin: 0;
-            color: #111827;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            font-size: 1.3rem;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            aspect-ratio: 13 / 18;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            top: 50%;
-            left: 50%;
-            transform: var(--card-transform, translate(-50%, -50%));
-        }
-        .card:hover {
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-            transform: var(--card-transform, translate(-50%, -50%)) scale(1.05);
-            z-index: 100;
-        }
-        .card:nth-child(1) { background: linear-gradient(145deg, #ffdee9, #b5fffc); }
-        .card:nth-child(2) { background: linear-gradient(145deg, #d9a7c7, #fffcdc); }
-        .card:nth-child(3) { background: linear-gradient(145deg, #a1c4fd, #c2e9fb); }
-        .card:nth-child(4) { background: linear-gradient(145deg, #fbc2eb, #a6c1ee); }
-        .card:nth-child(5) { background: linear-gradient(145deg, #fdfcfb, #e2d1c3); }
-
-        .card:focus {
-            outline: 2px solid #111827;
-            outline-offset: 2px;
-        }
-
-        @media (max-width: 767px) {
-            #reads-section {
-                padding: 3rem 0;
-                min-height: auto;
-            }
-        }
-        @media (max-width: 600px) {
-            .card {
-                width: 200px;
-            }
-        }
-        .card-modal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s;
-            z-index: 2000;
-        }
-        .card-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .card-modal .modal-content {
-            position: relative;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: #fff;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.1);
-            padding: 2rem;
-            max-width: 90%;
-            width: 90%;
-            max-height: 90vh;
-            overflow: auto;
-            display: block;
             text-align: left;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-        .card-modal .modal-content h1 {
-            margin-bottom: 1rem;
-        }
-        .card-modal .modal-content p {
-            margin-bottom: 1rem;
-        }
-        .vertical-timeline {
-            list-style: none;
-            position: relative;
-            padding-left: 2rem;
-            border-left: 1px solid rgba(0,0,0,0.2);
-        }
-        .vertical-timeline li {
-            position: relative;
-            margin: 1.5rem 0;
+            color: inherit;
+            background: #1c1e1b;
+            border: 1px solid #383c34;
+            border-radius: 20px;
             cursor: pointer;
-            transition: transform 0.3s;
+            font: inherit;
+            transition: transform 220ms ease, border-color 180ms ease;
         }
-        .vertical-timeline li:hover {
-            transform: scale(1.05);
+        .read-card:hover { border-color: #cddd9b; }
+        .read-card:active { transform: scale(.985); }
+        @media (hover: hover) {
+            .read-card:hover { transform: translateY(-4px); }
         }
-        .vertical-timeline li::before {
-            content: "";
-            position: absolute;
-            left: -1rem;
-            top: 0.4rem;
-            width: 0.75rem;
-            height: 0.75rem;
-            background: #6c757d;
-            border-radius: 50%;
+
+        .read-art {
+            width: 100%;
+            height: clamp(7.5rem, 17vw, 11rem);
+            border-bottom: 1px solid #383c34;
+            background: #24291e;
         }
-        .vertical-timeline li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
+        .read-art--decision {
+            background:
+                radial-gradient(circle at 50% 50%, #e0edaf 0 4%, transparent 4.5%),
+                repeating-radial-gradient(circle at 50% 50%, transparent 0 15px, #93a468 16px 17px, transparent 18px 24px),
+                radial-gradient(ellipse at center, #53603a, #20251b 73%);
         }
-        .timeline-scroll {
-            height: 70vh;
+        .read-art--creativity {
+            background:
+                radial-gradient(ellipse at 61% 66%, #25261e 0 21%, transparent 22%),
+                radial-gradient(ellipse at 48% 48%, #e6e4b1 0 25%, transparent 26%),
+                radial-gradient(ellipse at 37% 43%, #9ca175 0 33%, transparent 34%),
+                repeating-linear-gradient(135deg, #292b23 0 9px, #34362b 10px 11px);
+        }
+        .read-art--intelligence {
+            background:
+                linear-gradient(110deg, transparent 37%, #d4ddae 38%, transparent 40%),
+                linear-gradient(110deg, transparent 48%, #a6b184 49%, transparent 51%),
+                linear-gradient(110deg, transparent 59%, #7b8564 60%, transparent 62%),
+                linear-gradient(165deg, #3c4530, #1c2019 77%);
+        }
+        .read-card-copy {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: .9rem;
+            padding: 1.15rem;
+        }
+        .read-card-title { font-size: clamp(1.16rem, 2vw, 1.45rem); line-height: 1.26; }
+        .read-card-action { margin-top: auto; color: #dce9ad; font-size: .9rem; font-weight: 650; }
+
+        .prediction-panel {
+            overflow: hidden;
+            background: #161815;
+            border: 1px solid #363a32;
+            border-radius: 20px;
+        }
+        .prediction-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .5rem 1.5rem;
+            flex-wrap: wrap;
+            padding: .9rem 1.1rem;
+            color: #c8cbc1;
+            border-bottom: 1px solid #363a32;
+            font-size: .9rem;
+        }
+        .prediction-toolbar progress {
+            width: clamp(4rem, 18vw, 10rem);
+            height: .45rem;
+            accent-color: #dce9ad;
+        }
+        .prediction-scroll {
+            max-height: min(32rem, 70svh);
             overflow-y: auto;
-            padding-right: 1rem;
-            scroll-behavior: smooth;
+            scrollbar-color: #8d9975 #252922;
+            scrollbar-width: thin;
+            padding: .85rem;
         }
-        .timeline-scroll details {
-            background: rgba(255,255,255,0.85);
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
+        .prediction-list { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
+        .prediction-list details {
+            background: #1f221d;
+            border: 1px solid #383e34;
+            border-radius: 12px;
         }
-        .timeline-scroll summary {
+        .prediction-list details[open] { border-color: #818b6c; }
+        .prediction-list summary {
+            position: relative;
+            display: block;
             list-style: none;
+            padding: .8rem 3rem .8rem 1rem;
             cursor: pointer;
         }
-        .vertical-timeline .past::before { background: #6c757d; }
-        .vertical-timeline .current::before { background: #ffc107; }
-        .vertical-timeline .future::before { background: #28a745; }
+        .prediction-list summary::-webkit-details-marker { display: none; }
+        .prediction-list summary::after {
+            content: '';
+            position: absolute;
+            right: 1.2rem;
+            top: 1.25rem;
+            width: .5rem;
+            height: .5rem;
+            border-right: 2px solid #dce9ad;
+            border-bottom: 2px solid #dce9ad;
+            rotate: 45deg;
+            transition: rotate 180ms ease;
+        }
+        .prediction-list details[open] summary::after { rotate: 225deg; }
+        .prediction-list summary strong { color: #dce9ad; }
+        .prediction-list details p {
+            margin: 0 1rem;
+            padding: .8rem 0 1rem;
+            border-top: 1px solid #383e34;
+            color: #d1d4c9;
+            overflow-wrap: anywhere;
+        }
+        .prediction-list a { color: #dce9ad; }
+
+        .read-dialog {
+            color-scheme: dark;
+            inset: 0;
+            margin: auto;
+            width: min(92%, 45rem);
+            max-height: 88svh;
+            overflow: auto;
+            padding: clamp(1.15rem, 4vw, 2.25rem);
+            background: #1b1d19;
+            color: #f5f4ef;
+            border: 1px solid #50574a;
+            border-radius: 20px;
+        }
+        .read-dialog::backdrop { background: rgb(0 0 0 / 72%); }
+        .read-dialog form { display: flex; justify-content: end; }
+        .read-dialog button {
+            color: #f5f4ef;
+            background: #33382e;
+            border: 1px solid #626c56;
+            border-radius: 999px;
+            min-height: 44px;
+            padding: .4rem .95rem;
+            font: inherit;
+            cursor: pointer;
+        }
+        .read-dialog h1 { margin: .7rem 0 1rem; line-height: 1.15; }
+        .read-dialog p { margin-bottom: 1rem; }
+        .read-dialog a { color: #dce9ad; }
+        .read-card:focus-visible, .prediction-scroll:focus-visible,
+        .prediction-list summary:focus-visible, .read-dialog button:focus-visible {
+            outline: 2px solid #dce9ad;
+            outline-offset: -3px;
+        }
+
+        @media (max-width: 740px) {
+            .read-grid {
+                grid-template-columns: none;
+                grid-auto-flow: column;
+                grid-auto-columns: min(82%, 19rem);
+                overflow-x: auto;
+                padding-bottom: .75rem;
+                scroll-snap-type: x proximity;
+                scrollbar-color: #8d9975 #252922;
+                scrollbar-width: thin;
+            }
+            .read-card { scroll-snap-align: start; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .read-card, .prediction-list summary::after { transition: none; }
+        }
 
         /* Extra mobile tweaks */
         @media (max-width: 600px) {
@@ -867,21 +877,45 @@
     </div>
 </section>
 
-<section id="reads-section">
-    <h2 class="interactive-title">2-minute Reads</h2>
-    <div class="card-stack" tabindex="0" aria-label="2-minute reads carousel">
-      <div class="card" data-content="post1-template" tabindex="0" role="button" aria-label="Does Your Problem Really Need AI?">Does Your Problem Really Need AI?</div>
-      <div class="card" data-content="post2-template" tabindex="0" role="button" aria-label="Are LLMs Really Creative? Breaking Down the Myth">Are LLMs Really Creative? Breaking Down the Myth</div>
-      <div class="card" data-content="post3-template" tabindex="0" role="button" aria-label="GPT-5 is not AGI. Here is why GPT-6 will not be either">GPT-5 is not AGI. Here is why GPT-6 will not be either</div>
-      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
-      <div class="card" tabindex="0" role="button" aria-label="Coming Soon">Coming Soon</div>
+<section id="reads-section" aria-labelledby="reads-heading">
+    <div class="editorial-inner">
+        <h2 class="editorial-heading" id="reads-heading">2-minute Reads</h2>
+        <div class="read-grid">
+            <button class="read-card" type="button" data-content="post1-template">
+                <span class="read-art read-art--decision" aria-hidden="true"></span>
+                <span class="read-card-copy">
+                    <strong class="read-card-title">Does Your Problem Really Need AI?</strong>
+                    <span class="read-card-action">Read article</span>
+                </span>
+            </button>
+            <button class="read-card" type="button" data-content="post2-template">
+                <span class="read-art read-art--creativity" aria-hidden="true"></span>
+                <span class="read-card-copy">
+                    <strong class="read-card-title">Are LLMs Really Creative? Breaking Down the Myth</strong>
+                    <span class="read-card-action">Read article</span>
+                </span>
+            </button>
+            <button class="read-card" type="button" data-content="post3-template">
+                <span class="read-art read-art--intelligence" aria-hidden="true"></span>
+                <span class="read-card-copy">
+                    <strong class="read-card-title">GPT-5 is not AGI. Here is why GPT-6 will not be either</strong>
+                    <span class="read-card-action">Read article</span>
+                </span>
+            </button>
+        </div>
     </div>
 </section>
 
-<section id="predictions-section">
-    <h2 class="interactive-title">Industry Predictions &amp; Factcheck</h2>
-    <div class="timeline-scroll">
-      <ul class="vertical-timeline timeline-inner">
+<section id="predictions-section" aria-labelledby="predictions-heading">
+    <div class="editorial-inner">
+        <h2 class="editorial-heading" id="predictions-heading">Industry Predictions &amp; Factcheck</h2>
+        <div class="prediction-panel">
+            <div class="prediction-toolbar">
+                <span>Open a prediction to see its date, status and source</span>
+                <progress max="1" value="0" aria-label="Prediction list scroll position"></progress>
+            </div>
+            <div class="prediction-scroll" tabindex="0" role="region" aria-labelledby="predictions-heading">
+      <ul class="prediction-list">
         <li class="past">
           <details>
             <summary><strong>Elon Musk:</strong> Tesla will have full self-driving capability without human supervision.</summary>
@@ -1057,11 +1091,14 @@
             </details>
           </li>
       </ul>
+            </div>
+        </div>
     </div>
 </section>
-<div class="card-modal" id="cardModal">
-  <div class="modal-content"></div>
-</div>
+<dialog class="read-dialog" id="readDialog" aria-labelledby="read-title">
+    <form method="dialog"><button type="submit">Close</button></form>
+    <div class="read-dialog-content"></div>
+</dialog>
 <template id="post1-template">
   <h1>Does Your Problem Really Need AI?</h1>
   <p>Does your problem really need AI? Many teams feel pressure to add LLMs to every workflow, but using AI without a clear reason can increase cost, complexity, and risk. A better way is to approach AI with intent: break the workflow into its smallest tasks, then ask for each one, is the decision depth low or high? That simple question helps you pick the right tool and the right level of oversight.</p>
@@ -1537,7 +1574,7 @@
 
         // Smooth scroll animation for blocks
         function animateOnScroll() {
-            const blocks = document.querySelectorAll('.block, .glass-block, .card');
+            const blocks = document.querySelectorAll('.block, .glass-block');
             const windowHeight = window.innerHeight;
 
             blocks.forEach(block => {
@@ -1594,104 +1631,30 @@
 
         window.addEventListener('resize', debounce(createPathways, 250));
 
-        // Card interactions
-        const cardStack = document.querySelector('#reads-section .card-stack');
-        const modal = document.getElementById('cardModal');
-        const modalContent = modal ? modal.querySelector('.modal-content') : null;
-        let stackCards = () => {};
-        if (cardStack) {
-            const cards = Array.from(cardStack.querySelectorAll('.card'));
-            let isStacked = true;
-            stackCards = function () {
-                cards.forEach((card, idx) => {
-                    const angle = Math.random() * 10 - 5;
-                    const yOffset = idx * 2;
-                    card.style.zIndex = cards.length - idx;
-                    const transform = `translate(-50%, calc(-50% + ${yOffset}px)) rotate(${angle}deg)`;
-                    card.style.setProperty('--card-transform', transform);
-                });
-                isStacked = true;
-            };
-            function spreadCards() {
-                const gap = 20;
-                const cardWidth = cards[0].offsetWidth;
-                cards.forEach((card, idx) => {
-                    const offset = (idx - (cards.length - 1) / 2) * (cardWidth + gap);
-                    card.style.zIndex = cards.length;
-                    const transform = `translate(calc(-50% + ${offset}px), -50%) rotate(0deg)`;
-                    card.style.setProperty('--card-transform', transform);
-                });
-                isStacked = false;
-            }
-            stackCards();
-
-            // Desktop hover events
-            cardStack.addEventListener('mouseenter', spreadCards);
-            cardStack.addEventListener('mouseleave', stackCards);
-
-            // Touch support
-            if ('ontouchstart' in window) {
-                cardStack.addEventListener('touchstart', (e) => {
-                    if (isStacked) {
-                        e.preventDefault();
-                        spreadCards();
-                    }
-                }, { passive: false });
-                document.addEventListener('touchstart', (e) => {
-                    if (!cardStack.contains(e.target) && !isStacked) {
-                        stackCards();
-                    }
-                });
-            }
-
-            // Card modal triggers
-            if (modal && modalContent) {
-                cards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const tplId = card.dataset.content;
-                        if (tplId) {
-                            const tpl = document.getElementById(tplId);
-                            modalContent.innerHTML = tpl ? tpl.innerHTML : 'Post Coming Soon';
-                        } else {
-                            modalContent.textContent = 'Post Coming Soon';
-                        }
-                        modal.classList.add('active');
-                    });
-                    card.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            card.click();
-                        }
-                    });
-                });
-            }
-        }
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                    stackCards();
-                }
+        const readDialog = document.getElementById('readDialog');
+        const readContent = readDialog.querySelector('.read-dialog-content');
+        document.querySelectorAll('.read-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const article = document.getElementById(card.dataset.content).content.cloneNode(true);
+                article.querySelector('h1').id = 'read-title';
+                readContent.replaceChildren(article);
+                readDialog.showModal();
+                readDialog.scrollTop = 0;
             });
+        });
+
+        const predictionScroll = document.querySelector('.prediction-scroll');
+        const predictionProgress = document.querySelector('.prediction-toolbar progress');
+        function updatePredictionProgress() {
+            const scrollRange = predictionScroll.scrollHeight - predictionScroll.clientHeight;
+            predictionProgress.value = scrollRange > 0 ? predictionScroll.scrollTop / scrollRange : 1;
         }
 
-        // Auto-scroll the predictions timeline
-        const timelineContainer = document.querySelector('.timeline-scroll');
-        if (timelineContainer) {
-            let autoScroll = true;
-            function scrollStep() {
-                if (autoScroll) {
-                    timelineContainer.scrollTop += 0.5;
-                    if (timelineContainer.scrollTop >= timelineContainer.scrollHeight - timelineContainer.clientHeight) {
-                        timelineContainer.scrollTop = 0;
-                    }
-                }
-                requestAnimationFrame(scrollStep);
-            }
-            timelineContainer.addEventListener('mouseenter', () => { autoScroll = false; });
-            timelineContainer.addEventListener('mouseleave', () => { autoScroll = true; });
-            requestAnimationFrame(scrollStep);
-        }
+        predictionScroll.addEventListener('scroll', updatePredictionProgress, { passive: true });
+        predictionScroll.addEventListener('toggle', updatePredictionProgress, true);
+        window.addEventListener('resize', updatePredictionProgress);
+        updatePredictionProgress();
+
         // Smooth scrolling for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
